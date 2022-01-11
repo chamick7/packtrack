@@ -1,0 +1,26 @@
+{
+  "name": "packtrack-backend",
+  "version": "1.0.0",
+  "description": "packtrack for software-development project",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "ts-node-dev ./src/index.ts",
+    "build": "tsc"
+  },
+  "author": "packtrack's team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.13.0",
+    "sequelize-typescript": "^2.1.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.8",
+    "@types/validator": "^13.7.1",
+    "ts-node-dev": "^1.1.8"
+  }
+}
