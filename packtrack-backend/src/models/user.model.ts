@@ -6,6 +6,7 @@ import {
   PrimaryKey,
   Table,
   Unique,
+  DataType,
 } from "sequelize-typescript";
 
 @Table({ tableName: "users" })
@@ -40,6 +41,9 @@ class User extends Model {
   @AllowNull(false)
   @Column({ defaultValue: "member" })
   role!: string;
+
+  @Column({ field: "refresh_token", type: DataType.TEXT })
+  refreshToken?: string;
 }
 
 export default User;

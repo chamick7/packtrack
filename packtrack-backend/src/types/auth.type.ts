@@ -6,5 +6,11 @@ export interface LoginDto {
   password: string;
 }
 
-export type UserResponse = Optional<User, "password">;
+export type UserResponse = Optional<User, "password" | "refreshToken">;
 
+export const toUserResponse = (user: User): UserResponse => {
+  const userRes = user as UserResponse;
+  delete userRes.password;
+  delete userRes.refreshToken;
+  return userRes;
+};

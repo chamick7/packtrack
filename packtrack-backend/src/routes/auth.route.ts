@@ -1,5 +1,5 @@
 import express from "express";
-import { login } from "../controllers/auth.controller";
+import { login, refreshAccessToken } from "../controllers/auth.controller";
 import validate from "../middleware/validate-resource.middleware";
 import { loginSchema } from "../schema/auth.schema";
 
@@ -7,5 +7,6 @@ import { loginSchema } from "../schema/auth.schema";
 const authRouter = express.Router();
 
 authRouter.post("/login", validate(loginSchema), login);
+authRouter.post("/refresh", refreshAccessToken);
 
 export default authRouter;

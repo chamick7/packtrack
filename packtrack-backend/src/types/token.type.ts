@@ -5,3 +5,8 @@ export interface TokenStatus {
   expired: boolean;
   decoded: jwt.JwtPayload | null;
 }
+
+export interface TokenEssential {
+  iat?: number;
+  exp?: number;
+}

@@ -9,9 +9,10 @@ export const signJwt = (payload: Object, options: jwt.SignOptions) => {
 };
 
 export const verifyJwt = (token: string): TokenStatus => {
-  const secretKey = process.env.JWT_SECRET_KEY!;
+  const secretKey = process.env.JWT_TOKEN_SECRET!;
   try {
     const decoded = jwt.verify(token, secretKey) as jwt.JwtPayload;
+
     const tokenStatus: TokenStatus = {
       valid: true,
       expired: false,
