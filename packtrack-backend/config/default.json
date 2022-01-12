@@ -1,0 +1,10 @@
+{
+    "token": {
+        "accessToken": {
+            "expired":"5m"
+        },
+        "refreshToken": {
+            "expired":"90d"
+        }
+    }
+}
