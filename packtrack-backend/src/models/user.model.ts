@@ -42,6 +42,4 @@ class User extends Model {
   role!: string;
 }
 
-
-
 export default User;

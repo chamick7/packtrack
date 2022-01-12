@@ -1,5 +1,13 @@
 
 
-packtrack-backend/node_modules
+# Frontend
 packtrack-frontend/node_modules
+
+
+# Backend
+packtrack-backend/node_modules
+packtrack-backend/.env
+
+
+# Other
 docker
