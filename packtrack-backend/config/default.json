@@ -5,6 +5,9 @@
         },
         "refreshToken": {
             "expired":"90d"
+        },
+        "inviteToken": {
+            "expired":"2d"
         }
     }
 }
