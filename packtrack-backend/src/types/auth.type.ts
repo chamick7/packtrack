@@ -2,8 +2,19 @@ import { Optional } from "sequelize/types";
 import User from "../models/user.model";
 
 export interface LoginDto {
-  username: string;
+  email: string;
   password: string;
+}
+
+export interface RegisterDto {
+  inviteToken: string;
+  user: {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    mobile: string;
+  };
 }
 
 export type UserResponse = Optional<User, "password" | "refreshToken">;

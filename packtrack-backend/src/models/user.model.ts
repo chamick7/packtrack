@@ -16,11 +16,6 @@ class User extends Model {
   @Column
   id!: number;
 
-  @Unique("username")
-  @AllowNull(false)
-  @Column
-  username!: string;
-
   @Unique("email")
   @AllowNull(false)
   @Column
@@ -37,6 +32,10 @@ class User extends Model {
   @AllowNull(false)
   @Column({ field: "last_name" })
   lastName!: string;
+
+  @AllowNull(false)
+  @Column
+  mobile!: string;
 
   @AllowNull(false)
   @Column({ defaultValue: "member" })

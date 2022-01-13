@@ -1,18 +1,26 @@
 import { Request, Response } from "express";
-import { createAccessToken, createRefreshToken } from "../services/token.service";
+import User from "../models/user.model";
 import {
+  changeStatusInviteToken,
+  createAccessToken,
+  createRefreshToken,
+  verifyInviteToken,
+} from "../services/token.service";
+import {
+  createUser,
   findByRefreshToken,
-  findOneUserByUsername,
+  findOneUserByEmail,
   updateRefreshToken,
   validateUserPassword,
 } from "../services/user.service";
-import { LoginDto, toUserResponse, UserResponse } from "../types/auth.type";
+import { LoginDto, RegisterDto, toUserResponse, UserResponse } from "../types/auth.type";
 import { verifyJwt } from "../utils/jwt";
+import bcrypt from "bcrypt";
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
   const loginDto = req.body as LoginDto;
 
-  const user = await findOneUserByUsername(loginDto.username);
+  const user = await findOneUserByEmail(loginDto.email);
 
   if (user && validateUserPassword(user, loginDto.password)) {
     const userResponse = toUserResponse(user);
@@ -33,7 +41,7 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
   }
 
   return res.status(401).json({
-    message: "username or password is invalid",
+    message: "email or password is invalid",
   });
 };
 
@@ -59,5 +67,43 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
 
   return res.status(401).json({
     message: "invalid token",
+  });
+};
+
+export const registerWithToken = async (req: Request, res: Response): Promise<Response> => {
+  const { inviteToken, user }: RegisterDto = req.body;
+
+  const { valid, expired } = await verifyInviteToken(inviteToken);
+  if (expired) {
+    return res.status(403).json({
+      message: "token expired",
+    });
+  }
+
+  if (!valid) {
+    return res.status(403).json({
+      message: "Invalid token",
+    });
+  }
+
+  const newUser = new User();
+  newUser.email = user.email.trim();
+  newUser.password = bcrypt.hashSync(user.password.trim(), 12);
+  newUser.firstName = user.firstName.trim();
+  newUser.lastName = user.lastName.trim();
+  newUser.mobile = user.mobile.trim();
+
+  const userRes = await createUser(newUser);
+  if (userRes) {
+    const resInviteToken = await changeStatusInviteToken(inviteToken, userRes);
+    if (resInviteToken[0]) {
+      return res.status(201).json({
+        message: "success",
+      });
+    }
+  }
+
+  return res.status(500).json({
+    message: "error",
   });
 };

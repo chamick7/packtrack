@@ -1,5 +1,5 @@
 import { UserResponse } from "../types/auth.type";
-import { signJwt } from "../utils/jwt";
+import { signJwt, verifyJwt } from "../utils/jwt";
 import config from "config";
 import InviteToken from "../models/invite-token.model";
 import dayjs from "dayjs";
@@ -42,4 +42,41 @@ export const findInviteToken = async (inviteToken: string) => {
     include: ["inviter"],
   });
   return queryInviteToken;
+};
+
+export const verifyInviteToken = async (inviteToken: string) => {
+  const queryInviteToken = await findInviteToken(inviteToken);
+
+  if (queryInviteToken && queryInviteToken.valid) {
+    const { decoded, expired } = verifyJwt(queryInviteToken.token);
+    if (expired) {
+      return {
+        data: null,
+        valid: false,
+        expired: true,
+      };
+    }
+
+    if (decoded) {
+      return {
+        data: queryInviteToken,
+        valid: true,
+        expired: false,
+      };
+    }
+  }
+
+  return {
+    data: null,
+    valid: false,
+    expired: false,
+  };
+};
+
+export const changeStatusInviteToken = async (inviteToken: string, receiver: User) => {
+  const resInviteToken = await InviteToken.update(
+    { valid: false, receiverId: receiver.id },
+    { where: { token: inviteToken } }
+  );
+  return resInviteToken;
 };

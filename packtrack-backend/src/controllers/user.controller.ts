@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { createInviteToken, findInviteToken, saveInviteToken } from "../services/token.service";
+import {
+  createInviteToken,
+  findInviteToken,
+  saveInviteToken,
+  verifyInviteToken,
+} from "../services/token.service";
 import { isOfficer } from "../services/user.service";
 import { verifyJwt } from "../utils/jwt";
 
@@ -44,23 +49,19 @@ export const sendInviteToken = async (req: Request, res: Response): Promise<Resp
 export const validateInviteToken = async (req: Request, res: Response): Promise<Response> => {
   const { inviteToken } = req.body;
 
-  const queryInviteToken = await findInviteToken(inviteToken);
+  const { data, valid, expired } = await verifyInviteToken(inviteToken);
+  if (!valid && expired) {
+    return res.status(403).json({
+      valid: false,
+      message: "token expired",
+    });
+  }
 
-  if (queryInviteToken && queryInviteToken.valid) {
-    const { decoded, expired } = verifyJwt(queryInviteToken.token);
-    if (expired) {
-      return res.status(403).json({
-        valid: false,
-        message: "token expired",
-      });
-    }
-
-    if (decoded) {
-      return res.status(200).json({
-        valid: true,
-        inviter: queryInviteToken.inviter?.firstName,
-      });
-    }
+  if (valid && !expired && data) {
+    return res.status(403).json({
+      valid: true,
+      inviter: data.inviter?.firstName,
+    });
   }
 
   return res.status(403).json({
