@@ -1,13 +1,17 @@
 import { Sequelize } from "sequelize-typescript";
+import InviteToken from "../models/invite-token.model";
 import User from "../models/user.model";
 
+const { DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD } = process.env;
+
 export const sequelize = new Sequelize({
-  host: "128.199.82.232",
+  host: DB_HOST,
   port: 3306,
-  database: "packtrack_db",
+  database: DB_DATABASE,
   dialect: "mysql",
-  username: "packtrack",
-  password: "mysql-packtrack-password",
+  username: DB_USERNAME,
+  password: DB_PASSWORD,
+  // logging: false,
 });
 
-sequelize.addModels([User]);
+sequelize.addModels([User, InviteToken]);

@@ -13,8 +13,6 @@ export const validateUserPassword = async (user: User, plainPassword: string): P
 };
 
 export const updateRefreshToken = async (user: User, refreshToken: string) => {
-  console.log(user);
-
   const userUpdate = await User.update(
     {
       refreshToken: refreshToken,
@@ -36,4 +34,8 @@ export const findByRefreshToken = async (refreshToken: string) => {
     },
     raw: true,
   });
+};
+
+export const isOfficer = (role: string) => {
+  return role === "officer" || role === "admin";
 };
