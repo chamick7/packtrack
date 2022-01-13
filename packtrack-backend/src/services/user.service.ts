@@ -2,8 +2,8 @@ import { raw } from "express";
 import User from "../models/user.model";
 import bcrypt from "bcrypt";
 
-export const findOneUserByUsername = async (username: string): Promise<User | null> => {
-  const user = await User.findOne({ where: { username: username }, raw: true });
+export const findOneUserByEmail = async (email: string): Promise<User | null> => {
+  const user = await User.findOne({ where: { email: email }, raw: true });
 
   return user;
 };
@@ -34,6 +34,10 @@ export const findByRefreshToken = async (refreshToken: string) => {
     },
     raw: true,
   });
+};
+
+export const createUser = async (user: User) => {
+  return await user.save();
 };
 
 export const isOfficer = (role: string) => {
