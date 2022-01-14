@@ -1,6 +1,7 @@
 import { raw } from "express";
 import User from "../models/user.model";
 import bcrypt from "bcrypt";
+import { ROLE } from "../utils/role.enum";
 
 export const findOneUserByEmail = async (email: string): Promise<User | null> => {
   const user = await User.findOne({ where: { email: email }, raw: true });
@@ -41,5 +42,5 @@ export const createUser = async (user: User) => {
 };
 
 export const isOfficer = (role: string) => {
-  return role === "officer" || role === "admin";
+  return role === ROLE.OFFICER || role === ROLE.ADMIN;
 };

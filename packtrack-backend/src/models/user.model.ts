@@ -8,6 +8,7 @@ import {
   Unique,
   DataType,
 } from "sequelize-typescript";
+import { ROLE } from "../utils/role.enum";
 
 @Table({ tableName: "users" })
 class User extends Model {
@@ -38,7 +39,7 @@ class User extends Model {
   mobile!: string;
 
   @AllowNull(false)
-  @Column({ defaultValue: "member" })
+  @Column({ defaultValue: ROLE.MEMBER })
   role!: string;
 
   @Column({ field: "refresh_token", type: DataType.TEXT })

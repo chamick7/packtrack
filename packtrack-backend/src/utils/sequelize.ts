@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import InviteToken from "../models/invite-token.model";
+import Transporter from "../models/transporter.model";
 import User from "../models/user.model";
 
 const { DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD } = process.env;
@@ -14,4 +15,4 @@ export const sequelize = new Sequelize({
   // logging: false,
 });
 
-sequelize.addModels([User, InviteToken]);
+sequelize.addModels([User, InviteToken, Transporter]);
