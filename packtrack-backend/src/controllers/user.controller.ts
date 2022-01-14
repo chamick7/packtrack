@@ -5,8 +5,6 @@ import {
   saveInviteToken,
   verifyInviteToken,
 } from "../services/token.service";
-import { isOfficer } from "../services/user.service";
-import { verifyJwt } from "../utils/jwt";
 
 export const getSelfUser = async (req: Request, res: Response): Promise<Response> => {
   if (req.user) {
@@ -19,31 +17,26 @@ export const getSelfUser = async (req: Request, res: Response): Promise<Response
 };
 
 export const sendInviteToken = async (req: Request, res: Response): Promise<Response> => {
-  if (req.user) {
-    if (!isOfficer(req.user.role)) {
-      return res.status(401).json({
-        message: "missing authorization access",
-      });
-    }
+  const inviteToken = createInviteToken(req.user);
 
-    const inviteToken = createInviteToken(req.user);
-
-    if (!inviteToken) {
-      return res.status(400).json({
-        message: "error generate invite token",
-      });
-    }
-
-    const responseInviteToken = await saveInviteToken(req.user.id, inviteToken);
-
-    if (responseInviteToken) {
-      return res.status(201).json({
-        message: "success",
-        inviteToken: responseInviteToken.token,
-      });
-    }
+  if (!inviteToken) {
+    return res.status(400).json({
+      message: "error generate invite token",
+    });
   }
-  return res.status(400).send();
+
+  const responseInviteToken = await saveInviteToken(req.user.id, inviteToken);
+
+  if (responseInviteToken) {
+    return res.status(201).json({
+      message: "success",
+      inviteToken: responseInviteToken.token,
+    });
+  }
+
+  return res.status(400).json({
+    message: "error generate invite token",
+  });
 };
 
 export const validateInviteToken = async (req: Request, res: Response): Promise<Response> => {
