@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import InviteToken from "../models/invite-token.model";
+import Package from "../models/package.model";
 import Transporter from "../models/transporter.model";
 import User from "../models/user.model";
 
@@ -12,7 +13,8 @@ export const sequelize = new Sequelize({
   dialect: "mysql",
   username: DB_USERNAME,
   password: DB_PASSWORD,
+  timezone: "+7:00"
   // logging: false,
 });
 
-sequelize.addModels([User, InviteToken, Transporter]);
+sequelize.addModels([User, InviteToken, Transporter, Package]);

@@ -5,6 +5,7 @@ import morgan from "morgan";
 import cors from "cors";
 import userRouter from "./routes/user.route";
 import transporterRouter from "./routes/transporter.route";
+import packageRouter from "./routes/package.route";
 const port = 5000;
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(morgan("dev"));
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/transporter", transporterRouter);
+app.use("/api/package", packageRouter);
 
 sequelize
   .sync({ alter: false })
