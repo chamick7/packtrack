@@ -3,14 +3,15 @@ import React ,  { useState } from "react";
 import axios from "axios";
 
 import SquareInput from "../square-input/square-input.component";
-import SquareButton from "../button/square-button";
+import SquareButton from "../button/square-button.component";
 
 interface Credential {
   firstname: string;
   lastname: string;
   email: string;
   password: string;
-  phone: number;
+  confirmpassword: string;
+  phone: string;
 }
 
 const FormRegister = () => {
@@ -19,7 +20,8 @@ const FormRegister = () => {
     lastname: "",
     email: "",
     password: "",
-    phone: 0,
+    confirmpassword:"",
+    phone: "",
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,27 +33,7 @@ const FormRegister = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log("click");
-    // try {
-    //   let res = await axios.post(
-    //     "http://localhost:5000/api/auth/login",
-    //     credential
-    //   );
 
-    //   console.log(res.data);
-    //   console.log("user", res.data.user);
-    //   if (res.status === 200 && res.data) {
-    //     localStorage.setItem(
-    //       "accessToken",
-    //       JSON.stringify(res.data.accessToken)
-    //     );
-    //     localStorage.setItem(
-    //       "refreshToken",
-    //       JSON.stringify(res.data.refreshToken)
-    //     );
-    //   }
-    // } catch (err) {
-    //   alert(JSON.stringify(err));
-    // }
   };
 
   return (
@@ -85,13 +67,13 @@ const FormRegister = () => {
           value={credential.password}
           label="รหัสผ่าน"
         />
-        {/* <SquareInput
+        <SquareInput
           type="password"
           name="password"
           onChange={handleChange}
-          value={credential.password}
-          label="รหัสผ่าน"
-        /> */}
+          value={credential.confirmpassword}
+          label="ยืนยันรหัสผ่าน"
+        />
         <SquareInput
           type="tel"
           name="phone"
@@ -99,7 +81,7 @@ const FormRegister = () => {
           value={credential.phone}
           label="เบอร์โทรศัพท์"
         />
-        <SquareButton type="submit">LOGIN</SquareButton>
+        <SquareButton type="submit">ถัดไป</SquareButton>
       </form>
     </div>
   );

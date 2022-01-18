@@ -1,9 +1,11 @@
 import React from 'react'
 
+import FirstHome from '../../components/้home/first-home.component'
+
 const HomePage = () => {
     return (
         <div>
-            <h1>Test</h1>
+            <div><FirstHome /></div>
         </div>
     )
 }

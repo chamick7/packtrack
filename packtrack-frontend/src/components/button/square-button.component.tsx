@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes, Children } from "react";
-import "./button.scss"
+import "./square-button.scss"
 
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {

@@ -8,8 +8,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 const SquareInput: React.FC<Props> = ({label , ...otherProps }) => {
     return (
         <div className='square-input-layout'>
-        <label>{label}</label>
-        <input {...otherProps} className="square-input"/>
+        <label className='label'>{label}</label>
+        <input {...otherProps} className="form-control shadow-none square-input"/>
         </div>
     )
 }

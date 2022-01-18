@@ -1,0 +1,27 @@
+@import "../../utils/main.scss";
+
+.form-login-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    width: 40vw;
+}
+
+.head-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: space-around;
+    font-family: Kanit;
+    font-size: 2rem;
+}
+
+.form-login{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 60%;
+}
+

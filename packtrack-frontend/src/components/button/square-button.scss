@@ -1,9 +1,12 @@
 @import "../../utils/main.scss";
 
 .square-button-login{
+    display: flex;
     background-color: $mainColor;
     border: none;
     border-radius: 5px;
     color: white;
-    padding: 0.4rem 0.8rem;
+    padding: 0.4rem 2rem;
+    font-size: 1.2rem;
+    font-family: Kanit;
 }

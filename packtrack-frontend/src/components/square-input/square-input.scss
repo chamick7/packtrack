@@ -3,9 +3,22 @@
 .square-input-layout{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+}
+
+.label{
+    font-family: Kanit;
+    font-size: 1.5rem;
+    font-weight:lighter;
+    padding-left: 2vw;
+    transform: translateY(1rem);
 }
 
 .square-input{
+    height: 3rem;
     border: 1.5px solid $mainColor;
     border-radius: 5px;
 }

@@ -1,8 +1,25 @@
-// .testbutton{
-//     border-radius: 3px;
-//     border: 2px solid palevioletred;
+.login-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+    min-height: 90vh;
+    align-items: center;
+}
 
-//     &:hover{
-//         border: 2px solid green;
-//     }
-// }
+.card-form{
+    border-radius: 10px
+}
+
+.homeImg{
+    display: flex;
+    max-height: 70vh;
+    min-height: auto;
+    
+}
+
+.bgfoot{
+    position: fixed;
+    width: 100%;
+    top: 90%;
+}
