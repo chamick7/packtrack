@@ -1,0 +1,11 @@
+@import "../../utils/main.scss";
+
+.square-input-layout{
+    display: flex;
+    flex-direction: column;
+}
+
+.square-input{
+    border: 1.5px solid $mainColor;
+    border-radius: 5px;
+}

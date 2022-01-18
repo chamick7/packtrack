@@ -1,25 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter ,Routes, Route , Navigate , RouteProps  } from "react-router-dom";
 
-function App() {
+import LoginPage from "./pages/login/login.page";
+import HomePage from "./pages/home/home.page";
+
+
+interface PrivateRouteProps extends RouteProps {
+  component: React.FC<RouteProps>;
+  path?: string;
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({component: RouteComponent}: any) => {
+  const isAuthenticated = localStorage.getItem("accessToken")
+  if (isAuthenticated) {
+    return <RouteComponent />
+  }
+
+  return <Navigate to="/" />
+};
+
+const App: React.FC = ()  => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />}></Route>
+        <Route path="home" element={<PrivateRoute component={HomePage} />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
