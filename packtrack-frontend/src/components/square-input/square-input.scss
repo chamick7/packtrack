@@ -10,11 +10,22 @@
 }
 
 .label{
+    display: inline;
     font-family: Kanit;
-    font-size: 1.5rem;
+    font-size: 1.5vw;
     font-weight:lighter;
     padding-left: 2vw;
-    transform: translateY(1rem);
+    transform: translateY(1vw);
+    // background-color: white;
+    @media only screen and (max-width: 990px) {
+        font-size: 1rem !important;
+        transform: translateY(0.8rem) !important;
+    }
+}
+
+.spanwhite{
+    border-radius: 5px;
+    background-color: white;
 }
 
 .square-input{

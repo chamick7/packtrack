@@ -1,11 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
+import { Navbar, Nav , NavDropdown , Container } from "react-bootstrap"
+
 import AuthContext from "../../providers/auth.provider";
 
 import "./header.scss";
 
 import logoPackTrack from "../../images/logoPackTrack.jpg";
+import userImg from "../../images/userImg.jpg"
 
 const GetUser = () => {
   const authContext = useContext(AuthContext);
@@ -14,13 +17,13 @@ const GetUser = () => {
   return (
     <>
       {isAuthenticated ? (
-        <Link to="/logout" className="text-blue">
+        <Nav.Link href="/" className="d-flex justify-content-center text-blue mx-2">
           {firstName}
-        </Link>
+        </Nav.Link>
       ) : (
-        <Link to="/login" className="text-blue">
+        <Nav.Link href="/login" className="d-flex justify-content-center text-blue mx-2" style={{ color:"#8CD8F9" }}>
           เข้าสู่ระบบ
-        </Link>
+        </Nav.Link>
       )}
     </>
   );
@@ -28,28 +31,45 @@ const GetUser = () => {
 
 const Header = () => {
   return (
-    <nav className="navbar navbar-expand-lg px-5 shadow-sm bg-body top-navbar">
-      <div className="container-fluid">
-        <div className="col-7">
-          <Link to="/" className="text-black">
-            <img src={logoPackTrack} height="60vh" />
-            <span className="text-maincolor">Pack</span>
-            <span className="text-black" style={{ fontWeight: "bold" }}>
-              Track
-            </span>
-          </Link>
+    <Navbar bg="light" expand="lg" className="top-navbar">
+    <Container>
+      <Navbar.Brand href="/" className="col-6 d-flex flex-row">
+        <img src={logoPackTrack} className="d-flex" height="50vw" />
+        <div className="text-logo">
+        <span className="text-maincolor" style={{ fontSize: "1.2vw" }}>
+          Pack
+        </span>
+        <span
+          className="text-black"
+          style={{ fontWeight: "bold", fontSize: "1.2vw" }}
+        >
+          Track
+        </span>
         </div>
-        <div className="navbar-nav col justify-content-around">
-          <Link to="/" className="text-black">
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" ><img src={userImg} style={{ height: "2rem" , border:"none"}} /></Navbar.Toggle>
+      <Navbar.Collapse>
+        <Nav className="d-flex justify-content-around">
+          <Nav.Link
+            href="/"
+            className="d-flex justify-content-center mx-2 text-black"
+          >
             เกี่ยวกับ Pack Track
-          </Link>
-          <Link to="/" className="text-black">
+          </Nav.Link>
+          <Nav.Link
+            href="/"
+            className="d-flex justify-content-center mx-2 text-black"
+          >
             การใช้งาน
-          </Link>
-          <GetUser />  
-        </div>
-      </div>
-    </nav>
+          </Nav.Link>
+          <GetUser />
+          <div className="d-flex justify-content-center mx-2 text-black">
+            <img src={userImg} className="userImg" style={{ height: "3vw" }} />
+          </div>
+        </Nav>
+      </Navbar.Collapse>
+    </Container>
+  </Navbar>
   );
 };
 

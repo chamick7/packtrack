@@ -3,9 +3,9 @@ import axiosApiInstance from "../../utils/axios";
 import { useNavigate } from 'react-router-dom';
 
 import SquareInput from "../square-input/square-input.component";
-import SquareButton from "../button/square-button.component";
 
 import "./form-login.scss";
+import { Button } from "react-bootstrap";
 
 
 interface Credential {
@@ -42,7 +42,7 @@ const FormLogin = () => {
           JSON.stringify(res.data.refreshToken)
         );
       }
-      return navigate('/home');
+      return navigate(0);
     } catch (err) {
       alert(JSON.stringify(err));
     }
@@ -67,8 +67,8 @@ const FormLogin = () => {
           value={credential.password}
           label="รหัสผ่าน"
         />
-        <div className="d-flex justify-content-end mt-4">
-          <SquareButton type="submit">ยืนยัน</SquareButton>
+        <div className="submit-login mb-2">
+          <Button type="submit" className="button-submit-login">ยืนยัน</Button>
         </div>
       </form>
 
