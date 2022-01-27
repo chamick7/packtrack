@@ -9,7 +9,7 @@ const HomePage = () => {
         <>
         <Header/>
         <div>
-            <div><FirstHome /></div>
+            <div><FirstHome /><SecondHome /></div>
         </div>
         </>
     )

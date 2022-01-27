@@ -17,7 +17,7 @@ const GetUser = () => {
   return (
     <>
       {isAuthenticated ? (
-        <Nav.Link href="/" className="d-flex justify-content-center text-blue mx-2">
+        <Nav.Link href="/" className="d-flex justify-content-center text-blue mx-2" style={{ color:"#8CD8F9" }}>
           {firstName}
         </Nav.Link>
       ) : (
@@ -32,16 +32,16 @@ const GetUser = () => {
 const Header = () => {
   return (
     <Navbar bg="light" expand="lg" className="top-navbar">
-    <Container>
-      <Navbar.Brand href="/" className="col-6 d-flex flex-row">
+    <Container fluid>
+      <Navbar.Brand href="/" className="col-6 d-flex flex-row" style={{paddingLeft:"10vw"}}>
         <img src={logoPackTrack} className="d-flex" height="50vw" />
         <div className="text-logo">
-        <span className="text-maincolor" style={{ fontSize: "1.2vw" }}>
+        <span className="text-maincolor" style={{ fontSize: "1.4vw" }}>
           Pack
         </span>
         <span
           className="text-black"
-          style={{ fontWeight: "bold", fontSize: "1.2vw" }}
+          style={{ fontWeight: "bold", fontSize: "1.4vw" }}
         >
           Track
         </span>

@@ -8,7 +8,7 @@ import "./first-home.scss";
 
 const FirstHome = () => {
   return (
-    <div className="container firsthome-container">
+    <div className="container-fluid firsthome-container">
         <div className="left-container">
           <div>
             <div className="line-one">ยินดีต้อนรับเข้าสู่ระบบจัดการพัสดุ</div>
