@@ -1,0 +1,14 @@
+@import "../../utils/main.scss";
+
+.square-button-login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $mainColor;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    // padding: 0.4rem 2rem;
+    font-size: 1.2vw;
+    font-family: Kanit;
+}

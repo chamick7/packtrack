@@ -1,0 +1,26 @@
+@import "../../utils/main.scss";
+
+.package-badge {
+    border-radius: 2px;
+    padding: 1vw 2vw;
+    font-weight: 700;
+    font-size: 1rem;
+    // letter-spacing: .3px;
+    .status-assigned{
+        background-color: #FFE352;
+        color: white;
+    }
+    .status-arrived{
+        background-color: #11C6FF;
+        color: white;
+    }
+    .status-pending{
+        background-color: #F9A512;
+        color: white;
+    }
+    .status-received{
+        background-color: #10C167;
+        color: white;
+    }
+}
+

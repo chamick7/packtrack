@@ -1,0 +1,10 @@
+@import "../../utils/main.scss";
+
+.FirstHome-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+    min-height: 90vh;
+    align-items: center;
+}
