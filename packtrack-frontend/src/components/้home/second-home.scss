@@ -1,0 +1,38 @@
+@import "../../utils/main.scss";
+
+.second-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+    min-height: 90vh;
+    align-items: center;
+    @media only screen and (max-width: $mobile-width) {
+        justify-content: start !important;
+        flex-direction: column;
+        padding: 0 !important;
+    }
+}
+
+.left-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media only screen and (max-width: $mobile-width) {
+        justify-content: start;
+        padding-top: 2vw;
+        text-align: center;
+        min-height: 45vh;
+    }
+}
+
+.right-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media only screen and (max-width: $mobile-width) {
+        padding-top: 2vw;
+        text-align: center;
+        min-height: 45vh;
+    }
+}

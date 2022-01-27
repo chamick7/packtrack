@@ -22,6 +22,7 @@ const App: React.FC = () => {
       <AuthProvider>
       {/* {!isLoggedIn() && <Header />} */}
         <Routes>
+          <Route path="/home" element={<HomePage />}></Route>
           <Route path="/" element={<ReserveRoute element={<LoginPage />} /> }/>
           <Route path="/login" element={<ReserveRoute element={<LoginPage />} />} />
           <Route path="/register" element={<PrivateRoute element={<Register />} />} />

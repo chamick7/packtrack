@@ -17,7 +17,10 @@ interface Credential {
   password: string;
   confirmpassword: string;
   phone: string;
+  notify: string;
 }
+
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
 const registerSchema = yup
   .object()
@@ -34,13 +37,7 @@ const registerSchema = yup
       .string()
       .required("Password is required")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
-    phone: yup
-      .number()
-      .typeError("That doesn't look like a phone number")
-      .positive("A phone number can't start with a minus")
-      .integer("A phone number can't include a decimal point")
-      .min(10)
-      .required("A phone number is required"),
+    phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required("phone is required")
   })
   .required();
 
@@ -52,14 +49,18 @@ const FormRegister: React.FC = () => {
     password: "",
     confirmpassword: "",
     phone: "",
+    notify:"",
   });
 
   const [step, setStep] = useState(1);
 
   const nextStep = () => {
+    if(credential !== null){
       setStep((step) => step + 1);
+    }
+    
   };
-  
+
   const previousStep = () => {
     setStep((step) => step - 1);
   }
@@ -68,13 +69,14 @@ const FormRegister: React.FC = () => {
     watch,
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors , isValid },
   } = useForm<Credential>({ resolver: yupResolver(registerSchema) });
 
   const onSubmit: SubmitHandler<Credential> = (data: Credential) => {
     console.log(data);
   };
 
+  console.log()
   // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   const { name, value } = event.target;
 
@@ -156,28 +158,15 @@ const FormRegister: React.FC = () => {
             <div className="head-form mb-1">ช่องทางการแจ้งเตือน</div>
             <div className="d-flex flex-column justify-content-between">
               <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="notify"
-                  checked
-                />
+              <input {...register("notify")} type="radio" value="Email" />
                 <label className="form-check-label">Email</label>
               </div>
               <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="notify"
-                />
-                <label className="form-check-label">SMS</label>
+              <input {...register("notify")} type="radio" value="SMS" />
+                <label className="form-check-labeln">SMS</label>
               </div>
               <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="notify"
-                />
+              <input {...register("notify")} type="radio" value="Line" />
                 <label className="form-check-label">Line Official</label>
               </div>
               <div className="d-flex justify-content-between mt-4">
@@ -195,71 +184,3 @@ const FormRegister: React.FC = () => {
 };
 
 export default FormRegister;
-
-//  <form onSubmit={handleSubmit(onSubmit)} className="form-register">
-//         {step === 1 && (<>
-//         <div className="head-form mb-1">ลงทะเบียน</div>
-//         <div className="d-flex flex-row justify-content-between">
-//           <div style={{width:"17vw"}}>
-//           <label htmlFor="firstname">ชื่อ</label>
-//           <input id="firstname" name="firstname" type="text" ref={register} />
-//           <SquareInput
-//           type="text"
-//           name="firstname"
-//           onChange={handleChange}
-//           value={credential.firstname}
-//           label="ชื่อ"
-//           required
-//         />
-//         </div>
-//         <div style={{width:"17vw"}}>
-//         <SquareInput
-//           type="text"
-//           name="lastname"
-//           onChange={handleChange}
-//           value={credential.lastname}
-//           label="นามสกุล"
-//           required
-//         />
-//         </div>
-//         </div>
-//         <SquareInput
-//           type="email"
-//           name="email"
-//           onChange={handleChange}
-//           value={credential.email}
-//           label="อีเมล"
-//           required
-//         />
-//         <SquareInput
-//           type="password"
-//           name="password"
-//           onChange={handleChange}
-//           value={credential.password}
-//           label="รหัสผ่าน"
-//           required
-//         />
-//         <SquareInput
-//           type="password"
-//           name="password"
-//           onChange={handleChange}
-//           value={credential.confirmpassword}
-//           label="ยืนยันรหัสผ่าน"
-//           required
-//         />
-//         <SquareInput
-//           type="tel"
-//           name="phone"
-//           onChange={handleChange}
-//           value={credential.phone}
-//           label="เบอร์โทรศัพท์"
-//           required
-//         />
-//         <div className="d-flex justify-content-end mt-4">
-//         <button onClick={nextStep}>ถัดไป</button>
-//         {/* <SquareButton type="submit"  style={{ padding:"0.4rem 2rem"}}>ถัดไป</SquareButton> */}
-//         </div>
-//         </>
-//         )}
-//         {step === 2 && <><div className="head-form mb-1">ช่องทางการแจ้งเตือน</div><div className="d-flex flex-row justify-content-between">Test</div></>}
-//       </form>

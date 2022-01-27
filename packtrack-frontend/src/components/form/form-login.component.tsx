@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import axiosApiInstance from "../../utils/axios";
 import { useNavigate } from 'react-router-dom';
 
+import { storeAccessToken } from "../../services/token.service";
+import { storeRefreshToken } from "../../services/token.service";
+
 import SquareInput from "../square-input/square-input.component";
 
 import "./form-login.scss";
-import { Button } from "react-bootstrap";
 
 
 interface Credential {
@@ -33,14 +35,8 @@ const FormLogin = () => {
       let res = await axiosApiInstance.post("/api/auth/login", credential);
       if (res.status === 200 && res.data) {
         localStorage.setItem("user", JSON.stringify(res.data.user));
-        localStorage.setItem(
-          "accessToken",
-          JSON.stringify(res.data.accessToken)
-        );
-        localStorage.setItem(
-          "refreshToken",
-          JSON.stringify(res.data.refreshToken)
-        );
+        storeAccessToken(res.data.accessToken)
+        storeRefreshToken(res.data.refreshToken)
       }
       return navigate(0);
     } catch (err) {
@@ -68,7 +64,7 @@ const FormLogin = () => {
           label="รหัสผ่าน"
         />
         <div className="submit-login mb-2">
-          <Button type="submit" className="button-submit-login">ยืนยัน</Button>
+          <button type="submit" className="button-submit-login">ยืนยัน</button>
         </div>
       </form>
 
