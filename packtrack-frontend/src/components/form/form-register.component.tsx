@@ -146,7 +146,7 @@ const FormRegister: React.FC = () => {
               {errors.phone && <p>{errors.phone.message}</p>}
             </div>
             <div className="d-flex justify-content-end mt-4">
-              <button disabled={!isValid} onClick={nextStep} type="button">
+              <button onClick={nextStep} type="button">
                 ถัดไป
               </button>
 

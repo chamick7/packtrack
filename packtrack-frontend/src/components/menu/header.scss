@@ -23,6 +23,9 @@
     font-family: Kanit;
     color:black;
     // font-size: 1vw;
+    &:hover {
+        color: black;
+    }
     @media only screen and (max-width: $mobile-width) {
         font-size: 1rem !important; 
     }

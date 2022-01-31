@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
-import {Link as ScrollLink}  from 'react-scroll'
-
+import { Link as ScrollLink } from "react-scroll";
+import { HashLink } from "react-router-hash-link";
 
 import AuthContext from "../../providers/auth.provider";
 
@@ -10,7 +11,6 @@ import "./header.scss";
 
 import logoPackTrack from "../../images/logoPackTrack.jpg";
 import userImg from "../../images/userImg.jpg";
-
 
 const GetUser = () => {
   const authContext = useContext(AuthContext);
@@ -40,6 +40,12 @@ const GetUser = () => {
 };
 
 const Header = () => {
+  const scrollWithOffset = (el: HTMLElement) => {
+    const yCoordinate = el.getBoundingClientRect().top + window.pageYOffset;
+    const yOffset = -50;
+    window.scrollTo({ top: yCoordinate + yOffset, behavior: "smooth" });
+  };
+
   return (
     <Navbar bg="light" expand="lg" className="top-navbar">
       <Container fluid>
@@ -62,23 +68,25 @@ const Header = () => {
         </Navbar.Toggle>
         <Navbar.Collapse>
           <Nav className="d-flex justify-content-around ms-auto">
-            <Nav.Link className="d-flex justify-content-center mx-4 fs-6 text-black">
-              <ScrollLink
-                to="FourHome"
-                smooth={true}
-                offset={-50}
-                duration={800}
-              >เกี่ยวกับ Pack Track</ScrollLink>
+            <Nav.Link className="d-flex justify-content-center">
+              <HashLink
+                smooth
+                to="/home#FourHome"
+                scroll={(el) => scrollWithOffset(el)}
+                className="d-flex justify-content-center mx-4 fs-6 text-black"
+              >
+                เกี่ยวกับ Pack Track
+              </HashLink>
             </Nav.Link>
-            <Nav.Link
-              className="d-flex justify-content-center mx-4 fs-6 text-black"
-            >
-              <ScrollLink
-                to="FiveHome"
-                smooth={true}
-                offset={-50}
-                duration={800}
-              >การใช้งาน</ScrollLink>
+            <Nav.Link className="d-flex justify-content-center">
+              <HashLink
+                smooth
+                to="/home#FiveHome"
+                scroll={(el) => scrollWithOffset(el)}
+                className="d-flex justify-content-center mx-4 fs-6 text-black"
+              >
+                การใช้งาน
+              </HashLink>
             </Nav.Link>
             <GetUser />
             <div className="d-flex justify-content-center mx-4 fs-6 text-black">
