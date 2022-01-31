@@ -1,0 +1,83 @@
+@import "../../utils/main.scss";
+
+.four-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+    min-height: 100vh;
+    align-items: center;
+    padding: 0 0vw;
+    background-repeat: no-repeat;
+    background-size: 100% 100%; 
+    background-position:center; 
+    @media only screen and (max-width: $mobile-width) {
+        justify-content: start !important;
+        flex-direction: column;
+        padding: 0 !important;
+    }
+}
+
+.four-left-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 45vw;
+    @media only screen and (max-width: $mobile-width) {
+        justify-content: center;
+        padding-top: 4vw;
+    }
+}
+
+.four-right-container{
+    display: flex;
+    flex-direction: column;
+    width: 45vw;
+    @media only screen and (max-width: $mobile-width) {
+        justify-content: center;
+        width: 80vw;
+        padding-top: 4vw;
+    }
+}
+
+.four-image{
+    width: 40vw;
+    @media only screen and (max-width: $mobile-width) {
+        width: 80vw;
+    }
+}
+
+.four-topic{
+    display: flex;
+    font-family: Kanit;
+    font-size: 2vw;
+    justify-content: center;
+    padding-left: 22vw;
+    transform: translateY(6vw);
+    @media only screen and (max-width: $mobile-width) {
+        font-size: 4vw;
+        justify-content: start;
+        padding-left: 4vw;
+        transform: translateY(0);
+    }
+    .under-line{
+        text-decoration: underline#C81B0D;
+        text-underline-offset: 0.5vw;
+        text-decoration-thickness: 4px ;
+       
+    }
+    @media only screen and (max-width: $mobile-width) {
+        .under-line{
+            text-decoration-thickness: 2px !important;
+        }
+    }
+}
+
+.four-text-desc{
+    font-family: Kanit;
+    font-size: 1.5vw;
+    padding-top: 1vw;
+    @media only screen and (max-width: $mobile-width) {
+        font-size: 3vw;
+    }
+}
