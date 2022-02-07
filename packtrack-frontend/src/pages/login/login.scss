@@ -1,57 +1,57 @@
-@import "../../utils/main.scss";
+// @import "../../utils/main.scss";
 
-.login-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    height: 100%;
-    min-height: 90vh;
-    align-items: center;
-    @media only screen and (max-width: $mobile-width) {
-        justify-content: center !important;
-        flex-direction: column;
-        padding: 0 !important;
-        min-height: 80vh;
-    }
-}
+// .login-container{
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-around;
+//     height: 100%;
+//     min-height: 90vh;
+//     align-items: center;
+//     @media only screen and (max-width: $mobile-width) {
+//         justify-content: center !important;
+//         flex-direction: column;
+//         padding: 0 !important;
+//         min-height: 80vh;
+//     }
+// }
 
-.card-form{
-    border-radius: 10px;
-    box-shadow: 0.5px 0.5px;
-    @media only screen and (max-width: $mobile-width) {
-        width: 100%;
-        border: none;
-        box-shadow: none;
-        text-shadow: none;
+// .card-form{
+//     border-radius: 10px;
+//     box-shadow: 0.5px 0.5px;
+//     @media only screen and (max-width: $mobile-width) {
+//         width: 100%;
+//         border: none;
+//         box-shadow: none;
+//         text-shadow: none;
         
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-}
+//         margin: 0 !important;
+//         padding: 0 !important;
+//     }
+// }
 
-.home-img{
-    display: flex;
-    width: 100%;
-    height: auto;
-    @media only screen and (max-width: $mobile-width) {
-        // justify-content: center;
-        padding: 0 !important;
-        // padding-top:12vh ;
-    }
-}
+// .home-img{
+//     display: flex;
+//     width: 100%;
+//     height: auto;
+//     @media only screen and (max-width: $mobile-width) {
+//         // justify-content: center;
+//         padding: 0 !important;
+//         // padding-top:12vh ;
+//     }
+// }
 
-.image{
-    width: 40vw;
-    @media only screen and (max-width: $mobile-width) {
-        width: 60vw;
-    }
-}
+// .image{
+//     width: 40vw;
+//     @media only screen and (max-width: $mobile-width) {
+//         width: 60vw;
+//     }
+// }
 
-.bgfoot{
-    position: fixed;
-    width: 100%;
-    top: 90%;
-    @media only screen and (max-width: $mobile-width) {
-        display: none;
-    }
-}
+// .bgfoot{
+//     position: fixed;
+//     width: 100%;
+//     top: 90%;
+//     @media only screen and (max-width: $mobile-width) {
+//         display: none;
+//     }
+// }

@@ -1,7 +1,7 @@
 import React from "react";
 
-import backgroundHome from "../../images/backgroundHome.jpg";
-import holdphone from "../../images/holdphone.jpg";
+import backgroundHome from "../../images/backgroundHome.svg";
+
 import phone from "../../images/phone.svg";
 import guide from "../../images/guide.svg"
 
@@ -11,8 +11,9 @@ const SecondHome = () => {
   return (
     <div
       className="container-fluid second-container"
-      style={{ backgroundImage: `url(${backgroundHome})` }}
+      // style={{ backgroundImage: `url(${backgroundHome})` }}
     >
+      <img src={backgroundHome} alt="bg-svg" className="bg-img" />
       <div className="second-left-container">
         <img src={phone} className="second-image-left" />
       </div>

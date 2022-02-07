@@ -7,8 +7,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 
 const SquareInput: React.FC<Props> = ({label , ...otherProps }) => {
     return (
-        <div className='square-input-layout'>
-        <label className='label'><span className="spanwhite px-1 py-0">{label}</span></label>
+        <div className='flex flex-col justify-center w-full h-full'>
+        <label className='inline font-[kanit] text-[16px] font-thin pl-4 translate-y-3.5 md:text-[20px]'><span className="bg-white rounded px-1 py-0">{label}</span></label>
         <input {...otherProps} className="form-control shadow-none square-input"/>
         </div>
     )

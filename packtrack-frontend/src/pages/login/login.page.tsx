@@ -11,10 +11,10 @@ const LoginPage = () => {
   return (
     <>
     <Header />
-    <img src={backgroundHome} className="bgfoot"/>
-    <div className="container-fluid px-5 login-container">
-      <div className="card col mx-5 card-form"><FormLogin /></div>
-      <div className="col d-flex justify-content-center home-img"><img src={homeImg} className="image"/></div>
+    <img src={backgroundHome} className="hidden w-full top-[90%] md:fixed md:block"/>
+    <div className="container flex flex-col justify-around h-full min-h-[90vh] w-screen items-center md:flex-row md:grid md:grid-cols-2 md:px-4 lg:px-20">
+      <div className="md:shadow-lg md:px-5"><FormLogin /></div>
+      <div className="flex justify-center w-100 h-auto "><img src={homeImg} className="w-[500px]"/></div>
     </div>
     </>
   );
