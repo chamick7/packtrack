@@ -1,99 +1,99 @@
-@import "../../utils/main.scss";
+// @import "../../utils/main.scss";
 
-.firsthome-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    height: 100%;
-    min-height: 90vh;
-    align-items: center;
-    padding: 0 8vw;
-    @media only screen and (max-width: $mobile-width) {
-        justify-content: start !important;
-        flex-direction: column;
-        padding: 0 !important;
-    }
-}
+// .firsthome-container{
+//     display: flex;
+//     flex-direction: row;
+//     justify-content: space-around;
+//     height: 100%;
+//     min-height: 90vh;
+//     align-items: center;
+//     padding: 0 8vw;
+//     @media only screen and (max-width: $mobile-width) {
+//         justify-content: start !important;
+//         flex-direction: column;
+//         padding: 0 !important;
+//     }
+// }
 
-.left-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    @media only screen and (max-width: $mobile-width) {
-        justify-content: start;
-        padding-top: 2vw;
-        text-align: center;
-        min-height: 45vh;
-    }
-}
+// .left-container{
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     @media only screen and (max-width: $mobile-width) {
+//         justify-content: start;
+//         padding-top: 2vw;
+//         text-align: center;
+//         min-height: 45vh;
+//     }
+// }
 
-.right-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    @media only screen and (max-width: $mobile-width) {
-        padding-top: 2vw;
-        text-align: center;
-        min-height: 45vh;
-    }
-}
+// .right-container{
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     @media only screen and (max-width: $mobile-width) {
+//         padding-top: 2vw;
+//         text-align: center;
+//         min-height: 45vh;
+//     }
+// }
 
-.line-one{
-    font-family: Kanit;
-    font-size: 2.5vw;
-    @media only screen and (max-width: $mobile-width) {
-        font-size: 4vw;
-    }
-}
+// .line-one{
+//     font-family: Kanit;
+//     font-size: 2.5vw;
+//     @media only screen and (max-width: $mobile-width) {
+//         font-size: 4vw;
+//     }
+// }
 
-.line-two{
-    font-family: Kanit;
-    font-size: 5vw;
-    .main-color{
-        color: $mainColor;
-    }
-    @media only screen and (max-width: $mobile-width) {
-        font-size: 16vw;
-    }
-}
+// .line-two{
+//     font-family: Kanit;
+//     font-size: 5vw;
+//     .main-color{
+//         color: $mainColor;
+//     }
+//     @media only screen and (max-width: $mobile-width) {
+//         font-size: 16vw;
+//     }
+// }
 
-.line-thr{
-    font-family: Kanit;
-    font-size: 1vw;
+// .line-thr{
+//     font-family: Kanit;
+//     font-size: 1vw;
 
-    @media only screen and (max-width: $mobile-width) {
-        font-size: 2.5vw;
-        text-align: start;
-    }
-}
+//     @media only screen and (max-width: $mobile-width) {
+//         font-size: 2.5vw;
+//         text-align: start;
+//     }
+// }
 
-.button-container{
-    display: flex;
-    justify-content: start;
-    margin-top: 4vw;
-    @media only screen and (max-width: $mobile-width) {
-        justify-content: center;
-        padding-top: 6vh;
-    }
-}
+// .button-container{
+//     display: flex;
+//     justify-content: start;
+//     margin-top: 4vw;
+//     @media only screen and (max-width: $mobile-width) {
+//         justify-content: center;
+//         padding-top: 6vh;
+//     }
+// }
 
-.button-login{
-    background-color: #A94037;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 0.4rem 2rem;
-    font-size: 1.2vw;
-    font-family: Kanit;
-    @media only screen and (max-width: $mobile-width) {
-        font-size: 6vw;
-        padding: 0.4rem 3rem;
-    }
-}
+// .button-login{
+//     background-color: #A94037;
+//     border: none;
+//     border-radius: 5px;
+//     color: white;
+//     padding: 0.4rem 2rem;
+//     font-size: 1.2vw;
+//     font-family: Kanit;
+//     @media only screen and (max-width: $mobile-width) {
+//         font-size: 6vw;
+//         padding: 0.4rem 3rem;
+//     }
+// }
 
-.image{
-    width: 40vw;
-    @media only screen and (max-width: $mobile-width) {
-        width: 60vw;
-    }
-}
+// .image{
+//     width: 40vw;
+//     @media only screen and (max-width: $mobile-width) {
+//         width: 60vw;
+//     }
+// }

@@ -19,14 +19,14 @@ const GetUser = () => {
       {isAuthenticated ? (
         <Nav.Link
           href="/"
-          className="flex justify-center mx-2 items-center font-[kanit] text-[#8CD8F9] text-lg  sm:text-[16px]"
+          className="flex justify-center mx-2 items-center font-[kanit] text-[#8CD8F9] text-lg"
           style={{ color: "#8CD8F9" }}
         >
           {firstName}
         </Nav.Link>
       ) : (
         <Nav.Link
-          className="flex justify-center mx-2 items-center font-[kanit] text-[#8CD8F9] text-lg  sm:text-[16px]"
+          className="flex justify-center mx-2 items-center font-[kanit] text-[#8CD8F9] text-lg"
           style={{ color: "#8CD8F9" }}
         >
           เข้าสู่ระบบ
@@ -48,12 +48,12 @@ const Header = () => {
       <Container fluid>
         <Link to="/" className="flex flex-row">
           <img src={logoPackTrack} className="flex h-16" />
-          <div className="flex sm:hidden">
-            <span className="flex no-underline items-center font-[kanit] text-main">
+          <div className="hidden sm:flex">
+            <span className="flex no-underline items-center font-[kanit] text-main text-[24px]">
               Pack
             </span>
             <span
-              className="flex no-underline items-center font-[kanit] text-black">
+              className="flex no-underline items-center font-[kanit] text-black text-[24px] font-bold">
               Track
             </span>
           </div>
@@ -63,10 +63,10 @@ const Header = () => {
         </Navbar.Toggle>
         <Navbar.Collapse>
           <Nav  className="flex justify-around ms-auto">
-            <Link to="/?section=about" className="flex justify-center mx-2 items-center font-[kanit] text-black hover:text-black text-lg sm:text-[16px]">
+            <Link to="/?section=about" className="flex justify-center mx-2 items-center font-[kanit] text-black hover:text-black text-lg">
                 เกี่ยวกับ Pack Track
             </Link>
-            <Link to="/?section=manual" className="flex justify-center mx-2 items-center font-[kanit] text-black hover:text-black text-lg sm:text-[16px]">
+            <Link to="/?section=manual" className="flex justify-center mx-2 items-center font-[kanit] text-black hover:text-black text-lg">
                 การใช้งาน
             </Link>
             <GetUser />
