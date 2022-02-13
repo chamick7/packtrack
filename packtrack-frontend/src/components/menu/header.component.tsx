@@ -47,7 +47,7 @@ const Header = () => {
     <Navbar bg="light" expand="lg" className="h-full max-h-[10vh]">
       <Container fluid>
         <Link to="/" className="flex flex-row">
-          <img src={logoPackTrack} className="flex h-16" />
+          <img src={logoPackTrack} className="flex h-10" />
           <div className="hidden sm:flex">
             <span className="flex no-underline items-center font-[kanit] text-main text-[24px]">
               Pack

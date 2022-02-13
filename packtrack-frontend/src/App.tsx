@@ -6,6 +6,7 @@ import LoginPage from "./pages/login/login.page";
 import HomePage from "./pages/home/home.page";
 import DashboardOfficer from "./pages/dashboard/dashboard-officer.page";
 import Register from "./pages/register/register.page";
+import DashboardUser from "./pages/dashboard/dashboard-user.page";
 
 import { AuthProvider } from "./providers/auth.provider";
 import { PrivateRoute, ReserveRoute } from "./routes/auth.route";
@@ -25,7 +26,8 @@ const App: React.FC = () => {
           <Route path="/" element={<ReserveRoute element={<HomePage />} /> }/>
           <Route path="/login" element={<ReserveRoute element={<LoginPage />} />} />
           <Route path="/register" element={<PrivateRoute element={<Register />} />} />
-          <Route path="/dashboard" element={<PrivateRoute element={<DashboardOfficer />} />} />
+          <Route path="/officer" element={<PrivateRoute element={<DashboardOfficer />} />} />
+          <Route path="/user" element={<PrivateRoute element={<DashboardUser />} />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

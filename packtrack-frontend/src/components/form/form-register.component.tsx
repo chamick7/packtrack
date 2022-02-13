@@ -20,7 +20,8 @@ interface Credential {
   notify: string;
 }
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
 const registerSchema = yup
   .object()
@@ -37,7 +38,10 @@ const registerSchema = yup
       .string()
       .required("Password is required")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
-    phone: yup.string().matches(phoneRegExp, 'Phone number is not valid').required("phone is required")
+    phone: yup
+      .string()
+      .matches(phoneRegExp, "Phone number is not valid")
+      .required("phone is required"),
   })
   .required();
 
@@ -49,136 +53,220 @@ const FormRegister: React.FC = () => {
     password: "",
     confirmpassword: "",
     phone: "",
-    notify:"",
+    notify: "",
   });
 
   const [step, setStep] = useState(1);
 
   const nextStep = () => {
-    if(credential !== null){
+    if (credential !== null) {
       setStep((step) => step + 1);
     }
-    
   };
 
   const previousStep = () => {
     setStep((step) => step - 1);
-  }
+  };
 
   const {
     watch,
     register,
     handleSubmit,
-    formState: { errors , isValid },
+    formState: { errors, isValid },
   } = useForm<Credential>({ resolver: yupResolver(registerSchema) });
+
+  const onNext: SubmitHandler<Credential> = (data: Credential) => {
+    nextStep();
+  };
 
   const onSubmit: SubmitHandler<Credential> = (data: Credential) => {
     console.log(data);
   };
 
-  console.log()
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, value } = event.target;
-
-  //   setCredential((prev) => ({ ...prev, [name]: value }));
-  // };
-
-  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   console.log("click");
-
-  // };
 
   return (
-    <div className="form-register-container">
-      <form onSubmit={handleSubmit(onSubmit)} className="form-register">
-        {step === 1 && (
-          <>
-            <div className="head-form mb-1">ลงทะเบียน</div>
-            <div className="d-flex flex-row justify-content-between">
-              <div style={{ width: "17vw" }}>
-                <div className="square-input-layout">
-                  <label htmlFor="firstname" className="label">
-                    <span className="spanwhite px-1 py-0">ชื่อ</span>
-                  </label>
-                  <input type="text" {...register("firstname")} />
-                  {errors.firstname && <p>{errors.firstname.message}</p>}
-                </div>
-              </div>
-              <div style={{ width: "17vw" }}>
-                <div className="square-input-layout">
-                  <label htmlFor="lastname" className="label">
-                    <span className="spanwhite px-1 py-0">นามสกุล</span>
-                  </label>
-                  <input type="text" {...register("lastname")} />
-                  {errors.lastname && <p>{errors.lastname.message}</p>}
-                </div>
+    <div className="flex justify-center items-center w-full h-full px-4 md:px-2">
+      {step === 1 && (
+        <form onSubmit={handleSubmit(onNext)} className="flex flex-col w-full">
+          <div className="font-[kanit] text-lg text-center md:text-2xl">ลงทะเบียน</div>
+          <div className="flex flex-row justify-start">
+            <div className="w-1/2 mr-1">
+              <div className="flex flex-col">
+                <label
+                  htmlFor="firstname"
+                  className="inline font-[kanit] text-sm pl-4 translate-y-3 md:text-xl"
+                >
+                  <span className="bg-white px-1">ชื่อ</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("firstname")}
+                  className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
+                />
+                {errors.firstname && (
+                  <p className="inline font-[kanit] text-[12px] text-red-600">
+                    {errors.firstname.message}
+                  </p>
+                )}
               </div>
             </div>
-            <div className="square-input-layout">
-              <label htmlFor="email" className="label">
-                <span className="spanwhite px-1 py-0">อีเมล</span>
+            <div className="w-1/2">
+              <div className="flex flex-col">
+                <label
+                  htmlFor="lastname"
+                  className="inline font-[kanit] text-sm pl-4 translate-y-3 md:text-xl"
+                >
+                  <span className="bg-white px-1">นามสกุล</span>
+                </label>
+                <input
+                  type="text"
+                  {...register("lastname")}
+                  className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
+                />
+                {errors.lastname && (
+                  <p className="inline font-[kanit] text-[12px] text-red-600">
+                    {errors.lastname.message}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <label
+              htmlFor="email"
+              className="inline font-[kanit] text-sm pl-4 translate-y-3 md:text-xl"
+            >
+              <span className="bg-white px-1">อีเมล</span>
+            </label>
+            <input
+              type="email"
+              {...register("email")}
+              className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
+            />
+            {errors.email && (
+              <p className="inline font-[kanit] text-[12px] text-red-600">
+                {errors.email.message}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <label
+              htmlFor="password"
+              className="inline font-[kanit] text-sm pl-4 translate-y-3 md:text-xl"
+            >
+              <span className="bg-white px-1">รหัสผ่าน</span>
+            </label>
+            <input
+              type="password"
+              {...register("password")}
+              className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
+            />
+            {errors.password && (
+              <p className="inline font-[kanit] text-[12px] text-red-600">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <label
+              htmlFor="confirmpassword"
+              className="inline font-[kanit] text-sm pl-4 translate-y-3 md:text-xl"
+            >
+              <span className="bg-white px-1">ยืนยันรหัสผ่าน</span>
+            </label>
+            <input
+              type="password"
+              {...register("confirmpassword")}
+              className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
+            />
+            {errors.confirmpassword && (
+              <p className="inline font-[kanit] text-[12px] text-red-600">
+                {errors.confirmpassword.message}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-col">
+            <label
+              htmlFor="phone"
+              className="inline font-[kanit] text-sm pl-4 translate-y-3 md:text-xl"
+            >
+              <span className="bg-white px-1">เบอร์โทรศัพท์</span>
+            </label>
+            <input
+              type="tel"
+              {...register("phone")}
+              className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
+            />
+            {errors.phone && (
+              <p className="inline font-[kanit] text-[12px] text-red-600">
+                {errors.phone.message}
+              </p>
+            )}
+          </div>
+          <div className="flex justify-center mt-2 md:justify-end font-[kanit] text-sm md:text-lg xl:text-xl">
+            <input
+              type="submit"
+              value="ถัดไป"
+              className="flex bg-main rounded text-white px-20 py-1 md:px-10"
+            />
+          </div>
+        </form>
+      )}
+      {step === 2 && (
+        <form
+          className="flex flex-col w-full h-[40vh] justify-evenly items-center md:h-3/4"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className="font-[kanit] text-lg text-center xl:text-2xl">
+            ช่องทางการแจ้งเตือน
+          </div>
+          <div className="flex flex-col justify-start w-1/2 xl:h-1/2 xl:justify-around">
+            <div className="flex flex-row items-center">
+              <input
+                {...register("notify")}
+                type="checkbox"
+                value="Email"
+                className="accent-main h-6 w-6 mr-2"
+              />
+              <label className="inline font-[kanit] text-lg leading-10 xl:text-xl">Email</label>
+            </div>
+            <div className="flex flex-row items-center">
+              <input
+                {...register("notify")}
+                type="checkbox"
+                value="SMS"
+                className="accent-main h-6 w-6 mr-2"
+              />
+              <label className="inline font-[kanit] text-lg leading-10 xl:text-xl">SMS</label>
+            </div>
+            <div className="flex flex-row items-center">
+              <input
+                {...register("notify")}
+                type="checkbox"
+                value="Line"
+                className="accent-main h-6 w-6 mr-2 "
+              />
+              <label className="inline font-[kanit] text-lg leading-10 xl:text-xl">
+                Line Official
               </label>
-              <input type="email" {...register("email")} />
-              {errors.email && <p>{errors.email.message}</p>}
             </div>
-            <div className="square-input-layout">
-              <label htmlFor="password" className="label">
-                <span className="spanwhite px-1 py-0">รหัสผ่าน</span>
-              </label>
-              <input type="password" {...register("password")} />
-              {errors.password && <p>{errors.password.message}</p>}
-            </div>
-            <div className="square-input-layout">
-              <label htmlFor="confirmpassword" className="label">
-                <span className="spanwhite px-1 py-0">ยืนยันรหัสผ่าน</span>
-              </label>
-              <input type="password" {...register("confirmpassword")} />
-              {errors.confirmpassword && (
-                <p>{errors.confirmpassword.message}</p>
-              )}
-            </div>
-            <div className="square-input-layout">
-              <label htmlFor="phone" className="label">
-                <span className="spanwhite px-1 py-0">เบอร์โทรศัพท์</span>
-              </label>
-              <input type="tel" {...register("phone")} />
-              {errors.phone && <p>{errors.phone.message}</p>}
-            </div>
-            <div className="d-flex justify-content-end mt-4">
-              <button onClick={nextStep} type="button">
-                ถัดไป
-              </button>
-
-            </div>
-          </>
-        )}
-        {step === 2 && (
-          <>
-            <div className="head-form mb-1">ช่องทางการแจ้งเตือน</div>
-            <div className="d-flex flex-column justify-content-between">
-              <div className="form-check">
-              <input {...register("notify")} type="radio" value="Email" />
-                <label className="form-check-label">Email</label>
-              </div>
-              <div className="form-check">
-              <input {...register("notify")} type="radio" value="SMS" />
-                <label className="form-check-labeln">SMS</label>
-              </div>
-              <div className="form-check">
-              <input {...register("notify")} type="radio" value="Line" />
-                <label className="form-check-label">Line Official</label>
-              </div>
-              <div className="d-flex justify-content-between mt-4">
-              <button onClick={previousStep} type="button">
-                ย้อนกลับ
-              </button>
-              <input type="submit" />
-              </div>
-            </div>
-          </>
-        )}
-      </form>
+          </div>
+          <div className="flex justify-evenly mt-2 font-[kanit] text-sm md:text-lg xl:text-xl md:w-3/4">
+            <button
+              onClick={previousStep}
+              type="button"
+              className="flex rounded  px-10 py-1"
+            >
+              ย้อนกลับ
+            </button>
+            <input
+              type="submit"
+              value="ยืนยัน"
+              className="flex bg-main rounded text-white px-10 py-1 "
+            />
+          </div>
+        </form>
+      )}
     </div>
   );
 };

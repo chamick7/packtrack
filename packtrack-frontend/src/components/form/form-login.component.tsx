@@ -64,7 +64,7 @@ const FormLogin = () => {
           label="รหัสผ่าน"
         />
         <div className="flex justify-center mt-4 md:justify-end">
-          <button type="submit" className="flex justify-center items-center bg-main rounded text-white px-20 py-1 md:px-10">ยืนยัน</button>
+          <button type="submit" className="flex justify-center items-center bg-main rounded text-white px-20 py-1 md:px-10 md:py-2">ยืนยัน</button>
         </div>
       </form>
 

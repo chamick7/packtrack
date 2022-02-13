@@ -10,10 +10,10 @@ const Register = () => {
   return (
     <>
     <Header />
-    <img src={backgroundHome} className="bgfoot"/>
-    <div className="container-fluid px-5 login-container">
-      <div className="card col mx-5 shadow-sm card-form"><FormRegister /></div>
-      <div className="col d-flex justify-content-center homeImg"><img src={homeImg} style={{width:"40vw"}}/></div>
+    <div className="flex flex-col h-[90vh] md:flex-row">
+    <img src={backgroundHome} className="hidden md:block fixed top-[90%] w-fit"/>
+      <div className="flex flex-col justify-center items-center h-8/12 md:w-1/2 md:shadow-lg md:m-12 xl:mx-20"><FormRegister /></div>
+      <div className="flex justify-center h-4/12 md:w-1/2"><img src={homeImg} className="w-8/12 p-2"/></div>
     </div>
     </>
   );
