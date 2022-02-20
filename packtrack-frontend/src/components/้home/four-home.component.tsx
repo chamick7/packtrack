@@ -8,7 +8,7 @@ const FourHome = () => {
     <>
       <div
         id="FourHome"
-        className="flex flex-col justify-start px-4 md:flex-row md:justify-center md:my-10"
+        className="flex flex-col justify-start px-4 md:flex-row md:px-10 md:justify-center md:my-10"
       >
         <div className="flex font-[kanit] text-xl py-4 xl:text-3xl md:hidden">
           <span className="underline underline-offset-2 decoration-main decoration-4">

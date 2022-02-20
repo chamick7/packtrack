@@ -15,7 +15,7 @@ interface Credential {
   lastname: string;
   email: string;
   password: string;
-  confirmpassword: string;
+  confirmpassword?: string;
   phone: string;
   notify: string;
 }
@@ -80,6 +80,7 @@ const FormRegister: React.FC = () => {
   };
 
   const onSubmit: SubmitHandler<Credential> = (data: Credential) => {
+    delete data.confirmpassword
     console.log(data);
   };
 

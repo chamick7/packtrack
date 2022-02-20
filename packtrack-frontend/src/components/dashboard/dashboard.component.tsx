@@ -24,7 +24,7 @@ const Packages = [
 
 
 
-const Dashboard = () => {
+const DashboardOfficer = () => {
   const [selectedPackage , setSelectedPackage] = useState(null)
 
   // interface Package{
@@ -105,4 +105,4 @@ const Dashboard = () => {
 
 //body={statusBadge} 
 
-export default Dashboard;
+export default DashboardOfficer;

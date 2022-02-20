@@ -1,17 +1,18 @@
 import React from "react";
 
 import Sidebar from "../../components/menu/sidebar.component";
-import Dashboard from "../../components/dashboard/dashboard.component";
+import DashboardOfficer from "../../components/dashboard/dashboard.component";
+
 
 import "./dashboard-officer.scss"
 
-const DashboardOfficer = () => {
+const Officer = () => {
   return (
     <div className="container-fluid dashboardOfc-container">
         <div className="col-3" ><Sidebar /></div>
-        <div className="col"><Dashboard /></div>
+        <div className="col"><DashboardOfficer /></div>
     </div>
   );
 };
 
-export default DashboardOfficer;
+export default Officer;
