@@ -19,7 +19,6 @@ class Package extends Model {
   @Column
   id?: number;
 
-  @Unique("trackingNumber")
   @Column({ field: "tracking_number" })
   trackingNumber?: string;
 
@@ -55,7 +54,7 @@ class Package extends Model {
   @Column({ field: "arrived_at" })
   arrivedAt?: Date;
 
-  @Column({ field: "export_at" })
+  @Column({ field: "exported_at" })
   exportedAt?: Date;
 
   @Column({ field: "received_at" })

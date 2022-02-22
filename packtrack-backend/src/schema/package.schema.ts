@@ -15,43 +15,31 @@ export const assignPackageSchema = z.object({
   }),
 });
 
-export const arrivePackageSchema = z.object({
+export const arriveNoAssignSchema = z.object({
   body: z.object({
     packages: z
       .object({
-        trackingNumber: z.string({
-          required_error: "trackingNumber is required",
-        }),
+        trackingNumber: z.string().optional(),
         transporterDigit: z.string({
           required_error: "transporterDigit is required",
         }),
         receiverId: z.number({
-          required_error: "transporterDigit is required",
+          required_error: "receiverId is required",
         }),
       })
       .array(),
   }),
 });
 
-export const pendingPackageSchema = z.object({
+export const PackageWithIdSchema = z.object({
   body: z.object({
     packages: z
       .object({
-        trackingNumber: z.string({
-          required_error: "trackingNumber is required",
+        id: z.number({
+          required_error: "id is required",
         }),
       })
       .array(),
   }),
 });
 
-
-export const receivePackageSchema = z.object({
-  body: z.object({
-    packages: z.object({
-      trackingNumber: z.string({
-          
-      })
-    })
-  })
-})

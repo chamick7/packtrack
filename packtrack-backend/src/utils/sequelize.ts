@@ -13,7 +13,7 @@ export const sequelize = new Sequelize({
   dialect: "mysql",
   username: DB_USERNAME,
   password: DB_PASSWORD,
-  timezone: "+7:00"
+  timezone: "Asia/Bangkok",
   // logging: false,
 });
 

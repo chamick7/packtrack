@@ -3,7 +3,11 @@ import { UserResponse } from "../types/auth.type";
 import { ROLE } from "../utils/role.enum";
 import { verifyJwt } from "../utils/jwt";
 
-export const decodeUserToken = (req: Request, res: Response, next: NextFunction) => {
+export const decodeUserToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const accessToken = req.headers.authorization?.replace(/^Bearer\s/, "");
 
   if (!accessToken) {
@@ -22,12 +26,20 @@ export const decodeUserToken = (req: Request, res: Response, next: NextFunction)
   if (tokenStatus.decoded) {
     const user = tokenStatus.decoded as UserResponse;
     req.user = user;
+  } else {
+    return res.status(401).json({
+      message: "token error",
+    });
   }
 
   return next();
 };
 
-export const decodeOfficerToken = (req: Request, res: Response, next: NextFunction) => {
+export const decodeOfficerToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const accessToken = req.headers.authorization?.replace(/^Bearer\s/, "");
 
   if (!accessToken) {
@@ -51,12 +63,20 @@ export const decodeOfficerToken = (req: Request, res: Response, next: NextFuncti
       });
     }
     req.user = user;
+  } else {
+    return res.status(401).json({
+      message: "token error",
+    });
   }
 
   return next();
 };
 
-export const decodeAdminToken = (req: Request, res: Response, next: NextFunction) => {
+export const decodeAdminToken = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const accessToken = req.headers.authorization?.replace(/^Bearer\s/, "");
 
   if (!accessToken) {
@@ -80,6 +100,10 @@ export const decodeAdminToken = (req: Request, res: Response, next: NextFunction
       });
     }
     req.user = user;
+  } else {
+    return res.status(401).json({
+      message: "token error",
+    });
   }
 
   return next();
