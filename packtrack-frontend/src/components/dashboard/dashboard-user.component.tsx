@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-
+import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { FaHistory } from "react-icons/fa";
 
+import RegisterPackage from "../popup/popup-register-package.component";
 
 const Packages = [
   {
@@ -117,73 +118,133 @@ const Packages = [
   },
 ];
 
-
-
 const DashboardUser = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
+  const [filterValue, setFilterValue] = useState({
+    global: { value: "", matchMode: FilterMatchMode.CONTAINS },
+    order: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    packagenumber: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    customer: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+  });
+  const [globalFilterValue, setGlobalFilterValue] = useState("");
 
+  const [registerModal, setRegisterModal] = useState(false);
 
-  const renderHeader = () =>{
+  const toggleModal = () =>{
+    setRegisterModal(!registerModal)
+  }
+
+  const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    let filter = { ...filterValue };
+    filterValue["global"].value = value;
+
+    setFilterValue(filter);
+    setGlobalFilterValue(value);
+  };
+
+  const renderHeader = () => {
     return (
       <div className="flex flex-row w-full justify-between text-sm">
-          <div className="flex flex-row">
-            <button className="font-[kanit] bg-main rounded text-white px-3 py-1">
-              + ลงทะเบียน
-            </button>
-            <form>
-              <input
-                type="text"
-                className="font-[kanit] text-base border-2 rounded h-fit mx-2 px-2"
-                placeholder="&#xF002; Search Here"
-                style={{ fontFamily: "Arial, FontAwesome" }}
-              />
-              <input
-                type="submit"
-                value="ค้นหา"
-                className="font-[kanit] bg-[#11C6FF] rounded text-white px-3 py-1"
-              />
-            </form>
-          </div>
-          <div>
-          <button className="flex flex-row justify-center items-center font-[kanit] bg-[#E5E5E5] rounded px-3 py-1">
-             <FaHistory className="mx-1" />ประวัติ
-            </button>
-          </div>
+        <div className="flex flex-row">
+          <button
+            className="font-[kanit] bg-main rounded text-white px-3 py-1"
+            onClick={toggleModal}
+          >
+            + ลงทะเบียน
+          </button>
+          <input
+            type="text"
+            className="font-[kanit] text-base border-2 rounded h-fit mx-2 px-2"
+            placeholder="&#xF002; Search Here"
+            style={{ fontFamily: "Arial, FontAwesome" }}
+            value={globalFilterValue}
+            onChange={onFilterChange}
+          />
         </div>
-    )
-  }
+        <div>
+          <button className="flex flex-row justify-center items-center font-[kanit] bg-[#E5E5E5] rounded px-3 py-1">
+            <FaHistory className="mx-1" />
+            ประวัติ
+          </button>
+        </div>
+      </div>
+    );
+  };
   const searchHeader = renderHeader();
 
+  const statusBody = (rowData: object) => {
+    // console.log("rowdata", rowData.status == "arrived");
+  };
+
   return (
-    <div className="flex flex-col justify-center w-full">
-      <div>
-        <DataTable
-          value={Packages}
-          selectionMode="checkbox"
-          selection={selectedPackage}
-          onSelectionChange={(e) => setSelectedPackage(e.value)}
-          dataKey="id"
-          responsiveLayout="scroll"
-          selectionPageOnly
-          paginator
-          rows={10}
-          className="border-2 rounded-t-3xl font-[kanit]"
-          header={searchHeader}
-          emptyMessage="No Package found."
-        >
-          <Column
-            selectionMode="multiple"
-            headerStyle={{ width: "3em" , backgroundColor:"#F0304A" , borderRadius: "1.5rem 0 0 0"}}
-          ></Column>
-          <Column field="order" header="ลำดับ" headerStyle={{backgroundColor:"#F0304A" , color:"white"}} />
-          <Column field="packagenumber" header="เลขพัสดุ" headerStyle={{backgroundColor:"#F0304A" , color:"white"}} />
-          <Column field="service" header="ผู้ให้บริการ" headerStyle={{backgroundColor:"#F0304A" , color:"white"}} />
-          <Column field="customer" header="ชื่อผู้รับ" headerStyle={{backgroundColor:"#F0304A" , color:"white"}} />
-          <Column field="contact" header="ช่องทางการติดต่อ" headerStyle={{backgroundColor:"#F0304A" , color:"white"}} />
-          <Column field="status" header="สถานะ" headerStyle={{backgroundColor:"#F0304A" , color:"white" , borderRadius: "0 1.5rem 0 0 "}} />
-        </DataTable>
+    <>
+      <div className="flex flex-col justify-center w-full">
+        <div>
+          <DataTable
+            value={Packages}
+            selectionMode="checkbox"
+            selection={selectedPackage}
+            onSelectionChange={(e) => setSelectedPackage(e.value)}
+            dataKey="id"
+            responsiveLayout="scroll"
+            selectionPageOnly
+            paginator
+            rows={10}
+            className="border-2 rounded-t-3xl font-[kanit]"
+            header={searchHeader}
+            filters={filterValue}
+            emptyMessage="No Package found."
+          >
+            <Column
+              selectionMode="multiple"
+              headerStyle={{
+                width: "3em",
+                backgroundColor: "#F0304A",
+                borderRadius: "1.5rem 0 0 0",
+              }}
+            ></Column>
+            <Column
+              field="order"
+              header="ลำดับ"
+              headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            />
+            <Column
+              field="packagenumber"
+              header="เลขพัสดุ"
+              headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            />
+            <Column
+              field="service"
+              header="ผู้ให้บริการ"
+              headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            />
+            <Column
+              field="customer"
+              header="ชื่อผู้รับ"
+              headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            />
+            <Column
+              field="contact"
+              header="ช่องทางการติดต่อ"
+              headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            />
+            <Column
+              // field="status"
+              body={statusBody}
+              header="สถานะ"
+              headerStyle={{
+                backgroundColor: "#F0304A",
+                color: "white",
+                borderRadius: "0 1.5rem 0 0 ",
+              }}
+            />
+          </DataTable>
+        </div>
       </div>
-    </div>
+    
+    <RegisterPackage isVisible={registerModal} onClose={toggleModal}  />
+    </>
   );
 };
 

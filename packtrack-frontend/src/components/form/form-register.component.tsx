@@ -82,6 +82,7 @@ const FormRegister: React.FC = () => {
   const onSubmit: SubmitHandler<Credential> = (data: Credential) => {
     delete data.confirmpassword
     console.log(data);
+    //let res = await axiosApiInstance.post("/api/user/invite/register", data);
   };
 
 
