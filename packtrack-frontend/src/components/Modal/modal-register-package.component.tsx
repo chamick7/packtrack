@@ -4,13 +4,13 @@ import { Dialog } from "primereact/dialog";
 import { transporters } from "../../constants/transporter";
 
 interface RegisterPackageProps {
-  isVisible: boolean;
-  onClose: () => void;
+  registerVisible: boolean;
+  registerOnClose: () => void;
 }
 
-const RegisterPackage: React.FC<RegisterPackageProps> = ({
-  isVisible,
-  onClose,
+const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
+  registerVisible,
+  registerOnClose,
 }) => {
   const headerText = (
     <span className="flex justify-center font-[kanit] text-[#5ECEFF] text-2xl">
@@ -21,10 +21,10 @@ const RegisterPackage: React.FC<RegisterPackageProps> = ({
   return (
     <Dialog
       header={headerText}
-      visible={isVisible}
+      visible={registerVisible}
       draggable={false}
       className="w-1/2"
-      onHide={onClose}
+      onHide={registerOnClose}
     >
       <form>
         <div className="flex flex-col justify-evenly rounded shadow p-10 border-l-8 border-l-[#D24337]">
@@ -57,4 +57,4 @@ const RegisterPackage: React.FC<RegisterPackageProps> = ({
   );
 };
 
-export default RegisterPackage;
+export default ModalRegisterPackage;

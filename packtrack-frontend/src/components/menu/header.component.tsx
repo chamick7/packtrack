@@ -7,6 +7,7 @@ import AuthContext from "../../providers/auth.provider";
 
 import logoPackTrack from "../../images/logoPackTrack.svg";
 
+
 const GetUser = () => {
   const authContext = useContext(AuthContext);
   const isAuthenticated = authContext.user;
@@ -53,9 +54,9 @@ const Header = () => {
 
   return (
     <>
-      <nav className="flex flex-row justify-between h-full max-h-[10vh] px-10">
+      <nav className="flex flex-row justify-between h-full items-center w-screen px-10 shadow-sm">
         <Link to="/" className="flex flex-row">
-          <img src={logoPackTrack} className="flex h-10" />
+          <img src={logoPackTrack} className="h-12 py-0.5" />
           <div className="hidden sm:flex">
             <span className="flex no-underline items-center justify-center font-[kanit] text-main text-xl">
               Pack

@@ -33,7 +33,9 @@ const HomePage = () => {
 
   return (
     <>
+      <div className="flex h-[8vh] w-full">
       <Header />
+      </div>
       <div>
         <div>
           <FirstHome />
