@@ -7,8 +7,6 @@ import email from "../../images/email.svg";
 import line from "../../images/line.svg"
 import sms from "../../images/sms.svg"
 
-import "./second-home.scss";
-
 const SecondHome = () => {
   return (
     <div

@@ -1,5 +1,4 @@
 import React, { ButtonHTMLAttributes, Children } from "react";
-import "./square-button.scss";
 
 const SquareButton = ({ ...otherProps }) => {
   return (

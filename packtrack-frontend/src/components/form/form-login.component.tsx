@@ -7,9 +7,6 @@ import { storeRefreshToken } from "../../services/token.service";
 
 import SquareInput from "../square-input/square-input.component";
 
-import "./form-login.scss";
-
-
 interface Credential {
   email: string;
   password: string;

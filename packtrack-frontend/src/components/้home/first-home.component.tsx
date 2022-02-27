@@ -4,7 +4,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import homeImg from "../../images/homeImg.svg"
 
-import "./first-home.scss";
 
 const FirstHome = () => {
   return (

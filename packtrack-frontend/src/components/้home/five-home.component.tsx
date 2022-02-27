@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./five-home.scss";
-
 import fiveHomeGuide from "../../images/five-home-guide.svg";
 import fiveHomeOrder from "../../images/five-home-order.svg";
 import membership from "../../images/membership.svg";

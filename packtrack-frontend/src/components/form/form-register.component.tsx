@@ -8,8 +8,6 @@ import axios from "axios";
 import SquareInput from "../square-input/square-input.component";
 import SquareButton from "../button/square-button.component";
 
-import "./form-register.scss";
-
 interface Credential {
   firstname: string;
   lastname: string;

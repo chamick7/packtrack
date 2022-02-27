@@ -1,6 +1,5 @@
 import React from "react";
 
-import "./login.scss";
 import homeImg from "../../images/homeImg.svg";
 import backgroundHome from "../../images/backgroundHome.svg";
 import FormLogin from "../../components/form/form-login.component";

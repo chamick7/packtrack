@@ -1,6 +1,5 @@
 import React from "react";
 
-import "./four-home.scss";
 import FourImage from "../../images/four-home.svg";
 
 const FourHome = () => {

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import "./register.page.tsx"
 import homeImg from "../../images/homeImg.svg";
 import backgroundHome from "../../images/backgroundHome.svg";
 import FormRegister from '../../components/form/form-register.component';

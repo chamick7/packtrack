@@ -1,10 +1,5 @@
 import React from "react";
 
-import "./third-home.scss";
-
-import ThirdHomeLeft from "../../images/third-home-left.jpg";
-import ThirdHomeRight from "../../images/third-home-right.jpg";
-
 import tlp from "../../images/LogoIMG/tlp.svg";
 import spx from "../../images/LogoIMG/spx.svg";
 import ker from "../../images/LogoIMG/ker.svg";

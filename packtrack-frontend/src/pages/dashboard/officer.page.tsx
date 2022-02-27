@@ -1,16 +1,14 @@
 import React from "react";
 
 import Sidebar from "../../components/menu/sidebar.component";
-import DashboardOfficer from "../../components/dashboard/dashboard.component";
+import DashboardOfficer from "../../components/dashboard/dashboard-officer.component";
 
 
-import "./dashboard-officer.scss"
 
 const Officer = () => {
   return (
-    <div className="container-fluid dashboardOfc-container">
-        <div className="col-3" ><Sidebar /></div>
-        <div className="col"><DashboardOfficer /></div>
+    <div className="flex w-full h-screen p-4">
+        <Sidebar />
     </div>
   );
 };
