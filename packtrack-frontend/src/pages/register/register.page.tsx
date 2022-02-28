@@ -12,10 +12,9 @@ const Register = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { validateToken } = useInviteToken();
   const [searchParmas, setSearchParams] = useSearchParams();
+  const inviteToken = searchParmas.get("token")?.toString();
 
   useEffect(() => {
-    const inviteToken = searchParmas.get("token")?.toString();
-
     const validate = async (inputToken: string) => {
       const valid = await validateToken(inputToken);
       if (valid) {
