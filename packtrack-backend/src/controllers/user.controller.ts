@@ -62,7 +62,7 @@ export const validateInviteToken = async (
   }
 
   if (valid && !expired && data) {
-    return res.status(403).json({
+    return res.status(200).json({
       valid: true,
       inviter: data.inviter?.firstName,
     });
