@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { Navbar, Nav , NavDropdown , Container } from "react-bootstrap"
+import { FaTimes, FaRegUserCircle } from "react-icons/fa";
 
 import AuthContext from "../../providers/auth.provider";
 
-import "./header.scss";
+import logoPackTrack from "../../images/logoPackTrack.svg";
 
-import logoPackTrack from "../../images/logoPackTrack.jpg";
-import userImg from "../../images/userImg.jpg"
 
 const GetUser = () => {
   const authContext = useContext(AuthContext);
@@ -17,60 +15,131 @@ const GetUser = () => {
   return (
     <>
       {isAuthenticated ? (
-        <Nav.Link href="/" className="d-flex justify-content-center text-blue mx-2">
+        <Link
+          to="/"
+          className="flex justify-center mx-2 items-center font-[kanit] text-[#8CD8F9] text-lg hover:text-[#8CD8F9]"
+        >
           {firstName}
-        </Nav.Link>
+        </Link>
       ) : (
-        <Nav.Link href="/login" className="d-flex justify-content-center text-blue mx-2" style={{ color:"#8CD8F9" }}>
+        <Link
+          to="/login"
+          className="flex justify-center mx-2 items-center font-[kanit] text-[#8CD8F9] text-lg hover:text-[#8CD8F9]"
+        >
           เข้าสู่ระบบ
-        </Nav.Link>
+        </Link>
       )}
     </>
   );
 };
 
 const Header = () => {
+  const [mobile, setMobile] = useState(false);
+  const [sidebar, setSidebar] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setMobile(true);
+      } else {
+        setMobile(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <Navbar bg="light" expand="lg" className="top-navbar">
-    <Container>
-      <Navbar.Brand href="/" className="col-6 d-flex flex-row">
-        <img src={logoPackTrack} className="d-flex" height="50vw" />
-        <div className="text-logo">
-        <span className="text-maincolor" style={{ fontSize: "1.2vw" }}>
-          Pack
-        </span>
-        <span
-          className="text-black"
-          style={{ fontWeight: "bold", fontSize: "1.2vw" }}
-        >
-          Track
-        </span>
-        </div>
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" ><img src={userImg} style={{ height: "2rem" , border:"none"}} /></Navbar.Toggle>
-      <Navbar.Collapse>
-        <Nav className="d-flex justify-content-around">
-          <Nav.Link
-            href="/"
-            className="d-flex justify-content-center mx-2 text-black"
-          >
-            เกี่ยวกับ Pack Track
-          </Nav.Link>
-          <Nav.Link
-            href="/"
-            className="d-flex justify-content-center mx-2 text-black"
-          >
-            การใช้งาน
-          </Nav.Link>
-          <GetUser />
-          <div className="d-flex justify-content-center mx-2 text-black">
-            <img src={userImg} className="userImg" style={{ height: "3vw" }} />
+    <>
+      <nav className="flex flex-row justify-between h-full items-center w-screen px-10 shadow-sm">
+        <Link to="/" className="flex flex-row">
+          <img src={logoPackTrack} className="h-12 py-0.5" />
+          <div className="hidden sm:flex">
+            <span className="flex no-underline items-center justify-center font-[kanit] text-main text-xl">
+              Pack
+            </span>
+            <span className="flex no-underline items-center justify-center font-[kanit] text-black text-xl font-bold">
+              Track
+            </span>
           </div>
-        </Nav>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
+        </Link>
+        {!mobile && (
+          <ul className="flex flex-row justify-end items-center">
+            <li>
+              <Link
+                to="/?section=about"
+                className="flex justify-center mx-2 items-center font-[kanit] text-black hover:text-black text-lg"
+              >
+                เกี่ยวกับ Pack Track
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/?section=manual"
+                className="flex justify-center mx-2 items-center font-[kanit] text-black hover:text-black text-lg"
+              >
+                การใช้งาน
+              </Link>
+            </li>
+            <li>
+              <GetUser />
+            </li>
+          </ul>
+        )}
+        {mobile && (
+          <div className="flex justify-center items-center">
+            {sidebar ? (
+              <FaTimes
+                className="flex text-3xl"
+                onClick={() => setSidebar(!sidebar)}
+              />
+            ) : (
+              <FaRegUserCircle
+                className="flex text-3xl"
+                onClick={() => setSidebar(!sidebar)}
+              />
+            )}
+          </div>
+        )}
+      </nav>
+
+      <div className={sidebar ? "flex flex-col w-2/3 h-screen absolute bg-white z-10 inset-y-0 right-0 transition ease-in-out duration-300" : "hidden"}>
+        <div className="">
+          <FaTimes
+            className="flex text-xl"
+            onClick={() => setSidebar(!sidebar)}
+          />
+          <div className="flex flex-col px-2">
+            <div className="flex flex-col justify-center items-center py-2 border-b-2 border-b-black">
+              <Link to="/login">
+                <button className="bg-main rounded  font-[kanit] text-white px-8 py-1  text-md">
+                  เข้าสู่ระบบ
+                </button>
+              </Link>
+            </div>
+            <div className="flex flex-col justify-start text-left">
+              <Link
+                to="/?section=about"
+                className="flex [kanit] text-black text-md py-2"
+              >
+                เกี่ยวกับ Pack Track
+              </Link>
+              <Link
+                to="/?section=manual"
+                className="flex [kanit] text-black text-md py-2"
+              >
+                การใช้งาน
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 
 export default Header;
+

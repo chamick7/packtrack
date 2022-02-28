@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import axiosApiInstance from "../../utils/axios";
 import { useNavigate } from 'react-router-dom';
 
+import { storeAccessToken } from "../../services/token.service";
+import { storeRefreshToken } from "../../services/token.service";
+
 import SquareInput from "../square-input/square-input.component";
-
-import "./form-login.scss";
-import { Button } from "react-bootstrap";
-
 
 interface Credential {
   email: string;
@@ -33,14 +32,8 @@ const FormLogin = () => {
       let res = await axiosApiInstance.post("/api/auth/login", credential);
       if (res.status === 200 && res.data) {
         localStorage.setItem("user", JSON.stringify(res.data.user));
-        localStorage.setItem(
-          "accessToken",
-          JSON.stringify(res.data.accessToken)
-        );
-        localStorage.setItem(
-          "refreshToken",
-          JSON.stringify(res.data.refreshToken)
-        );
+        storeAccessToken(res.data.accessToken)
+        storeRefreshToken(res.data.refreshToken)
       }
       return navigate(0);
     } catch (err) {
@@ -50,9 +43,9 @@ const FormLogin = () => {
 
   return (
     <>
-    <div className="form-login-container">
-      <div className="head-form mb-5">เข้าสู่ระบบ</div>
-      <form onSubmit={handleSubmit} className="form-login">
+    <div className="flex flex-col items-center justify-center py-[10vh] w-screen md:w-auto">
+      <div className="flex flex-col items-center justify-center font-[kanit] text-[20px] mb-5 md:text-[24px]">เข้าสู่ระบบ</div>
+      <form onSubmit={handleSubmit} className="flex flex-col w-10/12 h-8/12">
         <SquareInput
           type="email"
           name="email"
@@ -67,8 +60,8 @@ const FormLogin = () => {
           value={credential.password}
           label="รหัสผ่าน"
         />
-        <div className="submit-login mb-2">
-          <Button type="submit" className="button-submit-login">ยืนยัน</Button>
+        <div className="flex justify-center mt-4 md:justify-end">
+          <button type="submit" className="flex justify-center items-center bg-main rounded text-white px-20 py-1 md:px-10 md:py-2">ยืนยัน</button>
         </div>
       </form>
 
