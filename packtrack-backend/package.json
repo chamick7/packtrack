@@ -4,7 +4,7 @@
   "description": "packtrack for software-development project",
   "main": "index.ts",
   "scripts": {
-    "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only ./src/index.ts",
+    "dev": "SET NODE_ENV=development & ts-node-dev --respawn --transpile-only ./src/index.ts",
     "build": "tsc"
   },
   "author": "packtrack's team",
@@ -23,6 +23,7 @@
     "sequelize": "^6.13.0",
     "sequelize-typescript": "^2.1.2",
     "ts-node-dev": "^1.1.8",
+    "typescript": "^4.5.4",
     "zod": "^3.11.6"
   },
   "devDependencies": {
