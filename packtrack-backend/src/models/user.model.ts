@@ -24,7 +24,7 @@ class User extends Model {
 
   @AllowNull(false)
   @Column
-  password!: string;
+  password?: string;
 
   @AllowNull(false)
   @Column({ field: "first_name" })

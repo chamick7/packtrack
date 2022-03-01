@@ -1,11 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { clearAuthToken, decodeToken, getAccessToken } from "../services/token.service";
-import { User } from "../types/user.type";
+import { UserType } from "../types/user.type";
 
 interface AuthContextInterface {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  user: UserType | null;
+  setUser: React.Dispatch<React.SetStateAction<UserType | null>>;
   logout: () => void;
 }
 
@@ -18,7 +18,7 @@ const initialAuth = {
 const AuthContext = createContext<AuthContextInterface>(initialAuth);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [accessToken, setAccessToken] = useState<string | null>(getAccessToken());
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (accessToken) {
-      const decodedUser = decodeToken(accessToken!) as User;
+      const decodedUser = decodeToken(accessToken!) as UserType;
       setUser(decodedUser);
       console.log(decodedUser);
     }

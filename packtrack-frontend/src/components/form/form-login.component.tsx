@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import axiosApiInstance from "../../utils/axios";
-import { useNavigate } from 'react-router-dom';
-
 import SquareInput from "../square-input/square-input.component";
 
-import "./form-login.scss";
-import { Button } from "react-bootstrap";
+import { Credential } from "../../types/credential";
 
-
-interface Credential {
-  email: string;
-  password: string;
-}
+import useLogin from "../../hooks/useLogin";
 
 const FormLogin = () => {
-  let navigate = useNavigate();
+  const { getLogin } = useLogin();
 
   const [credential, setCredential] = useState<Credential>({
     email: "",
@@ -29,50 +21,40 @@ const FormLogin = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      let res = await axiosApiInstance.post("/api/auth/login", credential);
-      if (res.status === 200 && res.data) {
-        localStorage.setItem("user", JSON.stringify(res.data.user));
-        localStorage.setItem(
-          "accessToken",
-          JSON.stringify(res.data.accessToken)
-        );
-        localStorage.setItem(
-          "refreshToken",
-          JSON.stringify(res.data.refreshToken)
-        );
-      }
-      return navigate(0);
-    } catch (err) {
-      alert(JSON.stringify(err));
-    }
+    await getLogin(credential);
   };
 
   return (
     <>
-    <div className="form-login-container">
-      <div className="head-form mb-5">เข้าสู่ระบบ</div>
-      <form onSubmit={handleSubmit} className="form-login">
-        <SquareInput
-          type="email"
-          name="email"
-          onChange={handleChange}
-          value={credential.email}
-          label="อีเมล"
-        />
-        <SquareInput
-          type="password"
-          name="password"
-          onChange={handleChange}
-          value={credential.password}
-          label="รหัสผ่าน"
-        />
-        <div className="submit-login mb-2">
-          <Button type="submit" className="button-submit-login">ยืนยัน</Button>
+      <div className="flex flex-col items-center justify-center py-[10vh] w-screen md:w-auto">
+        <div className="flex flex-col items-center justify-center font-[kanit] text-[20px] mb-5 md:text-[24px]">
+          เข้าสู่ระบบ
         </div>
-      </form>
-
-    </div>
+        <form onSubmit={handleSubmit} className="flex flex-col w-10/12 h-8/12">
+          <SquareInput
+            type="email"
+            name="email"
+            onChange={handleChange}
+            value={credential.email}
+            label="อีเมล"
+          />
+          <SquareInput
+            type="password"
+            name="password"
+            onChange={handleChange}
+            value={credential.password}
+            label="รหัสผ่าน"
+          />
+          <div className="flex justify-center mt-4 md:justify-end">
+            <button
+              type="submit"
+              className="flex justify-center items-center bg-main rounded text-white px-20 py-1 md:px-10 md:py-2"
+            >
+              ยืนยัน
+            </button>
+          </div>
+        </form>
+      </div>
     </>
   );
 };
