@@ -6,6 +6,7 @@ import FormRegister from "../../components/form/form-register.component";
 import Header from "../../components/menu/header.component";
 import useInviteToken from "../../hooks/useInviteToken";
 import { useSearchParams } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const Register = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -32,7 +33,7 @@ const Register = () => {
   }, []);
 
   if (isLoading) {
-    return <h1>Loading</h1>;
+    return <div className="flex justify-center items-center w-screen h-screen"><ClipLoader color="#C84C42" size={150}  /></div>
   }
 
   if (isValid) {
@@ -45,19 +46,32 @@ const Register = () => {
           <img
             src={backgroundHome}
             className="hidden md:block fixed top-[90%] w-fit"
+            alt="Background"
           />
           <div className="flex flex-col justify-center items-center h-8/12 md:w-1/2 md:shadow-lg md:m-12 xl:mx-20">
-            <FormRegister />
+            <FormRegister inviteToken={inviteToken} />
           </div>
           <div className="flex justify-center h-4/12 md:w-1/2">
-            <img src={homeImg} className="w-8/12 p-2" />
+            <img src={homeImg} className="w-8/12 p-2" alt="Package and trasporter"/>
           </div>
         </div>
       </>
     );
   }
 
-  return <h1>Token Expired</h1>;
+  return (
+    <>
+    <div className="flex h-[8vh] w-full">
+      <Header />
+    </div>
+    <div className="flex flex-col h-[90vh] w-full justify-center items-center md:flex-row">
+      <div>
+      <div>ลิ้งก์หมดอายุ</div>
+      <div>กรุณาติดต่อพนักงาน เพื่อดำเนินการขอลงทะเบียนอีกครั้ง</div>
+      </div>
+    </div>
+  </>
+  );
 };
 
 export default Register;

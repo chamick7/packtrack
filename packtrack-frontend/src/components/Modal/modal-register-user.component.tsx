@@ -13,7 +13,7 @@ const ModalRegisterUser: React.FC<RegisterUser> = ({
   registerOnClose,
 }) => {
   const headerText = (
-    <span className="flex justify-center font-[kanit] font-extralight text-2xl">
+    <span className="flex justify-center font-[kanit] font-extralight text-lg md:text-xl">
       เพิ่มสมาชิกใหม่
     </span>
   );
@@ -24,7 +24,7 @@ const ModalRegisterUser: React.FC<RegisterUser> = ({
       visible={registerVisible}
       draggable={false}
       onHide={registerOnClose}
-      className="w-1/2"
+      className="w-2/3 md:w-1/2 xl:w-1/3"
     >
       <div>
         <GenInvite />

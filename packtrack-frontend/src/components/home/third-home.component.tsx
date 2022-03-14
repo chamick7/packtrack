@@ -11,7 +11,7 @@ import fdx from "../../images/LogoIMG/fdx.svg";
 
 const ThirdHome = () => {
   return (
-    <div className="flex flex-col justify-evenly h-full px-4 my-5 md:h-screen md:px-20 ">
+    <div className="flex flex-col justify-evenly h-full px-4 my-5 md:h-screen md:px-10 ">
       <div className="font-[kanit] text-xl py-4 xl:text-3xl">
         <span className="underline underline-offset-2 decoration-main decoration-4">
           บริษัทข
@@ -24,36 +24,36 @@ const ThirdHome = () => {
           <div className="flex flex-row">
             <div className="flex flex-col mt-5 md:mt-20">
               <div>
-                <img src={tlp} className="aspect-square w-fit" />
+                <img src={tlp} className="aspect-square w-fit" alt="tlp" />
               </div>
               <div>
-                <img src={spx} className="aspect-square w-fit" />
+                <img src={spx} className="aspect-square w-fit" alt="spx" />
               </div>
             </div>
             <div className="flex flex-col">
               <div>
-                <img src={ker} className="aspect-square w-fit" />
+                <img src={ker} className="aspect-square w-fit" alt="ker" />
               </div>
               <div>
-                <img src={lzd} className="aspect-square w-fit" />
+                <img src={lzd} className="aspect-square w-fit" alt="lzd" />
               </div>
             </div>
           </div>
           <div className="flex flex-row md:mt-20">
             <div className="flex flex-col">
               <div>
-                <img src={jnt} className="aspect-square w-fit" />
+                <img src={jnt} className="aspect-square w-fit" alt="jnt" />
               </div>
               <div>
-                <img src={dhl} className="aspect-square w-fit" />
+                <img src={dhl} className="aspect-square w-fit" alt="dhl" />
               </div>
             </div>
             <div className="flex flex-col -translate-y-32 md:-translate-y-0 mt-20">
               <div>
-                <img src={fls} className="aspect-square w-fit" />
+                <img src={fls} className="aspect-square w-fit" alt="fls" />
               </div>
               <div>
-                <img src={fdx} className="aspect-square w-fit" />
+                <img src={fdx} className="aspect-square w-fit" alt="fdx" />
               </div>
             </div>
           </div>

@@ -5,8 +5,9 @@ import { Column } from "primereact/column";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { FaHistory } from "react-icons/fa";
 
-import ModalRegisterPackage from "../Modal/modal-register-package.component";
-import ModalHistoryPackage from "../Modal/modal-history-package.component";
+import ModalRegisterPackage from "../modal/modal-register-package.component";
+import ModalHistoryPackage from "../modal/modal-history-package.component";
+import { Package } from "../../types/package";
 
 const Packages = [
   {
@@ -25,7 +26,7 @@ const Packages = [
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
-    status: "arrived",
+    status: "assigned",
   },
   {
     id: 2,
@@ -34,7 +35,7 @@ const Packages = [
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
-    status: "arrived",
+    status: "pending",
   },
   {
     id: 3,
@@ -43,7 +44,7 @@ const Packages = [
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
-    status: "arrived",
+    status: "received",
   },
   {
     id: 4,
@@ -120,7 +121,17 @@ const Packages = [
 ];
 
 const DashboardUser = () => {
+  // const [selectedPackage, setSelectedPackage] = useState<Package>({
+  //   id:0,
+  //   order:1,
+  //   packagenumber:"",
+  //   service:"",
+  //   customer:"",
+  //   contact:"",
+  //   status:"",
+  // });
   const [selectedPackage, setSelectedPackage] = useState(null);
+  const [onHistoryComp, setOnHistoryComp] = useState<boolean>(false)
   const [filterValue, setFilterValue] = useState({
     global: { value: "", matchMode: FilterMatchMode.CONTAINS },
     order: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -180,14 +191,41 @@ const DashboardUser = () => {
   };
   const searchHeader = renderHeader();
 
-  const statusBody = (rowData: object) => {
-    // console.log("rowdata", rowData.status == "arrived");
+  const statusBody = (rowData: any) => {
+    if(rowData.status === "assigned"){
+      return <span className="bg-[#FFC711] w-full rounded-lg py-1 text-white text-center">รอการจัดส่ง</span>
+    }
+    else if(rowData.status === "arrived"){
+      return <span className="bg-[#11C6FF] w-full rounded-lg py-1 text-white text-center">พัสดุถึงสำนักงาน</span>
+    }
+    else if(rowData.status === "pending"){
+      return <span className="bg-[#F9A512] w-full rounded-lg py-1 text-white text-center">รอการยืนยัน</span>
+    }
+    else if(rowData.status === "received"){
+      return <span className="bg-[#10C167] w-full rounded-lg py-1 text-white text-center">จ่ายสำเร็จ</span>
+    }
+    else {
+      return <span>-</span>
+    }
   };
+
+  const recieving = () =>{
+    console.log("select",selectedPackage);
+  }
+
+  const footerGroup = () =>{
+    return (
+      <div className="flex justify-end">
+        <button className="font-[kanit] bg-[#11C6FF] rounded text-white px-3 py-1" onClick={recieving}>รับพัสดุ</button>
+      </div>
+    )
+  }
 
   return (
     <>
         <div className="flex flex-col justify-center w-full">
-          <DataTable
+         {onHistoryComp === false && (
+         <DataTable
             value={Packages}
             selectionMode="checkbox"
             selection={selectedPackage}
@@ -204,6 +242,7 @@ const DashboardUser = () => {
             header={searchHeader}
             filters={filterValue}
             emptyMessage="No Package found."
+            footer={footerGroup}
           >
             <Column
               selectionMode="multiple"
@@ -247,8 +286,10 @@ const DashboardUser = () => {
                 color: "white",
                 borderRadius: "0 1.5rem 0 0 ",
               }}
+              className="flex justify-center w-full text-center"
             />
           </DataTable>
+          )} 
         </div>
 
 

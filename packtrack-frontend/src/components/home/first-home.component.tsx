@@ -7,10 +7,10 @@ import homeImg from "../../images/homeImg.svg"
 
 const FirstHome = () => {
   return (
-    <div className="container flex flex-col justify-start h-full items-center py-8 px-4 md:flex-row md:h-[90vh] md:justify-around md:w-10/12">
+    <div className="container flex flex-col justify-start h-full items-center py-8 px-4 md:flex-row md:h-[90vh] md:justify-around md:px-10">
         <div className="flex flex-col justify-start text-center md:justify-center">
           <div>
-            <div className="font-[kanit] text-lg md:text-2xl md:text-left">ยินดีต้อนรับเข้าสู่ระบบจัดการพัสดุ</div>
+            <div className="font-[kanit] text-lg  md:text-2xl md:text-left ">ยินดีต้อนรับเข้าสู่ระบบจัดการพัสดุ</div>
             <div className="font-[kanit] text-7xl py-4 md:text-left"><span className="text-second">Pack</span>Track</div>
             <div className="font-[kanit] text-sm text-start md:w-9/12">
               ระบบจัดการจดหมาย และพัสดุสำนักงานที่มีความสะดวก รวดเร็ว และปลอดภัย
@@ -21,7 +21,7 @@ const FirstHome = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col justify-center text-center"><img src={homeImg} className="w-[400px] md:w-[600px]"/></div>
+        <div className="flex flex-col justify-center text-center"><img src={homeImg} className="w-[400px] md:w-[600px]" alt="home"/></div>
       </div>
   );
 };

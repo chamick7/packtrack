@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { transporters } from "../../constants/transporter";
+// import useTransporter from "../../hooks/useTransporter"
+import {IoMdClose} from "react-icons/io"
+
 
 interface Props {
   handleChangeTrackingNumber: (
@@ -25,6 +28,20 @@ const FormRegisterPackage: React.FC<Props> = (props) => {
     index,
     handleDelete,
   } = props;
+  
+  // const { getAllTrans } = useTransporter();
+
+  // const getTransporters = async () => {
+  //   const transporters = await getAllTrans()
+  //   console.log("trans",transporters);
+  //   return transporters
+  // }
+
+  // useEffect(()=> {
+  //   getTransporters();
+  // },[])
+
+
   return (
     <>
       <div className="flex flex-col justify-evenly rounded shadow p-10 border-l-8 border-l-[#D24337]">
@@ -33,8 +50,9 @@ const FormRegisterPackage: React.FC<Props> = (props) => {
           onClick={() => {
             handleDelete(index);
           }}
+          className="flex justify-end mb-2"
         >
-          remove
+          <IoMdClose />
         </button>
         <div className="flex flex-row justify-evenly items-center font-[kanit]">
           <label className="w-1/2">เลขติดตามพัสดุ (Track & Trace)</label>
@@ -57,7 +75,7 @@ const FormRegisterPackage: React.FC<Props> = (props) => {
               handleChangeTransporter(e, index);
             }}
           >
-            <option className="hidden" selected>
+            <option className="hidden" selected >
               กรุณาเลือกผู้ให้บริการขนส่งของท่าน
             </option>
             {transporters.map((transporter) => (

@@ -2,11 +2,8 @@ import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
-import axios from "axios";
-
-import SquareInput from "../square-input/square-input.component";
-import SquareButton from "../button/square-button.component";
+import axiosApiInstance from "../../utils/axios";
+import { useNavigate } from "react-router-dom";
 
 interface Credential {
   firstname: string;
@@ -16,6 +13,10 @@ interface Credential {
   confirmpassword?: string;
   phone: string;
   notify: string;
+}
+
+interface FormRegister {
+  inviteToken:string | undefined;
 }
 
 const phoneRegExp =
@@ -43,7 +44,11 @@ const registerSchema = yup
   })
   .required();
 
-const FormRegister: React.FC = () => {
+
+
+const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
+  const navigate = useNavigate();
+
   const [credential, setCredential] = useState<Credential>({
     firstname: "",
     lastname: "",
@@ -77,10 +82,19 @@ const FormRegister: React.FC = () => {
     nextStep();
   };
 
-  const onSubmit: SubmitHandler<Credential> = (data: Credential) => {
-    delete data.confirmpassword
-    console.log(data);
-    //let res = await axiosApiInstance.post("/api/user/invite/register", data);
+  const onSubmit: SubmitHandler<Credential> = async (user: Credential) => {
+    delete user.confirmpassword
+    const registerData = {inviteToken,user}
+    console.log(registerData);
+    try{
+      let res = await axiosApiInstance.post("/api/user/invite/register", registerData);
+      if(res.status === 200){
+        navigate('/user')
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
   };
 
 

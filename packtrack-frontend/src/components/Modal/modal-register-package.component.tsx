@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import _ from "lodash";
 import FormRegisterPackage from "../form/form-regis-package.component";
+import {GrAddCircle} from "react-icons/gr"
+import axiosApiInstance from "../../utils/axios";
 
 interface RegisterPackageProps {
   registerVisible: boolean;
@@ -9,9 +11,9 @@ interface RegisterPackageProps {
 }
 
 interface RegisPackage {
-  id?: string;
+  receiverId?: string;
   trackingNumber: string;
-  transporter: string;
+  transporterDigit: string;
 }
 
 const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
@@ -19,7 +21,7 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
   registerOnClose,
 }) => {
   const [packages, setPackages] = useState<RegisPackage[]>([
-    { id: _.uniqueId(), trackingNumber: "", transporter: "" },
+    { receiverId: _.uniqueId(), trackingNumber: "", transporterDigit: "" },
   ]);
   const headerText = (
     <span className="flex justify-center font-[kanit] text-[#5ECEFF] text-2xl">
@@ -41,17 +43,25 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
     index: number
   ) => {
     const clonePackages = [...packages];
-    clonePackages[index].transporter = event.target.value;
+    clonePackages[index].transporterDigit = event.target.value;
     setPackages(clonePackages);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(packages);
+    try{
+      let res = await axiosApiInstance.post("/api/package/assign",{packages});
+      if (res.status === 201){
+        registerOnClose();
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
   };
 
   const handleIncrease = () => {
-    const original = { id: _.uniqueId(), trackingNumber: "", transporter: "" };
+    const original = { receiverId: _.uniqueId(), trackingNumber: "", transporterDigit: "" };
     setPackages((packages) => [...packages, original]);
   };
 
@@ -74,17 +84,17 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
       <form onSubmit={handleSubmit}>
         {packages.map((item, index) => (
           <FormRegisterPackage
-            key={item.id}
+            key={item.receiverId}
             index={index}
             handleChangeTrackingNumber={handleChangeTrackingNumber}
             handleChangeTransporter={handleChangeTransporter}
             trackingNumber={item.trackingNumber}
-            transporter={item.transporter}
+            transporter={item.transporterDigit}
             handleDelete={handleDelete}
           />
         ))}
-        <button type="button" onClick={handleIncrease}>
-          +
+        <button type="button" onClick={handleIncrease} className="flex w-full justify-center mt-4">
+          <GrAddCircle className="text-3xl text-main" />
         </button>
 
         <div className="flex flex-row justify-center mt-5">
