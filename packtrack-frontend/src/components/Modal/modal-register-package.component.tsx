@@ -11,7 +11,7 @@ interface RegisterPackageProps {
 }
 
 interface RegisPackage {
-  receiverId?: string;
+  packageId?: string;
   trackingNumber: string;
   transporterDigit: string;
 }
@@ -21,7 +21,7 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
   registerOnClose,
 }) => {
   const [packages, setPackages] = useState<RegisPackage[]>([
-    { receiverId: _.uniqueId(), trackingNumber: "", transporterDigit: "" },
+    { packageId: _.uniqueId(), trackingNumber: "", transporterDigit: "" },
   ]);
   const headerText = (
     <span className="flex justify-center font-[kanit] text-[#5ECEFF] text-2xl">
@@ -61,7 +61,7 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
   };
 
   const handleIncrease = () => {
-    const original = { receiverId: _.uniqueId(), trackingNumber: "", transporterDigit: "" };
+    const original = { packageId: _.uniqueId(), trackingNumber: "", transporterDigit: "" };
     setPackages((packages) => [...packages, original]);
   };
 
@@ -84,7 +84,7 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
       <form onSubmit={handleSubmit}>
         {packages.map((item, index) => (
           <FormRegisterPackage
-            key={item.receiverId}
+            key={item.packageId}
             index={index}
             handleChangeTrackingNumber={handleChangeTrackingNumber}
             handleChangeTransporter={handleChangeTransporter}

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 // import { transporters } from "../../constants/transporter";
-import useTransporter from "../../hooks/useTransporter"
-import {IoMdClose} from "react-icons/io"
-import {TransportersType} from "../../types/transporters.type"
+import useTransporter from "../../hooks/useTransporter";
+import { IoMdClose } from "react-icons/io";
+import { TransportersType } from "../../types/transporters.type";
 
 interface Props {
   handleChangeTrackingNumber: (
@@ -28,26 +28,8 @@ const FormRegisterPackage: React.FC<Props> = (props) => {
     index,
     handleDelete,
   } = props;
-  
-  const [allTransporters , setAllTransporters] = useState<TransportersType>({
-    id:0 ,
-    digit:"" ,
-    name:"" ,
-  })
-  const { getAllTrans } = useTransporter();
 
-  const getTransporters = async () => {
-    const fetchTransporter = await getAllTrans()
-    if(fetchTransporter){
-      setAllTransporters(fetchTransporter)
-      console.log(allTransporters);
-    }
-  }
-
-  useEffect(()=> {
-    getTransporters();
-  },[])
-
+  const { transporters } = useTransporter();
 
   return (
     <>
@@ -82,14 +64,14 @@ const FormRegisterPackage: React.FC<Props> = (props) => {
               handleChangeTransporter(e, index);
             }}
           >
-            <option className="hidden" selected >
+            <option value="" className="hidden">
               กรุณาเลือกผู้ให้บริการขนส่งของท่าน
             </option>
-            {/* {allTransporters.map((item:TransportersType) => (
+            {transporters.map((item) => (
               <option key={item.digit} value={item.digit}>
                 {item.name}
               </option>
-            ))} */}
+            ))}
           </select>
         </div>
       </div>
