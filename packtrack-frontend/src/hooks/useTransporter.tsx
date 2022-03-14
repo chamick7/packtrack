@@ -1,17 +1,16 @@
 import React from "react";
 import axiosApiInstance from "../utils/axios";
-import {Transporters} from "../types/transporters.type"
+import {TransportersType} from "../types/transporters.type"
 
 interface trans {
     message:string;
-    transporter:Transporters;
+    transporter:TransportersType;
 }
 
 const useTransporter = () => {
-  const getAllTrans = async (): Promise<trans | null> => {
+  const getAllTrans = async (): Promise<TransportersType | null> => {
     try {
       let res = await axiosApiInstance.get("/api/transporter/all");
-      console.log(res.data);
       return res.data.transporter;
     } catch (err) {
       console.log(err);

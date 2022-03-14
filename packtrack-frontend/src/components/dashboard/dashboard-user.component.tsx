@@ -137,6 +137,7 @@ const DashboardUser = () => {
     order: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     packagenumber: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     customer: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    status: { value: "received" , matchMode: FilterMatchMode.NOT_CONTAINS },
   });
   const [globalFilterValue, setGlobalFilterValue] = useState("");
   const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -213,7 +214,7 @@ const DashboardUser = () => {
     console.log("select",selectedPackage);
   }
 
-  const footerGroup = () =>{
+  const footerButton = () =>{
     return (
       <div className="flex justify-end">
         <button className="font-[kanit] bg-[#11C6FF] rounded text-white px-3 py-1" onClick={recieving}>รับพัสดุ</button>
@@ -233,6 +234,7 @@ const DashboardUser = () => {
             dataKey="id"
             selectionPageOnly
             paginator
+            paginatorRight={footerButton}
             scrollable
             scrollHeight="flex"
             responsiveLayout="scroll"
@@ -242,7 +244,6 @@ const DashboardUser = () => {
             header={searchHeader}
             filters={filterValue}
             emptyMessage="No Package found."
-            footer={footerGroup}
           >
             <Column
               selectionMode="multiple"

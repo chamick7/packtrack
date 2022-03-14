@@ -256,10 +256,10 @@ const DashboardOfficer = () => {
     console.log("select", selectedPackage);
   };
 
-  const footerGroup = () => {
+  const footerButton = () => {
     return (
-      <div className="flex justify-end">
-        <div className="flex w-5/12 justify-around lg:w-3/12">
+      <div className="flex justify-end w-fit">
+        <div className="flex w-5/12 justify-around lg:w-6/12">
           <button
             className="font-[kanit] bg-[#11C6FF] rounded text-white px-3 py-1"
             onClick={arriving}
@@ -288,6 +288,7 @@ const DashboardOfficer = () => {
           dataKey="id"
           selectionPageOnly
           paginator
+          paginatorRight={footerButton}
           scrollable
           scrollHeight="flex"
           responsiveLayout="scroll"
@@ -297,7 +298,6 @@ const DashboardOfficer = () => {
           header={searchHeader}
           filters={filterValue}
           emptyMessage="No Package found."
-          footer={footerGroup}
         >
           <Column
             selectionMode="multiple"

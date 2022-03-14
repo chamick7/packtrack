@@ -16,7 +16,7 @@ const GenInvite = () => {
     if (inviteToken) {
       setToken(inviteToken);
       setTimeout(() => setButtonDisabled(false), 5000);
-      setUrl(`${window.location.origin}/register?token=${token}`);
+      await setUrl(`${window.location.origin}/register?token=${token}`);
     }
   };
 
