@@ -1,7 +1,7 @@
 export interface Package {
     id:number;
     order:number;
-    packagenumber:string;
+    packageNumber:string;
     service:string;
     customer:string;
     contact:string;

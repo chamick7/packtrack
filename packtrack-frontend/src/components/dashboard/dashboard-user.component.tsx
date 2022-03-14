@@ -13,7 +13,7 @@ const Packages = [
   {
     id: 0,
     order: 1,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "kerry",
     customer: "miw",
     contact: "e-mail",
@@ -22,7 +22,7 @@ const Packages = [
   {
     id: 1,
     order: 2,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -31,7 +31,7 @@ const Packages = [
   {
     id: 2,
     order: 3,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -40,7 +40,7 @@ const Packages = [
   {
     id: 3,
     order: 4,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -49,7 +49,7 @@ const Packages = [
   {
     id: 4,
     order: 5,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -58,7 +58,7 @@ const Packages = [
   {
     id: 5,
     order: 6,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -67,7 +67,7 @@ const Packages = [
   {
     id: 6,
     order: 7,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -76,7 +76,7 @@ const Packages = [
   {
     id: 7,
     order: 8,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -85,7 +85,7 @@ const Packages = [
   {
     id: 8,
     order: 9,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -94,7 +94,7 @@ const Packages = [
   {
     id: 9,
     order: 10,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -103,7 +103,7 @@ const Packages = [
   {
     id: 10,
     order: 11,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -112,7 +112,7 @@ const Packages = [
   {
     id: 11,
     order: 12,
-    packagenumber: "ES124574824TH",
+    packageNumber: "ES124574824TH",
     service: "flash",
     customer: "nattawat",
     contact: "e-mail",
@@ -121,21 +121,13 @@ const Packages = [
 ];
 
 const DashboardUser = () => {
-  // const [selectedPackage, setSelectedPackage] = useState<Package>({
-  //   id:0,
-  //   order:1,
-  //   packagenumber:"",
-  //   service:"",
-  //   customer:"",
-  //   contact:"",
-  //   status:"",
-  // });
-  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState<Package[]>([]);
+  // const [selectedPackage, setSelectedPackage] = useState(null);
   const [onHistoryComp, setOnHistoryComp] = useState<boolean>(false)
   const [filterValue, setFilterValue] = useState({
     global: { value: "", matchMode: FilterMatchMode.CONTAINS },
     order: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
-    packagenumber: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    packageNumber: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     customer: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
     status: { value: "received" , matchMode: FilterMatchMode.NOT_CONTAINS },
   });
@@ -211,7 +203,7 @@ const DashboardUser = () => {
   };
 
   const recieving = () =>{
-    console.log("select",selectedPackage);
+    console.log("select", selectedPackage);
   }
 
   const footerButton = () =>{
@@ -259,7 +251,7 @@ const DashboardUser = () => {
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
             />
             <Column
-              field="packagenumber"
+              field="packageNumber"
               header="เลขพัสดุ"
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
             />
@@ -279,7 +271,7 @@ const DashboardUser = () => {
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
             />
             <Column
-              // field="status"
+              field="status"
               body={statusBody}
               header="สถานะ"
               headerStyle={{

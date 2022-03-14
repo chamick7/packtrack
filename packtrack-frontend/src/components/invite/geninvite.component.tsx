@@ -7,8 +7,8 @@ const GenInvite = () => {
   const { genToken } = useInviteToken();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
-  const [url, setUrl] = useState("");
-  // const url = `${window.location.origin}/register?token=${token}`;
+  // const [url, setUrl] = useState("");
+  const url = `${window.location.origin}/register?token=${token}`;
 
   const generateToken = async () => {
     setButtonDisabled(true);
@@ -16,7 +16,6 @@ const GenInvite = () => {
     if (inviteToken) {
       setToken(inviteToken);
       setTimeout(() => setButtonDisabled(false), 5000);
-      await setUrl(`${window.location.origin}/register?token=${token}`);
     }
   };
 
@@ -37,7 +36,7 @@ const GenInvite = () => {
         <div className="flex flex-col w-full">
           <label className="font-[kanit] ">ลิงก์เพื่อลงทะเบียน</label>
           <div onClick={() => `${window.open(url,'_blank')}`} className="cursor-pointer w-full truncate border rounded border-[#F0304A] py-4 px-2 font-[kanit] text-[#00B1FF] my-1">
-            {url}
+            {token && url}
           </div>
           <button
             onClick={clickToCopy}

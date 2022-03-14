@@ -6,11 +6,11 @@ import axiosApiInstance from "../../utils/axios";
 import { useNavigate } from "react-router-dom";
 
 interface Credential {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
-  confirmpassword?: string;
+  confirmPassword?: string;
   phone: string;
   notify: string;
 }
@@ -25,15 +25,15 @@ const phoneRegExp =
 const registerSchema = yup
   .object()
   .shape({
-    firstname: yup.string().required("Firstname is required"),
-    lastname: yup.string().required("Lastname is required"),
+    firstName: yup.string().required("Firstname is required"),
+    lastName: yup.string().required("Lastname is required"),
     email: yup.string().email().required("Email is required"),
     password: yup
       .string()
       .required("Password is required")
       .min(6, "Password is too short - should be 6 chars minimum")
       .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
-    confirmpassword: yup
+    confirmPassword: yup
       .string()
       .required("Password is required")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
@@ -50,11 +50,11 @@ const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
   const navigate = useNavigate();
 
   const [credential, setCredential] = useState<Credential>({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
-    confirmpassword: "",
+    confirmPassword: "",
     phone: "",
     notify: "",
   });
@@ -83,7 +83,7 @@ const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
   };
 
   const onSubmit: SubmitHandler<Credential> = async (user: Credential) => {
-    delete user.confirmpassword
+    delete user.confirmPassword
     const registerData = {inviteToken,user}
     console.log(registerData);
     try{
@@ -107,19 +107,19 @@ const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
             <div className="w-1/2 mr-1">
               <div className="flex flex-col">
                 <label
-                  htmlFor="firstname"
+                  htmlFor="firstName"
                   className="inline font-[kanit] text-sm pl-4 translate-y-3 md:text-xl"
                 >
                   <span className="bg-white px-1">ชื่อ</span>
                 </label>
                 <input
                   type="text"
-                  {...register("firstname")}
+                  {...register("firstName")}
                   className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
                 />
-                {errors.firstname && (
+                {errors.firstName && (
                   <p className="inline font-[kanit] text-[12px] text-red-600">
-                    {errors.firstname.message}
+                    {errors.firstName.message}
                   </p>
                 )}
               </div>
@@ -127,19 +127,19 @@ const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
             <div className="w-1/2">
               <div className="flex flex-col">
                 <label
-                  htmlFor="lastname"
+                  htmlFor="lastName"
                   className="inline font-[kanit] text-sm pl-4 translate-y-3 md:text-xl"
                 >
                   <span className="bg-white px-1">นามสกุล</span>
                 </label>
                 <input
                   type="text"
-                  {...register("lastname")}
+                  {...register("lastName")}
                   className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
                 />
-                {errors.lastname && (
+                {errors.lastName && (
                   <p className="inline font-[kanit] text-[12px] text-red-600">
-                    {errors.lastname.message}
+                    {errors.lastName.message}
                   </p>
                 )}
               </div>
@@ -190,12 +190,12 @@ const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
             </label>
             <input
               type="password"
-              {...register("confirmpassword")}
+              {...register("confirmPassword")}
               className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
             />
-            {errors.confirmpassword && (
+            {errors.confirmPassword && (
               <p className="inline font-[kanit] text-[12px] text-red-600">
-                {errors.confirmpassword.message}
+                {errors.confirmPassword.message}
               </p>
             )}
           </div>
