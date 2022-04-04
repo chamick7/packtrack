@@ -8,7 +8,7 @@ import {
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
-import User from "./user.model";
+import User from "../user/user.model";
 
 @Table({ tableName: "invite_tokens" })
 class InviteToken extends Model {

@@ -8,9 +8,9 @@ import {
   Table,
   Unique,
 } from "sequelize-typescript";
-import { PACKAGE_STATUS } from "../utils/package.enum";
-import Transporter from "./transporter.model";
-import User from "./user.model";
+import { PACKAGE_STATUS } from "../../utils/package.enum";
+import Transporter from "../transporter/transporter.model";
+import User from "../user/user.model";
 
 @Table({ tableName: "packages" })
 class Package extends Model {

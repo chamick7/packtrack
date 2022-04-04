@@ -1,7 +1,7 @@
 import express from "express";
-import { login, refreshAccessToken } from "../controllers/auth.controller";
-import validate from "../middleware/validate-resource.middleware";
-import { loginSchema } from "../schema/auth.schema";
+import { login, refreshAccessToken } from "./auth.controller";
+import validate from "../../middleware/validate-resource.middleware";
+import { loginSchema } from "../../schema/auth.schema";
 
 //  /api/auth
 const authRouter = express.Router();

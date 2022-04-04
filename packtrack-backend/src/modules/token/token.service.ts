@@ -1,9 +1,9 @@
-import { UserResponse } from "../types/auth.type";
-import { signJwt, verifyJwt } from "../utils/jwt";
+import { UserResponse } from "../../types/auth.type";
+import { signJwt, verifyJwt } from "../../utils/jwt";
 import config from "config";
-import InviteToken from "../models/invite-token.model";
+import InviteToken from "./invite-token.model";
 import dayjs from "dayjs";
-import User from "../models/user.model";
+import User from "../user/user.model";
 
 export const createAccessToken = (user: UserResponse) => {
   const accessToken = signJwt(user, { expiresIn: config.get("token.accessToken.expired") });

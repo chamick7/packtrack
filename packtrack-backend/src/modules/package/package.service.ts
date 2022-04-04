@@ -1,14 +1,16 @@
-import { receivePackage } from "./../controllers/package.controller";
-import { PACKAGE_STATUS } from "./../utils/package.enum";
-import Package from "../models/package.model";
+import { receivePackage } from "./package.controller";
+import { PACKAGE_STATUS } from "../../utils/package.enum";
+import Package from "./package.model";
 import {
   GroupPackage,
   MailingPackage,
   QueryPackage,
   UpdatePackage,
-} from "./../types/package.type";
+} from "../../types/package.type";
 import _ from "lodash";
 import { FindOptions, Op, WhereOptions } from "sequelize";
+import User from "../user/user.model";
+import Transporter from "../transporter/transporter.model";
 
 export const insertNewPackage = async (
   packages: QueryPackage[],
@@ -169,4 +171,99 @@ export const splitPackageByReceiver = (packages: MailingPackage[]) => {
 
 const getIdFromPackages = (packages: { id: number }[]): number[] => {
   return packages.map((item) => item.id);
+};
+
+export const getPackageByUserId = async (
+  userId: number,
+  whereOption?: WhereOptions<Package>
+) => {
+  try {
+    const queryResult = await Package.findAll({
+      where: {
+        receiverId: userId,
+
+        ...whereOption,
+      },
+      include: [
+        {
+          model: User,
+          as: "receiver",
+          attributes: ["firstName", "lastName"],
+        },
+        {
+          model: User,
+          as: "officerImport",
+          attributes: ["firstName", "lastName"],
+        },
+        {
+          model: User,
+          as: "officerExport",
+          attributes: ["firstName", "lastName"],
+        },
+        {
+          model: Transporter,
+          as: "transporter",
+          attributes: ["name"],
+        },
+      ],
+      attributes: [
+        "id",
+        "trackingNumber",
+        "arrivedAt",
+        "exportedAt",
+        "receivedAt",
+        "createdAt",
+        "status",
+      ],
+      order: [["status", "ASC"]],
+    });
+    return queryResult;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getAllPackages = async (whereOption?: WhereOptions<Package>) => {
+  try {
+    const queryResult = await Package.findAll({
+      where: {
+        ...whereOption,
+      },
+      include: [
+        {
+          model: User,
+          as: "receiver",
+          attributes: ["firstName", "lastName"],
+        },
+        {
+          model: User,
+          as: "officerImport",
+          attributes: ["firstName", "lastName"],
+        },
+        {
+          model: User,
+          as: "officerExport",
+          attributes: ["firstName", "lastName"],
+        },
+        {
+          model: Transporter,
+          as: "transporter",
+          attributes: ["name"],
+        },
+      ],
+      attributes: [
+        "id",
+        "trackingNumber",
+        "arrivedAt",
+        "exportedAt",
+        "receivedAt",
+        "createdAt",
+        "status",
+      ],
+      order: [["status", "ASC"]],
+    });
+    return queryResult;
+  } catch (error) {
+    return null;
+  }
 };

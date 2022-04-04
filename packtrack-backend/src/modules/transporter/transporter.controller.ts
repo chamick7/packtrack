@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import Transporter from "../models/transporter.model";
-import { findAllTransporters, isGenerated } from "../services/transporter.service";
-import { transporterList } from "../utils/transporter-list";
+import Transporter from "./transporter.model";
+import { findAllTransporters, isGenerated } from "./transporter.service";
+import { transporterList } from "../../utils/transporter-list";
 
 export const generateTransporter = async (req: Request, res: Response): Promise<Response> => {
   if (await isGenerated()) {

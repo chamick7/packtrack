@@ -1,12 +1,12 @@
-import { getUserFromRole } from "./../services/user.service";
+import { getUserFromRole } from "./user.service";
 import { Request, Response } from "express";
 import {
   createInviteToken,
   findInviteToken,
   saveInviteToken,
   verifyInviteToken,
-} from "../services/token.service";
-import { ROLE } from "../utils/role.enum";
+} from "../token/token.service";
+import { ROLE } from "../../utils/role.enum";
 
 export const getSelfUser = async (
   req: Request,

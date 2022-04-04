@@ -3,18 +3,18 @@ import {
   decodeAdminToken,
   decodeOfficerToken,
   decodeUserToken,
-} from "../middleware/token-user.middleware";
+} from "../../middleware/token-user.middleware";
 import {
   getMembers,
   getOfficers,
   getSelfUser,
   sendInviteToken,
   validateInviteToken,
-} from "../controllers/user.controller";
-import validate from "../middleware/validate-resource.middleware";
-import { validateInviteTokenSchema } from "../schema/token.schema";
-import { registerWithTokenSchema } from "../schema/auth.schema";
-import { registerWithToken } from "../controllers/auth.controller";
+} from "./user.controller";
+import validate from "../../middleware/validate-resource.middleware";
+import { validateInviteTokenSchema } from "../../schema/token.schema";
+import { registerWithTokenSchema } from "../../schema/auth.schema";
+import { registerWithToken } from "../auth/auth.controller";
 
 const userRouter = express.Router();
 

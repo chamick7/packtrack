@@ -1,5 +1,5 @@
 import { Optional } from "sequelize/types";
-import User from "../models/user.model";
+import User from "../modules/user/user.model";
 
 export interface LoginDto {
   email: string;
@@ -14,6 +14,7 @@ export interface RegisterDto {
     firstName: string;
     lastName: string;
     mobile: string;
+    notification: string[];
   };
 }
 
