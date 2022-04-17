@@ -7,6 +7,7 @@ import Header from "../../components/menu/header.component";
 import useInviteToken from "../../hooks/useInviteToken";
 import { useSearchParams } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
+import {FaRegClock} from "react-icons/fa"
 
 const Register = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -65,9 +66,10 @@ const Register = () => {
       <Header />
     </div>
     <div className="flex flex-col h-[90vh] w-full justify-center items-center md:flex-row">
-      <div>
-      <div>ลิ้งก์หมดอายุ</div>
-      <div>กรุณาติดต่อพนักงาน เพื่อดำเนินการขอลงทะเบียนอีกครั้ง</div>
+      <div className="flex flex-col justify-center font-[kanit] text-base md:text-2xl">
+      {/* <div className="flex justify-center text-2xl"><FaRegClock /></div> */}
+      <div className="flex justify-center">ลิ้งก์หมดอายุ</div>
+      <div className="flex justify-center">กรุณาติดต่อพนักงาน เพื่อดำเนินการขอลงทะเบียนอีกครั้ง</div>
       </div>
     </div>
   </>

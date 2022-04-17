@@ -12,7 +12,7 @@ const FirstHome = () => {
           <div>
             <div className="font-[kanit] text-lg  md:text-2xl md:text-left ">ยินดีต้อนรับเข้าสู่ระบบจัดการพัสดุ</div>
             <div className="font-[kanit] text-7xl py-4 md:text-left"><span className="text-second">Pack</span>Track</div>
-            <div className="font-[kanit] text-sm text-start md:w-9/12">
+            <div className="font-[kanit] text-sm md:w-8/12 md:text-left">
               ระบบจัดการจดหมาย และพัสดุสำนักงานที่มีความสะดวก รวดเร็ว และปลอดภัย
               มีการแจ้งเตือนเมื่อพัสดุถึงสำนักงานแบบ Real Time
             </div>

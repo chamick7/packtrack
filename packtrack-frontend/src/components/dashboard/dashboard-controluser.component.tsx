@@ -94,6 +94,7 @@ const DashboardControlUser = () => {
         responsiveLayout="stack"
         className="font-[kanit]"
         header={searchHeader}
+        
         filters={filterValue}
         emptyMessage="No items found."
       >

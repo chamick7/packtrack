@@ -311,31 +311,37 @@ const DashboardOfficer = () => {
             field="order"
             header="ลำดับ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            sortable
           />
           <Column
             field="packagenumber"
             header="เลขพัสดุ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            sortable
           />
           <Column
             field="service"
             header="ผู้ให้บริการ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            sortable
           />
           <Column
             field="customer"
             header="ชื่อผู้รับ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            sortable
           />
           <Column
             field="contact"
             header="ช่องทางการติดต่อ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            sortable
           />
           <Column
             field="status"  
             body={statusBody}
             header="สถานะ"
+            sortable
             headerStyle={{
               backgroundColor: "#F0304A",
               color: "white",

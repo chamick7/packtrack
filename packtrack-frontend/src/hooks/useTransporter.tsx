@@ -2,21 +2,20 @@ import React, { useEffect, useState } from "react";
 import axiosApiInstance from "../utils/axios";
 import { TransportersType } from "../types/transporters.type";
 
-interface transReceive {
-  message: string;
-  transporter: TransportersType[];
-}
+// interface transReceive {
+//   message: string;
+//   transporter: TransportersType[];
+// }
 
 const useTransporter = () => {
   const [transporters, setTransporters] = useState<TransportersType[]>([]);
 
   const getAllTrans = async () => {
     try {
-      let res = await axiosApiInstance.get<transReceive>(
+      let res = await axiosApiInstance.get(
         "/api/transporter/all"
       );
-
-      setTransporters(res.data.transporter);
+      setTransporters(res.data);
     } catch (err) {
       console.log(err);
     }
