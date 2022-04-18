@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { FilterMatchMode, FilterOperator } from "primereact/api";
+import { FilterMatchMode } from "primereact/api";
 import { FaHistory } from "react-icons/fa";
 
 import ModalRegisterPackage from "../modal/modal-register-package.component";
@@ -149,7 +149,7 @@ const DashboardUser = () => {
     }
   };
 
-  const recieving = async () => {
+  const receieving = async () => {
     const packagesId = selectedPackage.map(el => (el.id))
     try{
       let res = await axiosApiInstance.post("/api/package/receive", {packagesId});
@@ -167,7 +167,7 @@ const DashboardUser = () => {
       <div className="flex justify-end">
         <button
           className="font-[kanit] bg-[#11C6FF] rounded text-white px-3 py-1"
-          onClick={recieving}
+          onClick={receieving}
         >
           รับพัสดุ
         </button>

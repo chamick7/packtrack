@@ -27,7 +27,7 @@ const ModalHistoryPackage:React.FC<HistoryPackage> = ({ historyPackage, historyV
             </div>
             <div className="flex flex-col justify-evenly">
                 {historyPackage.id ? <span>{historyPackage.id}</span> : <span>-</span>}
-                {historyPackage.trackingNumber ? <span>{historyPackage.trackingNumber}</span> : <span>-</span>}
+                {historyPackage.transporter.name ? <span>{historyPackage.transporter.name}</span> : <span>-</span>}
                 {historyPackage.trackingNumber ? <span>{historyPackage.trackingNumber}</span> : <span>-</span>}
                 {`${historyPackage.receiver.firstName + " " + historyPackage.receiver.lastName}` ? <span>{historyPackage.receiver.firstName + " " + historyPackage.receiver.lastName}</span> : <span>-</span>}
                 {historyPackage.notification ? <span>{historyPackage.notification}</span> : <span>-</span>}
