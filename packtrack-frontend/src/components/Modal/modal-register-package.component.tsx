@@ -5,6 +5,10 @@ import FormRegisterPackage from "../form/form-regis-package.component";
 import { GrAddCircle } from "react-icons/gr";
 import axiosApiInstance from "../../utils/axios";
 
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 interface RegisterPackageProps {
   registerVisible: boolean;
   registerOnClose: () => void;
@@ -15,6 +19,14 @@ interface RegisPackage {
   trackingNumber: string;
   transporterDigit: string;
 }
+
+const regisPackageSchema = yup
+  .object()
+  .shape({
+    trackingNumber: yup.string().required("Tracking Number is required"),
+    transporter: yup.string().required("Tracking Number is required"),
+  })
+  .required();
 
 const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
   registerVisible,
@@ -56,6 +68,20 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
     setPackages(clonePackages);
   };
 
+  // const onSubmit: SubmitHandler<RegisPackage> = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   try {
+  //     let res = await axiosApiInstance.post("/api/package/assign", {
+  //       packages,
+  //     });
+  //     if (res.status === 201) {
+  //       registerOnClose();
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -87,6 +113,14 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
     }
   };
 
+  // const {
+  //   watch,
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors, isValid },
+  // } = useForm<RegisPackage>({ resolver: yupResolver(regisPackageSchema) });
+
+
   return (
     <Dialog
       header={headerText}
@@ -98,6 +132,7 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
       <form onSubmit={handleSubmit}>
         {packages.map((item, index) => (
           <FormRegisterPackage
+            // {...register(`${index}`)}
             key={item.packageId}
             index={index}
             handleChangeTrackingNumber={handleChangeTrackingNumber}

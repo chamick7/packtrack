@@ -7,7 +7,9 @@ import { FaHistory } from "react-icons/fa";
 
 import ModalRegisterPackage from "../modal/modal-register-package.component";
 import ModalHistoryPackage from "../modal/modal-history-package.component";
-import { Package } from "../../types/package";
+import { PackageType } from "../../types/package.type";
+import usePackage from "../../hooks/usePackage";
+import axiosApiInstance from "../../utils/axios";
 
 const INIT_FILTER = {
   global: { value: "", matchMode: FilterMatchMode.CONTAINS },
@@ -17,119 +19,8 @@ const INIT_FILTER = {
   status: { value: "received", matchMode: FilterMatchMode.NOT_CONTAINS },
 };
 
-const Packages = [
-  {
-    id: 0,
-    order: 1,
-    packageNumber: "ES124574824TH",
-    service: "kerry",
-    customer: "miw",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 1,
-    order: 2,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "assigned",
-  },
-  {
-    id: 2,
-    order: 3,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "pending",
-  },
-  {
-    id: 3,
-    order: 4,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "received",
-  },
-  {
-    id: 4,
-    order: 5,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 5,
-    order: 6,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 6,
-    order: 7,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 7,
-    order: 8,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 8,
-    order: 9,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 9,
-    order: 10,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 10,
-    order: 11,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 11,
-    order: 12,
-    packageNumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-];
-
 const DashboardUser = () => {
-  const [selectedPackage, setSelectedPackage] = useState<Package[]>([]);
+  const [selectedPackage, setSelectedPackage] = useState<PackageType[]>([]);
   const [onHistoryComp, setOnHistoryComp] = useState<boolean>(false);
   const toggleHistoryComp = () => {
     setOnHistoryComp(!onHistoryComp);
@@ -258,8 +149,17 @@ const DashboardUser = () => {
     }
   };
 
-  const recieving = () => {
-    console.log("select", selectedPackage);
+  const recieving = async () => {
+    const packagesId = selectedPackage.map(el => (el.id))
+    try{
+      let res = await axiosApiInstance.post("/api/package/receive", {packagesId});
+      if(res.status === 200){
+          console.log('send',res)
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
   };
 
   const footerButton = () => {
@@ -279,26 +179,49 @@ const DashboardUser = () => {
   const toggleHistoryModal = () => {
     setHistoryModal(!historyModal);
   };
-  const [dataHistoryPackage, setDataHistoryPackage] = useState<Package>({
-    id: 0,
-    order: 0,
-    packageNumber: "",
-    service: "",
-    customer: "",
-    contact: "",
-    status: "",
+  const [dataHistoryPackage, setDataHistoryPackage] = useState<PackageType>({
+    id:0,
+    trackingNumber:"",
+    status:"",
+    notification:"",
+    importedAt:"",
+    exportedAt:"",
+    receivedAt:"",
+    createdAt:"",
+    updatedAt:"",
+    transporter: {
+      id:0,
+      digit:"",
+      name:"",
+  },
+    receiver: {
+        id:0,
+        email:"",
+        firstName:"",
+        lastName:"",
+    },
+    importer:{
+        firstName:"",
+        lastName:"",
+    },
+    exporter:{
+        firstName:"",
+        lastName:"",
+    },
   });
-  const showHistoryModal = (data: Package) => {
+  const showHistoryModal = (data: PackageType) => {
     toggleHistoryModal();
     setDataHistoryPackage(data);
   };
+
+  const { packages } = usePackage();
 
   return (
     <>
       <div className="flex flex-col justify-center w-full">
         {onHistoryComp === false && (
           <DataTable
-            value={Packages}
+            value={packages}
             selectionMode="checkbox"
             selection={selectedPackage}
             onSelectionChange={(e) => setSelectedPackage(e.value)}
@@ -325,13 +248,13 @@ const DashboardUser = () => {
               }}
             ></Column>
             <Column
-              field="order"
+              field="id"
               header="ลำดับ"
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
               sortable
             />
             <Column
-              field="packageNumber"
+              field="trackingNumber"
               header="เลขพัสดุ"
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
               sortable
@@ -343,13 +266,13 @@ const DashboardUser = () => {
               sortable
             />
             <Column
-              field="customer"
+              field="receiver.firstName"
               header="ชื่อผู้รับ"
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
               sortable
             />
             <Column
-              field="contact"
+              field="notification"
               header="ช่องทางการติดต่อ"
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
               sortable
@@ -370,7 +293,7 @@ const DashboardUser = () => {
         )}
         {onHistoryComp === true && (
           <DataTable
-            value={Packages}
+            value={packages}
             selectionMode="checkbox"
             dataKey="id"
             selectionPageOnly
@@ -388,7 +311,7 @@ const DashboardUser = () => {
             onRowClick={(e) => showHistoryModal(e.data)}
           >
             <Column
-              field="order"
+              field="id"
               header="ลำดับ"
               headerStyle={{
                 backgroundColor: "#F0304A",
@@ -399,7 +322,7 @@ const DashboardUser = () => {
               sortable
             />
             <Column
-              field="packageNumber"
+              field="trackingNumber"
               header="เลขพัสดุ"
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
               sortable
@@ -411,13 +334,13 @@ const DashboardUser = () => {
               sortable
             />
             <Column
-              field="customer"
+              field="receiver.firstName"
               header="ชื่อผู้รับ"
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
               sortable
             />
             <Column
-              field="contact"
+              field="notification"
               header="ช่องทางการติดต่อ"
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
               sortable
