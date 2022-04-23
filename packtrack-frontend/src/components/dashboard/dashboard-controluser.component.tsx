@@ -3,29 +3,18 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { IoTrashBin } from "react-icons/io5";
+import { confirmDialog } from 'primereact/confirmdialog';
 
 import ModalAddRole from "../modal/modal-add-role.component";
+import useMembers from "../../hooks/useMembers";
+import useOfficers from "../../hooks/useOfficers";
+import axiosApiInstance from "../../utils/axios";
 
-const users = [
-  {
-    id: 1,
-    email: "officer@gmail.com",
-    firstName: "officer",
-    lastName: "packtrack",
-    mobile: "",
-    role: "officer",
-  },
-  {
-    id: 2,
-    email: "officer@gmail.com",
-    firstName: "officer",
-    lastName: "packtrack",
-    mobile: "",
-    role: "officer",
-  },
-];
+interface ControlUser {
+  role:string | undefined ;
+}
 
-const DashboardControlUser = () => {
+const DashboardControlUser:React.FC<ControlUser> = ({role}) => {
   const [filterValue, setFilterValue] = useState({
     global: { value: "", matchMode: FilterMatchMode.CONTAINS },
     id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -75,26 +64,46 @@ const DashboardControlUser = () => {
     return <span>{rowData.firstName + " " + rowData.lastName}</span>;
   };
 
-  const deleteUser = () => {};
+  const deleteDialog = (deleteId:number) =>{
+    confirmDialog({
+      message: 'คุณต้องการลบผู้ใช้งานหรือไม่ ?',
+      header: 'ลบผู้ใช้งาน',
+      accept: () => deleteUser(deleteId),
+    })
+  }
+
+  const deleteUser = async (deleteId:number) => {
+    try{
+      let res = await axiosApiInstance.delete(`/api/user/officer/${deleteId}`);
+      if(res.status === 200){
+          console.log('send',res)
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+  };
   const deleteButton = (rowData: any) => {
     return (
-      <button>
+      <button onClick={() => deleteDialog(rowData.id)}>
         <IoTrashBin />
       </button>
     );
   };
 
+  const { members } = useMembers()
+  const { officers } = useOfficers()
+
   return (
     <>
     <div className="flex flex-col justify-center w-full">
       <DataTable
-        value={users}
+        value={role == "members" ? members : officers}
         scrollable
         scrollHeight="flex"
         responsiveLayout="stack"
         className="font-[kanit]"
         header={searchHeader}
-        
         filters={filterValue}
         emptyMessage="No items found."
       >
@@ -104,7 +113,7 @@ const DashboardControlUser = () => {
           headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
         />
         <Column
-          field="firstName"
+          field="firstName + lastName"
           header="ชื่อ"
           body={nameUser}
           headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
@@ -114,11 +123,11 @@ const DashboardControlUser = () => {
           header="Email"
           headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
         />
-
-        <Column
+        {role == "officers" && (
+          <Column
           body={deleteButton}
           headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
-        />
+        />)}
       </DataTable>
     </div>
 

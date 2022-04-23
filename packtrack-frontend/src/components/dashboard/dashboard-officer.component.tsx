@@ -3,127 +3,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
-// import { FaHistory } from "react-icons/fa";
-// import { Dropdown } from "primereact/dropdown";
 import { Calendar } from 'primereact/calendar';
 
 import AuthContext from "../../providers/auth.provider";
 import ModalRegisterUser from "../modal/modal-register-user.component";
 import userPicture from "../../images/user-picture.svg";
-
-const Packages = [
-  {
-    id: 0,
-    order: 1,
-    packagenumber: "ES124574824TH",
-    service: "kerry",
-    customer: "miw",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 1,
-    order: 2,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "assigned",
-  },
-  {
-    id: 2,
-    order: 3,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "pending",
-  },
-  {
-    id: 3,
-    order: 4,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "received",
-  },
-  {
-    id: 4,
-    order: 5,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 5,
-    order: 6,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 6,
-    order: 7,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 7,
-    order: 8,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 8,
-    order: 9,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 9,
-    order: 10,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 10,
-    order: 11,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-  {
-    id: 11,
-    order: 12,
-    packagenumber: "ES124574824TH",
-    service: "flash",
-    customer: "nattawat",
-    contact: "e-mail",
-    status: "arrived",
-  },
-];
+import { PackageType } from "../../types/package.type";
+import useAllPackage from "../../hooks/useAllPackage";
+import axiosApiInstance from "../../utils/axios";
 
 const DashboardOfficer = () => {
-  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState<PackageType[]>([]);
   const [filterValue, setFilterValue] = useState({
     global: { value: "", matchMode: FilterMatchMode.CONTAINS },
     order: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -248,12 +138,30 @@ const DashboardOfficer = () => {
     }
   };
 
-  const arriving = () => {
-    console.log("select", selectedPackage);
+  const arriving = async () => {
+    const packagesArrivingId = selectedPackage.map(el => (el.id))
+    try{
+      let res = await axiosApiInstance.post("/api/package/arrive/with-assign", {packagesArrivingId});
+      if(res.status === 200){
+          console.log('send',res)
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
   };
 
-  const recieving = () => {
-    console.log("select", selectedPackage);
+  const receieving = async () => {
+    const packagesReceievingId = selectedPackage.map(el => (el.id))
+    try{
+      let res = await axiosApiInstance.post("/api/package/arrive/receive", {packagesReceievingId});
+      if(res.status === 200){
+          console.log('send',res)
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
   };
 
   const footerButton = () => {
@@ -268,7 +176,7 @@ const DashboardOfficer = () => {
           </button>
           <button
             className="font-[kanit] bg-[#005DFF] rounded text-white px-3 py-1"
-            onClick={recieving}
+            onClick={receieving}
           >
             จ่ายพัสดุ
           </button>
@@ -277,11 +185,13 @@ const DashboardOfficer = () => {
     );
   };
 
+  const { allPackages } = useAllPackage()
+
   return (
     <>
       <div className="flex flex-col justify-center w-full">
         <DataTable
-          value={Packages}
+          value={allPackages}
           selectionMode="checkbox"
           selection={selectedPackage}
           onSelectionChange={(e) => setSelectedPackage(e.value)}
@@ -308,31 +218,31 @@ const DashboardOfficer = () => {
             }}
           ></Column>
           <Column
-            field="order"
+            field="id"
             header="ลำดับ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
             sortable
           />
           <Column
-            field="packagenumber"
+            field="trackingNumber"
             header="เลขพัสดุ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
             sortable
           />
           <Column
-            field="service"
+            field="transporter.name"
             header="ผู้ให้บริการ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
             sortable
           />
           <Column
-            field="customer"
+            field="receiver.firstName"
             header="ชื่อผู้รับ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
             sortable
           />
           <Column
-            field="contact"
+            field="notification"
             header="ช่องทางการติดต่อ"
             headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
             sortable

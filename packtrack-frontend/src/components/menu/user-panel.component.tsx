@@ -26,15 +26,15 @@ const UserPanel = () => {
     );
   };
 
-  const [roleGroup , setRoleGroup] = useState("ADMIN");
-  const adminGroup = () => {
-    setRoleGroup("ADMIN")
-  }
+  const [roleGroup , setRoleGroup] = useState("officers");
+  // const adminGroup = () => {
+  //   setRoleGroup("ADMIN")
+  // }
   const ofcGroup = () => {
-    setRoleGroup("OFFICER")
+    setRoleGroup("officers")
   }
   const userGroup = () => {
-    setRoleGroup("USER")
+    setRoleGroup("members")
   }
 
   return (
@@ -42,19 +42,19 @@ const UserPanel = () => {
       <div className="flex justify-end">
         <GetUser />
       </div>
-      <div className="flex flex-col justify-between w-full h-full mt-4 md:flex-row">
-        <div className="flex flex-col w-full md:w-5/12 ">
+      <div className="flex flex-col justify-evenly w-full h-full mt-4 md:flex-row md:justify-between">
+        <div className="flex flex-col w-full h-full md:w-5/12 ">
           <span className="flex items-center w-full h-10 pl-2 rounded-md text-white bg-[#F0304A]">
             กลุ่มผู้ใช้งาน
           </span>
-          <div className="flex flex-col justify-center items-center md:items-start md:px-2">
-            <button onClick={adminGroup}>ADMIN</button>
-            <button onClick={ofcGroup}>OFFICER</button>
-            <button onClick={userGroup}>USER</button>
+          <div className="flex flex-col justify-start items-center h-full md:items-start">
+            <div className={roleGroup == "officers" ? "flex w-full rounded-md bg-[#F2F7FA] h-1/6" : "bg-white flex w-full h-1/6"}><button className="flex w-full items-center px-4" onClick={ofcGroup}>OFFICER</button></div>
+            <div className={roleGroup == "members" ? "flex w-full rounded-md bg-[#F2F7FA]  h-1/6" : "bg-white flex w-full h-1/6"}><button className="flex w-full items-center px-4" onClick={userGroup}>USER</button></div>
+
           </div>
         </div>
         <div className="flex flex-col w-full md:w-6/12">
-          <DashboardControlUser />
+          <DashboardControlUser role={roleGroup} />
         </div>
       </div>
     </div>

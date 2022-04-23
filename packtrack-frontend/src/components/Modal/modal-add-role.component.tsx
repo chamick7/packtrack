@@ -3,6 +3,7 @@ import { Dialog } from "primereact/dialog";
 
 import { OfficerType } from '../../types/officer.type';
 import axiosApiInstance from "../../utils/axios";
+import useOfficers from "../../hooks/useOfficers"
 
 interface AddRole {
   addRoleVisible: boolean;
@@ -21,8 +22,8 @@ const ModalAddRole: React.FC<AddRole> = ({addRoleVisible,addRoleOnClose}) => {
   const [officerProps,setOfficerProps] = useState<OfficerType>({
     email:"",
     password:"",
-    firstname:"",
-    lastname:"",
+    firstName:"",
+    lastName:"",
   })
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -33,8 +34,10 @@ const ModalAddRole: React.FC<AddRole> = ({addRoleVisible,addRoleOnClose}) => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try{
-      // let res = await axiosApiInstance.post();
-
+      let res = await axiosApiInstance.post("/api/user/officer", officerProps );
+      if(res.status === 201){
+        
+      }
     }
     catch(err){
       console.log(err);
@@ -62,11 +65,11 @@ const ModalAddRole: React.FC<AddRole> = ({addRoleVisible,addRoleOnClose}) => {
           <div className='flex flex-row w-full justify-between'>
           <div className='w-[48%]'>
             <label className='font-[kanit] text-lg'>ชื่อ</label>
-            <input name='firstname' value={officerProps.firstname} onChange={handleChange} type="text" className='rounded border border-main text-sm p-2 w-full'  />
+            <input name='firstName' value={officerProps.firstName} onChange={handleChange} type="text" className='rounded border border-main text-sm p-2 w-full'  />
           </div>
           <div className='w-[48%]'>
             <label className='font-[kanit] text-lg'>นามสกุล</label>
-            <input name='lastname' value={officerProps.lastname} onChange={handleChange} type="text" className='rounded border border-main text-sm p-2 w-full' />
+            <input name='lastName' value={officerProps.lastName} onChange={handleChange} type="text" className='rounded border border-main text-sm p-2 w-full' />
           </div>
           </div>
           <input type="submit" className='w-2/3 text-center bg-main rounded text-white px-4 py-1 my-2 md:w-1/3' />
