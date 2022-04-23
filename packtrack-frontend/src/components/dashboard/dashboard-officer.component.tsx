@@ -139,9 +139,9 @@ const DashboardOfficer = () => {
   };
 
   const arriving = async () => {
-    const packagesArrivingId = selectedPackage.map(el => (el.id))
+    const packagesId = selectedPackage.map(el => (el.id))
     try{
-      let res = await axiosApiInstance.post("/api/package/arrive/with-assign", {packagesArrivingId});
+      let res = await axiosApiInstance.post("/api/package/arrive/with-assign", {packagesId});
       if(res.status === 200){
           console.log('send',res)
       }
@@ -152,9 +152,9 @@ const DashboardOfficer = () => {
   };
 
   const receieving = async () => {
-    const packagesReceievingId = selectedPackage.map(el => (el.id))
+    const packagesId = selectedPackage.map(el => (el.id))
     try{
-      let res = await axiosApiInstance.post("/api/package/arrive/receive", {packagesReceievingId});
+      let res = await axiosApiInstance.post("/api/package/arrive/receive", {packagesId});
       if(res.status === 200){
           console.log('send',res)
       }
