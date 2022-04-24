@@ -13,6 +13,7 @@ import useAllPackage from "../../hooks/useAllPackage";
 import axiosApiInstance from "../../utils/axios";
 
 const DashboardOfficer = () => {
+  const [loading,setLoading] = useState(false)
   const [selectedPackage, setSelectedPackage] = useState<PackageType[]>([]);
   const [filterValue, setFilterValue] = useState({
     global: { value: "", matchMode: FilterMatchMode.CONTAINS },
@@ -139,11 +140,12 @@ const DashboardOfficer = () => {
   };
 
   const arriving = async () => {
+    setLoading(true)
     const packagesId = selectedPackage.map(el => (el.id))
     try{
       let res = await axiosApiInstance.post("/api/package/arrive/with-assign", {packagesId});
       if(res.status === 200){
-          console.log('send',res)
+        setLoading(false)
       }
     }
     catch(err){
@@ -152,11 +154,12 @@ const DashboardOfficer = () => {
   };
 
   const receieving = async () => {
+    setLoading(true)
     const packagesId = selectedPackage.map(el => (el.id))
     try{
       let res = await axiosApiInstance.post("/api/package/arrive/receive", {packagesId});
       if(res.status === 200){
-          console.log('send',res)
+          setLoading(false)
       }
     }
     catch(err){
@@ -185,7 +188,7 @@ const DashboardOfficer = () => {
     );
   };
 
-  const { allPackages } = useAllPackage()
+  const { allPackages } = useAllPackage(loading)
 
   return (
     <>

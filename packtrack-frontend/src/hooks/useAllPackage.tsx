@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axiosApiInstance from "../utils/axios";
 import { PackageType } from "../types/package.type";
 
-const useAllPackage = () => {
+const useAllPackage = (loading: boolean) => {
   const [allPackages, setAllPackages] = useState<PackageType[]>([]);
   const getAllPackages = async () => {
     try {
@@ -15,7 +15,7 @@ const useAllPackage = () => {
 
   useEffect(() => {
     getAllPackages();
-  }, []);
+  }, [loading]);
 
   return { allPackages };
 };

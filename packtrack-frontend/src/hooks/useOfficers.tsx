@@ -12,7 +12,7 @@ interface userReceive {
   };
 }
 
-const useOfficers = () => {
+const useOfficers = (loading: boolean) => {
   const [officers, setOfficers] = useState<userReceive[]>([]);
 
   const getOfficers = async () => {
@@ -26,7 +26,7 @@ const useOfficers = () => {
 
   useEffect(() => {
     getOfficers();
-  }, []);
+  }, [loading]);
   return { officers };
 };
 export default useOfficers;

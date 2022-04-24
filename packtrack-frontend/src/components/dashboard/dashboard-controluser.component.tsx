@@ -15,6 +15,7 @@ interface ControlUser {
 }
 
 const DashboardControlUser:React.FC<ControlUser> = ({role}) => {
+  const [loading,setLoading] = useState(false)
   const [filterValue, setFilterValue] = useState({
     global: { value: "", matchMode: FilterMatchMode.CONTAINS },
     id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -64,25 +65,6 @@ const DashboardControlUser:React.FC<ControlUser> = ({role}) => {
     return <span>{rowData.firstName + " " + rowData.lastName}</span>;
   };
 
-  const deleteDialog = (deleteId:number) =>{
-    confirmDialog({
-      message: 'คุณต้องการลบผู้ใช้งานหรือไม่ ?',
-      header: 'ลบผู้ใช้งาน',
-      accept: () => deleteUser(deleteId),
-    })
-  }
-
-  const deleteUser = async (deleteId:number) => {
-    try{
-      let res = await axiosApiInstance.delete(`/api/user/officer/${deleteId}`);
-      if(res.status === 200){
-          console.log('send',res)
-      }
-    }
-    catch(err){
-      console.log(err);
-    }
-  };
   const deleteButton = (rowData: any) => {
     return (
       <button onClick={() => deleteDialog(rowData.id)}>
@@ -90,9 +72,29 @@ const DashboardControlUser:React.FC<ControlUser> = ({role}) => {
       </button>
     );
   };
+  const deleteDialog = (deleteId:number) =>{
+    confirmDialog({
+      message: 'คุณต้องการลบผู้ใช้งานหรือไม่ ?',
+      header: 'ลบผู้ใช้งาน',
+      accept: () => deleteUser(deleteId),
+    })
+  }
+  const deleteUser = async (deleteId:number) => {
+    setLoading(true)
+    try{
+      let res = await axiosApiInstance.delete(`/api/user/officer/${deleteId}`);
+      if(res.status === 200){
+        setLoading(false)
+      }
+    }
+    catch(err){
+      console.log(err);
+    }
+  };
+
 
   const { members } = useMembers()
-  const { officers } = useOfficers()
+  const { officers } = useOfficers(loading)
 
   return (
     <>
@@ -131,7 +133,7 @@ const DashboardControlUser:React.FC<ControlUser> = ({role}) => {
       </DataTable>
     </div>
 
-    <ModalAddRole addRoleVisible={addRoleModal} addRoleOnClose={toggleAddRoleModal} />
+    <ModalAddRole addRoleVisible={addRoleModal} addRoleOnClose={toggleAddRoleModal} setStateLoading={setLoading} />
 
     </>
   );

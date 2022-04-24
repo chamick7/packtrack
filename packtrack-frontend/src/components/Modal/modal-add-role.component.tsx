@@ -8,10 +8,10 @@ import useOfficers from "../../hooks/useOfficers"
 interface AddRole {
   addRoleVisible: boolean;
   addRoleOnClose: () => void;
+  setStateLoading:React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const ModalAddRole: React.FC<AddRole> = ({addRoleVisible,addRoleOnClose}) => {
-
+const ModalAddRole: React.FC<AddRole> = ({addRoleVisible,addRoleOnClose,setStateLoading}) => {
   const headerText = (
     <span className="flex justify-center font-[kanit] text-lg md:text-xl">
       เพิ่มบัญชีเจ้าหน้าที่
@@ -33,10 +33,18 @@ const ModalAddRole: React.FC<AddRole> = ({addRoleVisible,addRoleOnClose}) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setStateLoading(true)
     try{
       let res = await axiosApiInstance.post("/api/user/officer", officerProps );
       if(res.status === 201){
-        
+        setStateLoading(false)
+        setOfficerProps({
+          email:"",
+          password:"",
+          firstName:"",
+          lastName:"",
+        })
+        addRoleOnClose()
       }
     }
     catch(err){
