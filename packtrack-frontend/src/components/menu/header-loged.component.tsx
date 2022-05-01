@@ -7,6 +7,7 @@ import AuthContext from "../../providers/auth.provider";
 
 import logoPackTrack from "../../images/logoPackTrack.svg";
 import userPicture from "../../images/user-picture.svg";
+import profileIMG from "../../images/profileIMG/profileIMG";
 
 const GetUser = () => {
   const authContext = useContext(AuthContext);
@@ -40,7 +41,7 @@ const GetUser = () => {
   );
 };
 
-const HeadeerLoged = () => {
+const HeaderLoged = () => {
   return (
     <nav className="flex flex-row justify-between items-center h-full w-screen px-10 shadow-sm">
       <Link to="/" className="flex flex-row">
@@ -59,4 +60,4 @@ const HeadeerLoged = () => {
   );
 };
 
-export default HeadeerLoged;
+export default HeaderLoged;

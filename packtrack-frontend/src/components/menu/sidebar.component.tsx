@@ -72,7 +72,7 @@ const Sidebar = () => {
             </div>
           </div>
           <div>
-            <button className="font-[kanit] bg-main rounded text-white px-3 py-1" onClick={logOut}>
+            <button className="font-[kanit] bg-main rounded text-white px-3 py-1 text-sm lg:text-base" onClick={logOut}>
               ออกจากระบบ
             </button>
           </div>
