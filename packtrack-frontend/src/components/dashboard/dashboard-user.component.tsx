@@ -20,6 +20,7 @@ const INIT_FILTER = {
 };
 
 const DashboardUser = () => {
+  const [loading,setLoading] = useState(false)
   const [selectedPackage, setSelectedPackage] = useState<PackageType[]>([]);
   const [onHistoryComp, setOnHistoryComp] = useState<boolean>(false);
   const toggleHistoryComp = () => {
@@ -150,11 +151,12 @@ const DashboardUser = () => {
   };
 
   const receieving = async () => {
+    setLoading(true)
     const packagesId = selectedPackage.map(el => (el.id))
     try{
       let res = await axiosApiInstance.post("/api/package/receive", {packagesId});
       if(res.status === 200){
-          console.log('send',res)
+        setLoading(false)
       }
     }
     catch(err){
@@ -214,7 +216,7 @@ const DashboardUser = () => {
     setDataHistoryPackage(data);
   };
 
-  const { packages } = usePackage();
+  const { packages } = usePackage(loading);
 
   return (
     <>
@@ -364,6 +366,7 @@ const DashboardUser = () => {
       <ModalRegisterPackage
         registerVisible={registerModal}
         registerOnClose={toggleRegisterModal}
+        setStateLoading={setLoading}
       />
       <ModalHistoryPackage
         historyPackage={dataHistoryPackage}

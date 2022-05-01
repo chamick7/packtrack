@@ -12,6 +12,7 @@ import * as yup from "yup";
 interface RegisterPackageProps {
   registerVisible: boolean;
   registerOnClose: () => void;
+  setStateLoading:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface RegisPackage {
@@ -31,6 +32,7 @@ const regisPackageSchema = yup
 const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
   registerVisible,
   registerOnClose,
+  setStateLoading,
 }) => {
   const STARTER_PACKAGES = [
     {
@@ -84,11 +86,13 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setStateLoading(true)
     try {
       let res = await axiosApiInstance.post("/api/package/assign", {
         packages,
       });
       if (res.status === 201) {
+        setStateLoading(false)
         registerOnClose();
       }
     } catch (err) {
