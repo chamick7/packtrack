@@ -12,7 +12,7 @@ import * as yup from "yup";
 interface RegisterPackageProps {
   registerVisible: boolean;
   registerOnClose: () => void;
-  setStateLoading:React.Dispatch<React.SetStateAction<boolean>>
+  setStateLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface RegisPackage {
@@ -86,13 +86,13 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setStateLoading(true)
+    setStateLoading(true);
     try {
       let res = await axiosApiInstance.post("/api/package/assign", {
         packages,
       });
       if (res.status === 201) {
-        setStateLoading(false)
+        setStateLoading(false);
         registerOnClose();
       }
     } catch (err) {
@@ -123,7 +123,6 @@ const ModalRegisterPackage: React.FC<RegisterPackageProps> = ({
   //   handleSubmit,
   //   formState: { errors, isValid },
   // } = useForm<RegisPackage>({ resolver: yupResolver(regisPackageSchema) });
-
 
   return (
     <Dialog
