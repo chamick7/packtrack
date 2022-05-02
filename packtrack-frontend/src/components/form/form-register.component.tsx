@@ -85,7 +85,7 @@ const FormRegister: React.FC<FormRegister> = ({ inviteToken }) => {
     const registerData = { inviteToken, user };
     try {
       let res = await axiosApiInstance.post(
-        "/api/user/invite/register",
+        "/api/auth/register",
         registerData
       );
       if (res.status === 200) {
