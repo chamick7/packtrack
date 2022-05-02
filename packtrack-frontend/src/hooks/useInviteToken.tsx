@@ -16,7 +16,7 @@ const useInviteToken = () => {
     inviteToken: string
   ): Promise<boolean | null> => {
     try {
-      let res = await axiosApiInstance.post("/api/user/invite/validate", {
+      let res = await axiosApiInstance.post("/api/auth/invite-token/validate", {
         inviteToken,
       });
       if (res.status === 200 && res.data) {

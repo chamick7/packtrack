@@ -7,14 +7,20 @@ import AuthContext from "../../providers/auth.provider";
 
 import logoPackTrack from "../../images/logoPackTrack.svg";
 import userPicture from "../../images/user-picture.svg";
-import profileIMG from "../../images/profileIMG/profileIMG";
+
+import profile1 from "../../images/profileIMG/profile1.svg"
+import profile2 from "../../images/profileIMG/profile2.svg"
+import profile3 from "../../images/profileIMG/profile3.svg"
+import profile4 from "../../images/profileIMG/profile4.svg"
+import profile5 from "../../images/profileIMG/profile5.svg"
+import profile6 from "../../images/profileIMG/profile6.svg"
+import profile7 from "../../images/profileIMG/profile7.svg"
+
+import useMe from "../../hooks/useMe";
 
 const GetUser = () => {
+  const { userInfo } = useMe()
   const authContext = useContext(AuthContext);
-  // const isAuthenticated = authContext.user;
-  const firstName = authContext.user?.firstName;
-  const userId = authContext.user?.id;
-
   const accept = authContext.logout
 
   const logOut = () =>{
@@ -25,15 +31,39 @@ const GetUser = () => {
     })
   }
 
+  const profileImage = () =>{
+    if(userInfo.profile.photo == 1){
+      return profile1
+    }
+    if(userInfo.profile.photo == 2){
+      return profile2
+    }
+    if(userInfo.profile.photo == 3){
+      return profile3
+    }
+    if(userInfo.profile.photo == 4){
+      return profile4
+    }
+    if(userInfo.profile.photo == 5){
+      return profile5
+    }
+    if(userInfo.profile.photo == 6){
+      return profile6
+    }
+    if(userInfo.profile.photo == 7){
+      return profile7
+    }
+  }
+
   return (
     <>
     <div className="flex items-center">
       <div className="flex flex-row justify-between items-center font-[kanit] px-2 border-r-4 border-r-[#8CD8F9] mr-6">
         <div className="flex flex-col">
-          <div className="text-2xl text-[#8CD8F9]">{firstName}</div>
-          <div className="text-sm">รหัสผู้ใช้งาน {userId}</div>
+          <div className="text-2xl text-[#8CD8F9]">{userInfo.firstName}</div>
+          <div className="text-sm">รหัสผู้ใช้งาน {userInfo.id}</div>
         </div>
-        <img src={userPicture} className="h-12" />
+        <img src={profileImage()} className="h-12" alt="" />
       </div>
       <BsBoxArrowRight className="text-3xl text-[#D24337]" onClick={logOut}/>
     </div>
