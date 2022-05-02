@@ -5,6 +5,19 @@ import { Credential } from "../../types/credential";
 
 import useLogin from "../../hooks/useLogin";
 
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const loginSchema = yup.object().shape({
+  email: yup.string().email().required("Email is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(6, "Password is too short - should be 6 chars minimum")
+    .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+});
+
 const FormLogin = () => {
   const { getLogin } = useLogin();
 
@@ -13,15 +26,21 @@ const FormLogin = () => {
     password: "",
   });
 
+  const {
+    watch,
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<Credential>({ resolver: yupResolver(loginSchema) });
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
 
     setCredential((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    await getLogin(credential);
+  const onSubmit: SubmitHandler<Credential> = async (user: Credential) => {
+    await getLogin(user);
   };
 
   return (
@@ -30,21 +49,27 @@ const FormLogin = () => {
         <div className="flex flex-col items-center justify-center font-[kanit] text-[20px] mb-5 md:text-[24px]">
           เข้าสู่ระบบ
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col w-10/12 h-8/12">
-          <SquareInput
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={credential.email}
-            label="อีเมล"
-          />
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col w-10/12 h-8/12"
+        >
+          <SquareInput type="email" {...register("email")} label="อีเมล" onChange={handleChange} />
+          {errors.email && (
+            <p className="inline font-[kanit] text-[12px] text-red-600">
+              {errors.email.message}
+            </p>
+          )}
           <SquareInput
             type="password"
-            name="password"
-            onChange={handleChange}
-            value={credential.password}
+            {...register("password")}
             label="รหัสผ่าน"
+            onChange={handleChange}
           />
+          {errors.password && (
+            <p className="inline font-[kanit] text-[12px] text-red-600">
+              {errors.password.message}
+            </p>
+          )}
           <div className="flex justify-center mt-4 md:justify-end">
             <button
               type="submit"
