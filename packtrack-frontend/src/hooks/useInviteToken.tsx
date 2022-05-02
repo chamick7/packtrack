@@ -3,7 +3,7 @@ import axiosApiInstance from "../utils/axios";
 const useInviteToken = () => {
   const genToken = async (): Promise<string | null> => {
     try {
-      let res = await axiosApiInstance.get("/api/user/invite");
+      let res = await axiosApiInstance.post("/api/auth/invite-token");
       return res.data.inviteToken;
     } catch (err) {
       console.log(err);
@@ -19,15 +19,14 @@ const useInviteToken = () => {
       let res = await axiosApiInstance.post("/api/auth/invite-token/validate", {
         inviteToken,
       });
-      if (res.status === 200 && res.data) {
-        if (res.data.valid) return true;
-        else return false;
+      if (res.status === 200) {
+        return true;
       }
     } catch (err) {
       console.log(err);
     }
 
-    return null;
+    return false;
   };
 
   return { genToken, validateToken };

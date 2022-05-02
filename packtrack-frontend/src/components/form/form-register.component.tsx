@@ -16,7 +16,7 @@ interface Credential {
 }
 
 interface FormRegister {
-  inviteToken:string | undefined;
+  inviteToken: string | undefined;
 }
 
 const phoneRegExp =
@@ -44,9 +44,7 @@ const registerSchema = yup
   })
   .required();
 
-
-
-const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
+const FormRegister: React.FC<FormRegister> = ({ inviteToken }) => {
   const navigate = useNavigate();
 
   const [credential, setCredential] = useState<Credential>({
@@ -83,25 +81,28 @@ const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
   };
 
   const onSubmit: SubmitHandler<Credential> = async (user: Credential) => {
-    delete user.confirmPassword
-    const registerData = {inviteToken,user}
-    try{
-      let res = await axiosApiInstance.post("/api/user/invite/register", registerData);
-      if(res.status === 200){
-        navigate('/user')
+    delete user.confirmPassword;
+    const registerData = { inviteToken, user };
+    try {
+      let res = await axiosApiInstance.post(
+        "/api/user/invite/register",
+        registerData
+      );
+      if (res.status === 200) {
+        navigate("/user");
       }
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
     }
   };
-
 
   return (
     <div className="flex justify-center items-center w-full h-full px-4 md:px-2">
       {step === 1 && (
         <form onSubmit={handleSubmit(onNext)} className="flex flex-col w-full">
-          <div className="font-[kanit] text-lg text-center md:text-2xl">ลงทะเบียน</div>
+          <div className="font-[kanit] text-lg text-center md:text-2xl">
+            ลงทะเบียน
+          </div>
           <div className="flex flex-row justify-start">
             <div className="w-1/2 mr-1">
               <div className="flex flex-col">
@@ -241,7 +242,9 @@ const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
                 value="Email"
                 className="accent-main h-6 w-6 mr-2"
               />
-              <label className="inline font-[kanit] text-lg leading-10 xl:text-xl">Email</label>
+              <label className="inline font-[kanit] text-lg leading-10 xl:text-xl">
+                Email
+              </label>
             </div>
             <div className="flex flex-row items-center">
               <input
@@ -250,7 +253,9 @@ const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
                 value="SMS"
                 className="accent-main h-6 w-6 mr-2"
               />
-              <label className="inline font-[kanit] text-lg leading-10 xl:text-xl">SMS</label>
+              <label className="inline font-[kanit] text-lg leading-10 xl:text-xl">
+                SMS
+              </label>
             </div>
             <div className="flex flex-row items-center">
               <input

@@ -47,13 +47,13 @@ const Register = () => {
         <div className="flex h-[8vh] w-full">
           <Header />
         </div>
-        <div className="flex flex-col h-[90vh] md:flex-row">
+        <div className="flex flex-col justify-center items-center h-[90vh] md:flex-row">
           <img
             src={backgroundHome}
             className="hidden md:block fixed top-[90%] w-fit"
             alt="Background"
           />
-          <div className="flex flex-col justify-center items-center h-8/12 md:w-1/2 md:shadow-lg md:m-12 xl:mx-20">
+          <div className="flex justify-center items-center p-6 md:w-1/2 md:shadow-lg md:m-12 xl:mx-20">
             <FormRegister inviteToken={inviteToken} />
           </div>
           <div className="flex justify-center h-4/12 md:w-1/2">
