@@ -21,10 +21,13 @@ const useLogin = () => {
         credential
       );
       if (res.status === 200 && res.data) {
-        localStorage.setItem("user", JSON.stringify(res.data.user));
         storeAccessToken(res.data.accessToken);
+
+        const result = await axiosApiInstance.get<UserType>("api/user/me");
+
+        localStorage.setItem("user", JSON.stringify(result.data));
         storeRefreshToken(res.data.refreshToken);
-        setUser(res.data.user);
+        setUser(result.data);
       }
     } catch (err) {
       console.log(err);

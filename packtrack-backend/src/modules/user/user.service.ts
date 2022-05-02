@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
-import User from "../models/user.model";
+import User from "./user.model";
 import bcrypt from "bcrypt";
-import { ROLE } from "../utils/role.enum";
+import { ROLE } from "../../utils/role.enum";
 
 export const findOneUserByEmail = async (
   email: string

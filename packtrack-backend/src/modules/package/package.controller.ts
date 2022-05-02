@@ -1,18 +1,20 @@
 import {
+  getAllPackages,
+  getPackageByUserId,
   insertArriveNoAssign,
   insertNewPackage,
   splitPackageByReceiver,
   updatePackageFromTo,
   updateReceivePackage,
-} from "./../services/package.service";
+} from "./package.service";
 import {
   GroupPackage,
   MailingPackage,
   QueryPackage,
   UpdatePackage,
-} from "./../types/package.type";
+} from "../../types/package.type";
 import { Request, Response } from "express";
-import { PACKAGE_STATUS } from "../utils/package.enum";
+import { PACKAGE_STATUS } from "../../utils/package.enum";
 
 //assign by user
 export const assignPackage = async (req: Request, res: Response) => {
@@ -147,5 +149,37 @@ export const receivePackage = async (req: Request, res: Response) => {
 
   return res.status(400).json({
     message: "Error to receive packages",
+  });
+};
+
+export const getMyPackage = async (req: Request, res: Response) => {
+  const userId: number = req.user.id;
+
+  const queryResult = await getPackageByUserId(userId);
+
+  if (queryResult) {
+    return res.status(200).json({
+      message: "Success",
+      packages: queryResult,
+    });
+  }
+
+  return res.status(400).json({
+    message: "Error to get packages",
+  });
+};
+
+export const getAllPackage = async (req: Request, res: Response) => {
+  const queryResult = await getAllPackages();
+
+  if (queryResult) {
+    return res.status(200).json({
+      message: "Success",
+      packages: queryResult,
+    });
+  }
+
+  return res.status(400).json({
+    message: "Error to get packages",
   });
 };

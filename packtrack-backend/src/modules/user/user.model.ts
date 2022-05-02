@@ -8,7 +8,7 @@ import {
   Unique,
   DataType,
 } from "sequelize-typescript";
-import { ROLE } from "../utils/role.enum";
+import { ROLE } from "../../utils/role.enum";
 
 @Table({ tableName: "users" })
 class User extends Model {
@@ -37,6 +37,13 @@ class User extends Model {
   @AllowNull(false)
   @Column
   mobile!: string;
+
+  @AllowNull(false)
+  @Column({ defaultValue: Math.floor(Math.random() * 7) + 1 })
+  avatar!: number
+
+  @AllowNull(false)
+  @Column({ defaultValue:  })
 
   @AllowNull(false)
   @Column({ defaultValue: ROLE.MEMBER })
