@@ -201,6 +201,7 @@ const DashboardOfficer = () => {
           onSelectionChange={(e) => setSelectedPackage(e.value)}
           dataKey="id"
           selectionPageOnly
+          sortField="id"
           paginator
           paginatorRight={footerButton}
           scrollable

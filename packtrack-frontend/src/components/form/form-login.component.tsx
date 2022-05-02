@@ -61,7 +61,7 @@ const FormLogin = () => {
           )}
           <SquareInput
             type="password"
-            {...register("password")}
+            innerRef = {...register("password")}
             label="รหัสผ่าน"
             onChange={handleChange}
           />

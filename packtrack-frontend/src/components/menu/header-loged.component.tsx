@@ -65,7 +65,7 @@ const GetUser = () => {
         </div>
         <img src={profileImage()} className="h-12" alt="" />
       </div>
-      <BsBoxArrowRight className="text-3xl text-[#D24337]" onClick={logOut}/>
+      <BsBoxArrowRight className="text-3xl text-[#D24337] hover:cursor-pointer" onClick={logOut}/>
     </div>
     </>
   );
