@@ -123,7 +123,7 @@ const DashboardUser = () => {
   const statusBody = (rowData: any) => {
     if (rowData.status === "assigned") {
       return (
-        <span className="bg-[#FFC711] w-full rounded-lg py-1 text-white text-center">
+        <span className="bg-[#FFE352] w-full rounded-lg py-1 text-white text-center">
           รอการจัดส่ง
         </span>
       );
@@ -133,7 +133,7 @@ const DashboardUser = () => {
           พัสดุถึงสำนักงาน
         </span>
       );
-    } else if (rowData.status === "pending") {
+    } else if (rowData.status === "exported") {
       return (
         <span className="bg-[#F9A512] w-full rounded-lg py-1 text-white text-center">
           รอการยืนยัน

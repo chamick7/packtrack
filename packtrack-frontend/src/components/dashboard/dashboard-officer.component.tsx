@@ -113,7 +113,7 @@ const DashboardOfficer = () => {
   const statusBody = (rowData: any) => {
     if (rowData.status === "assigned") {
       return (
-        <span className="bg-[#FFC711] w-full rounded-lg py-1 text-white text-center">
+        <span className="bg-[#FFE352] w-full rounded-lg py-1 text-white text-center">
           รอการจัดส่ง
         </span>
       );
@@ -123,7 +123,7 @@ const DashboardOfficer = () => {
           พัสดุถึงสำนักงาน
         </span>
       );
-    } else if (rowData.status === "pending") {
+    } else if (rowData.status === "exported") {
       return (
         <span className="bg-[#F9A512] w-full rounded-lg py-1 text-white  text-center">
           รอการยืนยัน
@@ -158,7 +158,7 @@ const DashboardOfficer = () => {
     setLoading(true)
     const packagesId = selectedPackage.map(el => (el.id))
     try{
-      let res = await axiosApiInstance.post("/api/package/arrive/receive", {packagesId});
+      let res = await axiosApiInstance.post("/api/package/export", {packagesId});
       if(res.status === 200){
           setLoading(false)
       }

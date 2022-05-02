@@ -85,7 +85,6 @@ const FormRegister: React.FC<FormRegister> = ({inviteToken}) => {
   const onSubmit: SubmitHandler<Credential> = async (user: Credential) => {
     delete user.confirmPassword
     const registerData = {inviteToken,user}
-    console.log(registerData);
     try{
       let res = await axiosApiInstance.post("/api/user/invite/register", registerData);
       if(res.status === 200){

@@ -8,6 +8,7 @@ const useAllPackage = (loading: boolean) => {
     try {
       let res = await axiosApiInstance.get("/api/package/all");
       setAllPackages(res.data);
+      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
