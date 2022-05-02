@@ -5,8 +5,8 @@ import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { FaHistory } from "react-icons/fa";
 
-import ModalRegisterPackage from "../modal/modal-register-package.component";
-import ModalHistoryPackage from "../modal/modal-history-package.component";
+import ModalRegisterPackage from "../Modal/modal-register.component";
+import ModalHistoryPackage from "../Modal/modal-history.component";
 import { PackageType } from "../../types/package.type";
 import usePackage from "../../hooks/usePackage";
 import axiosApiInstance from "../../utils/axios";
@@ -20,9 +20,10 @@ const INIT_FILTER = {
 };
 
 const DashboardUser = () => {
-  const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<PackageType[]>([]);
   const [onHistoryComp, setOnHistoryComp] = useState<boolean>(false);
+  const [disableReceive, setDisableReceive] = useState(true);
   const toggleHistoryComp = () => {
     setOnHistoryComp(!onHistoryComp);
   };
@@ -54,6 +55,15 @@ const DashboardUser = () => {
   const toggleRegisterModal = () => {
     setRegisterModal(!registerModal);
   };
+
+  useEffect(() => {
+    const exportOnly = selectedPackage.filter((e) => e.status !== "exported");
+    const isSelectPackages = selectedPackage.length > 0;
+
+    exportOnly.length === 0 && isSelectPackages
+      ? setDisableReceive(false)
+      : setDisableReceive(true);
+  }, [selectedPackage]);
 
   const renderHeader = () => {
     return (
@@ -151,15 +161,16 @@ const DashboardUser = () => {
   };
 
   const receieving = async () => {
-    setLoading(true)
-    const packagesId = selectedPackage.map(el => (el.id))
-    try{
-      let res = await axiosApiInstance.post("/api/package/receive", {packagesId});
-      if(res.status === 200){
-        setLoading(false)
+    setLoading(true);
+    const packagesId = selectedPackage.map((el) => el.id);
+    try {
+      let res = await axiosApiInstance.post("/api/package/receive", {
+        packagesId,
+      });
+      if (res.status === 200) {
+        setLoading(false);
       }
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
     }
   };
@@ -168,10 +179,13 @@ const DashboardUser = () => {
     return (
       <div className="flex justify-end">
         <button
-          className="font-[kanit] bg-[#11C6FF] rounded text-white px-3 py-1"
+          className={
+            "font-[kanit] bg-[#10C167] rounded text-white px-3 py-1 " +
+            `${disableReceive && "bg-[#b9ffdb]"}`
+          }
           onClick={receieving}
         >
-          รับพัสดุ
+          ยืนยันรับพัสดุ
         </button>
       </div>
     );
@@ -182,38 +196,38 @@ const DashboardUser = () => {
     setHistoryModal(!historyModal);
   };
   const [dataHistoryPackage, setDataHistoryPackage] = useState<PackageType>({
-    id:0,
-    trackingNumber:"",
-    status:"",
-    notification:"",
-    importedAt:"",
-    exportedAt:"",
-    receivedAt:"",
-    createdAt:"",
-    updatedAt:"",
+    id: 0,
+    trackingNumber: "",
+    status: "",
+    notification: "",
+    importedAt: "",
+    exportedAt: "",
+    receivedAt: "",
+    createdAt: "",
+    updatedAt: "",
     transporter: {
-      id:0,
-      digit:"",
-      name:"",
-  },
+      id: 0,
+      digit: "",
+      name: "",
+    },
     receiver: {
-        id:0,
-        email:"",
-        firstName:"",
-        lastName:"",
+      id: 0,
+      email: "",
+      firstName: "",
+      lastName: "",
     },
-    importer:{
-        firstName:"",
-        lastName:"",
+    importer: {
+      firstName: "",
+      lastName: "",
     },
-    exporter:{
-        firstName:"",
-        lastName:"",
+    exporter: {
+      firstName: "",
+      lastName: "",
     },
   });
   const showHistoryModal = (data: PackageType) => {
-    toggleHistoryModal();
     setDataHistoryPackage(data);
+    toggleHistoryModal();
   };
 
   const { packages } = usePackage(loading);

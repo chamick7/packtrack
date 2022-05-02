@@ -5,7 +5,7 @@ import { Credential } from "../../types/credential";
 
 import useLogin from "../../hooks/useLogin";
 
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -14,33 +14,27 @@ const loginSchema = yup.object().shape({
   password: yup
     .string()
     .required("Password is required")
-    .min(6, "Password is too short - should be 6 chars minimum")
-    .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+    .min(6, "Password is too short - should be 6 chars minimum"),
 });
 
 const FormLogin = () => {
   const { getLogin } = useLogin();
-
-  const [credential, setCredential] = useState<Credential>({
-    email: "",
-    password: "",
-  });
+  const [error, setError] = useState<string | null>(null);
 
   const {
-    watch,
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<Credential>({ resolver: yupResolver(loginSchema) });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  const submit = async (user: Credential) => {
+    setError(null);
+    console.log(user);
+    const result = await getLogin(user);
 
-    setCredential((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const onSubmit: SubmitHandler<Credential> = async (user: Credential) => {
-    await getLogin(user);
+    if (!result) {
+      setError("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
+    }
   };
 
   return (
@@ -49,11 +43,23 @@ const FormLogin = () => {
         <div className="flex flex-col items-center justify-center font-[kanit] text-[20px] mb-5 md:text-[24px]">
           เข้าสู่ระบบ
         </div>
+        {error && (
+          <div className="text-center">
+            <p className="inline font-[kanit] text-[14px] text-red-600">
+              {error}
+            </p>
+          </div>
+        )}
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(submit)}
           className="flex flex-col w-10/12 h-8/12"
         >
-          <SquareInput type="email" {...register("email")} label="อีเมล" onChange={handleChange} />
+          <SquareInput
+            type="email"
+            signature="email"
+            register={register}
+            label="อีเมล"
+          />
           {errors.email && (
             <p className="inline font-[kanit] text-[12px] text-red-600">
               {errors.email.message}
@@ -61,9 +67,9 @@ const FormLogin = () => {
           )}
           <SquareInput
             type="password"
-            {...register("password")}
+            signature="password"
+            register={register}
             label="รหัสผ่าน"
-            onChange={handleChange}
           />
           {errors.password && (
             <p className="inline font-[kanit] text-[12px] text-red-600">

@@ -3,19 +3,19 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { IoTrashBin } from "react-icons/io5";
-import { confirmDialog } from 'primereact/confirmdialog';
+import { confirmDialog } from "primereact/confirmdialog";
 
-import ModalAddRole from "../modal/modal-add-role.component";
+import ModalAddRole from "../Modal/modal-add-roles.component";
 import useMembers from "../../hooks/useMembers";
 import useOfficers from "../../hooks/useOfficers";
 import axiosApiInstance from "../../utils/axios";
 
 interface ControlUser {
-  role:string | undefined ;
+  role: string | undefined;
 }
 
-const DashboardControlUser:React.FC<ControlUser> = ({role}) => {
-  const [loading,setLoading] = useState(false)
+const DashboardControlUser: React.FC<ControlUser> = ({ role }) => {
+  const [loading, setLoading] = useState(false);
   const [filterValue, setFilterValue] = useState({
     global: { value: "", matchMode: FilterMatchMode.CONTAINS },
     id: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -33,7 +33,7 @@ const DashboardControlUser:React.FC<ControlUser> = ({role}) => {
     setGlobalFilterValue(value);
   };
 
-  const [addRoleModal , setAddRoleModal] = useState(false)
+  const [addRoleModal, setAddRoleModal] = useState(false);
   const toggleAddRoleModal = () => {
     setAddRoleModal(!addRoleModal);
   };
@@ -42,17 +42,24 @@ const DashboardControlUser:React.FC<ControlUser> = ({role}) => {
     return (
       <>
         <div className="flex flex-col w-full">
-          <div className="flex w-full bg-[#F0304A] text-white p-2">ผู้ใช้งาน</div>
+          <div className="flex w-full bg-[#F0304A] text-white p-2">
+            ผู้ใช้งาน
+          </div>
           <div className="flex flex-row w-full justify-between items-center my-2 md:my-4">
-              <input
-                type="text"
-                className="font-[kanit] text-base border-2 rounded w-10/12 h-fit mx-2 px-2 md:w-9/12"
-                placeholder="&#xF002; Search Here"
-                style={{ fontFamily: "Arial, FontAwesome" }}
-                value={globalFilterValue}
-                onChange={onFilterChange}
-              />
-              <button onClick={toggleAddRoleModal} className="w-2/12 py-1 rounded bg-[#F0304A] text-white text-xs md:text-base xl:text-lg">เพิ่ม</button>
+            <input
+              type="text"
+              className="font-[kanit] text-base border-2 rounded w-10/12 h-fit mx-2 px-2 md:w-9/12"
+              placeholder="&#xF002; Search Here"
+              style={{ fontFamily: "Arial, FontAwesome" }}
+              value={globalFilterValue}
+              onChange={onFilterChange}
+            />
+            <button
+              onClick={toggleAddRoleModal}
+              className="w-2/12 py-1 rounded bg-[#F0304A] text-white text-xs md:text-base xl:text-lg"
+            >
+              เพิ่ม
+            </button>
           </div>
         </div>
       </>
@@ -72,69 +79,71 @@ const DashboardControlUser:React.FC<ControlUser> = ({role}) => {
       </button>
     );
   };
-  const deleteDialog = (deleteId:number) =>{
+  const deleteDialog = (deleteId: number) => {
     confirmDialog({
-      message: 'คุณต้องการลบผู้ใช้งานหรือไม่ ?',
-      header: 'ลบผู้ใช้งาน',
+      message: "คุณต้องการลบผู้ใช้งานหรือไม่ ?",
+      header: "ลบผู้ใช้งาน",
       accept: () => deleteUser(deleteId),
-    })
-  }
-  const deleteUser = async (deleteId:number) => {
-    setLoading(true)
-    try{
+    });
+  };
+  const deleteUser = async (deleteId: number) => {
+    setLoading(true);
+    try {
       let res = await axiosApiInstance.delete(`/api/user/officer/${deleteId}`);
-      if(res.status === 200){
-        setLoading(false)
+      if (res.status === 200) {
+        setLoading(false);
       }
-    }
-    catch(err){
+    } catch (err) {
       console.log(err);
     }
   };
 
-
-  const { members } = useMembers()
-  const { officers } = useOfficers(loading)
+  const { members } = useMembers();
+  const { officers } = useOfficers(loading);
 
   return (
     <>
-    <div className="flex flex-col justify-center w-full">
-      <DataTable
-        value={role == "members" ? members : officers}
-        scrollable
-        scrollHeight="flex"
-        responsiveLayout="stack"
-        className="font-[kanit]"
-        header={searchHeader}
-        filters={filterValue}
-        emptyMessage="No items found."
-      >
-        <Column
-          field="id"
-          header="รหัสผู้ใช้งาน"
-          headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
-        />
-        <Column
-          field="firstName + lastName"
-          header="ชื่อ"
-          body={nameUser}
-          headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
-        />
-        <Column
-          field="email"
-          header="Email"
-          headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
-        />
-        {role == "officers" && (
+      <div className="flex flex-col justify-center w-full">
+        <DataTable
+          value={role == "members" ? members : officers}
+          scrollable
+          scrollHeight="flex"
+          responsiveLayout="stack"
+          className="font-[kanit]"
+          header={searchHeader}
+          filters={filterValue}
+          emptyMessage="No items found."
+        >
           <Column
-          body={deleteButton}
-          headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
-        />)}
-      </DataTable>
-    </div>
+            field="id"
+            header="รหัสผู้ใช้งาน"
+            headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+          />
+          <Column
+            field="firstName + lastName"
+            header="ชื่อ"
+            body={nameUser}
+            headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+          />
+          <Column
+            field="email"
+            header="Email"
+            headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+          />
+          {role == "officers" && (
+            <Column
+              body={deleteButton}
+              headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
+            />
+          )}
+        </DataTable>
+      </div>
 
-    <ModalAddRole addRoleVisible={addRoleModal} addRoleOnClose={toggleAddRoleModal} setStateLoading={setLoading} />
-
+      <ModalAddRole
+        addRoleVisible={addRoleModal}
+        addRoleOnClose={toggleAddRoleModal}
+        setStateLoading={setLoading}
+      />
     </>
   );
 };
