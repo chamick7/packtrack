@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize-typescript";
-import InviteToken from "../models/invite-token.model";
-import Package from "../models/package.model";
-import Transporter from "../models/transporter.model";
-import User from "../models/user.model";
+import InviteToken from "../modules/token/invite-token.model";
+import Package from "../modules/package/package.model";
+import Transporter from "../modules/transporter/transporter.model";
+import User from "../modules/user/user.model";
 
 const { DB_HOST, DB_DATABASE, DB_USERNAME, DB_PASSWORD } = process.env;
 

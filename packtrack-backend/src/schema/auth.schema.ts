@@ -42,6 +42,13 @@ export const registerWithTokenSchema = z.object({
           required_error: "user mobile is required",
         })
         .length(10, "mobile must be 10 character length"),
+      notification: z
+        .string({
+          required_error: "user notification is required",
+        })
+        .array()
+        .min(1)
+        .max(3),
     }),
   }),
 });

@@ -1,20 +1,20 @@
 import { Request, Response } from "express";
-import User from "../models/user.model";
+import User from "../user/user.model";
 import {
   changeStatusInviteToken,
   createAccessToken,
   createRefreshToken,
   verifyInviteToken,
-} from "../services/token.service";
+} from "../token/token.service";
 import {
   createUser,
   findByRefreshToken,
   findOneUserByEmail,
   updateRefreshToken,
   validateUserPassword,
-} from "../services/user.service";
-import { LoginDto, RegisterDto, toUserResponse, UserResponse } from "../types/auth.type";
-import { verifyJwt } from "../utils/jwt";
+} from "../user/user.service";
+import { LoginDto, RegisterDto, toUserResponse, UserResponse } from "../../types/auth.type";
+import { verifyJwt } from "../../utils/jwt";
 import bcrypt from "bcrypt";
 
 export const login = async (req: Request, res: Response): Promise<Response> => {
@@ -92,6 +92,7 @@ export const registerWithToken = async (req: Request, res: Response): Promise<Re
   newUser.firstName = user.firstName.trim();
   newUser.lastName = user.lastName.trim();
   newUser.mobile = user.mobile.trim();
+  
 
   const userRes = await createUser(newUser);
   if (userRes) {

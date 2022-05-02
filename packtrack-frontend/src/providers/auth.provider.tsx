@@ -1,7 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { clearAuthToken, decodeToken, getAccessToken } from "../services/token.service";
+import {
+  clearAuthToken,
+  decodeToken,
+  getAccessToken,
+} from "../services/token.service";
 import { UserType } from "../types/user.type";
+import axiosApiInstance from "../utils/axios";
 
 interface AuthContextInterface {
   user: UserType | null;
@@ -20,7 +25,7 @@ const AuthContext = createContext<AuthContextInterface>(initialAuth);
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [accessToken, setAccessToken] = useState<string | null>(getAccessToken());
+  const [accessToken] = useState<string | null>(getAccessToken());
   const navigate = useNavigate();
 
   const logout = () => {
@@ -30,12 +35,20 @@ export const AuthProvider: React.FC = ({ children }) => {
   };
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      const result = await axiosApiInstance.get<UserType>("api/user/me");
+
+      if (result) {
+        setUser(result.data);
+        setLoading(false);
+      }
+    };
+
     if (accessToken) {
-      const decodedUser = decodeToken(accessToken!) as UserType;
-      setUser(decodedUser);
+      fetchUserData();
+    } else {
+      setLoading(false);
     }
-    
-    setLoading(false);
   }, []);
 
   const initialProvider: AuthContextInterface = {
@@ -45,7 +58,9 @@ export const AuthProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={initialProvider}>{loading ? null : children}</AuthContext.Provider>
+    <AuthContext.Provider value={initialProvider}>
+      {loading ? null : children}
+    </AuthContext.Provider>
   );
 };
 
