@@ -38,22 +38,18 @@ axiosApiInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        await refreshAccessToken();
+        const result = await refreshAccessToken();
+
+        if (!result) {
+          clearAuthToken();
+          window.location.href = "/login";
+          return Promise.reject(error);
+        }
 
         return axiosApiInstance(originalRequest);
       } catch (error) {
         return Promise.reject(error);
       }
-    }
-
-    //when refresh token expired
-    if (
-      error.response.status === 401 &&
-      String(originalRequest.url) === "/api/auth/refresh"
-    ) {
-      clearAuthToken();
-      // window.location.href = "/login";
-      return Promise.reject(error);
     }
 
     return Promise.reject(error);
