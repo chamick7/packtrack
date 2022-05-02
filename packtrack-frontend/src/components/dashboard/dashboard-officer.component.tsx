@@ -6,7 +6,7 @@ import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { Calendar } from "primereact/calendar";
 
 import AuthContext from "../../providers/auth.provider";
-import ModalRegisterUser from "../Modal/modal-register-users.component";
+import ModalRegisterUser from "../modal/modal-register-users.component";
 import userPicture from "../../images/user-picture.svg";
 import { PackageType } from "../../types/package.type";
 import useAllPackage from "../../hooks/useAllPackage";
@@ -240,6 +240,7 @@ const DashboardOfficer = () => {
           onSelectionChange={(e) => setSelectedPackage(e.value)}
           dataKey="id"
           selectionPageOnly
+          sortField="id"
           paginator
           paginatorRight={footerButton}
           scrollable

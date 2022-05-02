@@ -5,8 +5,8 @@ import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { FaHistory } from "react-icons/fa";
 
-import ModalRegisterPackage from "../Modal/modal-register.component";
-import ModalHistoryPackage from "../Modal/modal-history.component";
+import ModalRegisterPackage from "../modal/modal-register.component";
+import ModalHistoryPackage from "../modal/modal-history.component";
 import { PackageType } from "../../types/package.type";
 import usePackage from "../../hooks/usePackage";
 import axiosApiInstance from "../../utils/axios";
@@ -133,7 +133,7 @@ const DashboardUser = () => {
   const statusBody = (rowData: any) => {
     if (rowData.status === "assigned") {
       return (
-        <span className="bg-[#FFE352] w-full rounded-lg py-1 text-white text-center">
+        <span className="bg-[#FFC711] w-full rounded-lg py-1 text-white text-center">
           รอการจัดส่ง
         </span>
       );
@@ -243,6 +243,8 @@ const DashboardUser = () => {
             onSelectionChange={(e) => setSelectedPackage(e.value)}
             dataKey="id"
             selectionPageOnly
+            sortField="status"
+            sortOrder={-1}
             paginator
             paginatorRight={footerButton}
             scrollable
