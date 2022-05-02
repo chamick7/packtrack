@@ -5,8 +5,8 @@ import { Column } from "primereact/column";
 import { FilterMatchMode } from "primereact/api";
 import { FaHistory } from "react-icons/fa";
 
-import ModalRegisterPackage from "../Modal/modal-register.component";
-import ModalHistoryPackage from "../Modal/modal-history.component";
+import ModalRegisterPackage from "../modal/modal-register.component";
+import ModalHistoryPackage from "../modal/modal-history.component";
 import { PackageType } from "../../types/package.type";
 import usePackage from "../../hooks/usePackage";
 import axiosApiInstance from "../../utils/axios";

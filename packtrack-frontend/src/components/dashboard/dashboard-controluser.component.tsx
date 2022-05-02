@@ -5,7 +5,7 @@ import { FilterMatchMode, FilterOperator } from "primereact/api";
 import { IoTrashBin } from "react-icons/io5";
 import { confirmDialog } from "primereact/confirmdialog";
 
-import ModalAddRole from "../Modal/modal-add-roles.component";
+import ModalAddRole from "../modal/modal-add-roles.component";
 import useMembers from "../../hooks/useMembers";
 import useOfficers from "../../hooks/useOfficers";
 import axiosApiInstance from "../../utils/axios";

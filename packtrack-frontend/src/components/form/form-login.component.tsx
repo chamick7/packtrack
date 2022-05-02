@@ -67,12 +67,8 @@ const FormLogin = () => {
           )}
           <SquareInput
             type="password"
-<<<<<<< HEAD
-            innerRef = {...register("password")}
-=======
             signature="password"
             register={register}
->>>>>>> 1431fbc69690b9043906c393d1929e48bac75c99
             label="รหัสผ่าน"
           />
           {errors.password && (
