@@ -33,7 +33,6 @@ export const AuthProvider: React.FC = ({ children }) => {
     if (accessToken) {
       const decodedUser = decodeToken(accessToken!) as UserType;
       setUser(decodedUser);
-      console.log(decodedUser);
     }
     
     setLoading(false);

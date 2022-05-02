@@ -12,6 +12,8 @@ import { PackageType } from "../../types/package.type";
 import useAllPackage from "../../hooks/useAllPackage";
 import axiosApiInstance from "../../utils/axios";
 
+import useMe from "../../hooks/useMe";
+
 const DashboardOfficer = () => {
   const [loading,setLoading] = useState(false)
   const [selectedPackage, setSelectedPackage] = useState<PackageType[]>([]);
@@ -55,17 +57,16 @@ const DashboardOfficer = () => {
   };
 
   const GetUser = () => {
+    const { userInfo } = useMe()
     const authContext = useContext(AuthContext);
-    const firstName = authContext.user?.firstName;
-    const userId = authContext.user?.id;
 
     return (
       <>
         <div className="flex items-center">
           <div className="flex flex-row justify-between items-center font-[kanit] px-2 border-r-4 border-r-[#8CD8F9] mr-6">
             <div className="flex flex-col">
-              <div className="text-2xl text-[#8CD8F9]">{firstName}</div>
-              <div className="text-sm">รหัสผู้ใช้งาน {userId}</div>
+              <div className="text-2xl text-[#8CD8F9]">{userInfo.firstName}</div>
+              <div className="text-sm">รหัสผู้ใช้งาน {userInfo.id}</div>
             </div>
             <img src={userPicture} className="h-12" alt="user" />
           </div>
