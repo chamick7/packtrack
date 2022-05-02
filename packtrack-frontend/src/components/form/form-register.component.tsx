@@ -11,8 +11,8 @@ interface Credential {
   email: string;
   password: string;
   confirmPassword?: string;
-  phone: string;
-  notify: string;
+  mobile: string;
+  notification: Array<string>;
 }
 
 interface FormRegister {
@@ -37,7 +37,7 @@ const registerSchema = yup
       .string()
       .required("Password is required")
       .oneOf([yup.ref("password"), null], "Passwords must match"),
-    phone: yup
+      mobile: yup
       .string()
       .matches(phoneRegExp, "Phone number is not valid")
       .required("phone is required"),
@@ -53,8 +53,8 @@ const FormRegister: React.FC<FormRegister> = ({ inviteToken }) => {
     email: "",
     password: "",
     confirmPassword: "",
-    phone: "",
-    notify: "",
+    mobile: "",
+    notification: [],
   });
 
   const [step, setStep] = useState(1);
@@ -82,13 +82,14 @@ const FormRegister: React.FC<FormRegister> = ({ inviteToken }) => {
 
   const onSubmit: SubmitHandler<Credential> = async (user: Credential) => {
     delete user.confirmPassword;
-    const registerData = { inviteToken, user };
+    const registerData = { inviteToken, ...user };
+    console.log(registerData);
     try {
       let res = await axiosApiInstance.post(
         "/api/auth/register",
         registerData
       );
-      if (res.status === 200) {
+      if (res.status === 201) {
         navigate("/user");
       }
     } catch (err) {
@@ -201,19 +202,19 @@ const FormRegister: React.FC<FormRegister> = ({ inviteToken }) => {
           </div>
           <div className="flex flex-col">
             <label
-              htmlFor="phone"
+              htmlFor="mobile"
               className="inline font-[kanit] text-sm pl-4 translate-y-3 md:text-xl"
             >
               <span className="bg-white px-1">เบอร์โทรศัพท์</span>
             </label>
             <input
               type="tel"
-              {...register("phone")}
+              {...register("mobile")}
               className="shadow-none border-2 rounded border-main w-full px-2 md:py-1"
             />
-            {errors.phone && (
+            {errors.mobile && (
               <p className="inline font-[kanit] text-[12px] text-red-600">
-                {errors.phone.message}
+                {errors.mobile.message}
               </p>
             )}
           </div>
@@ -237,7 +238,7 @@ const FormRegister: React.FC<FormRegister> = ({ inviteToken }) => {
           <div className="flex flex-col justify-start w-1/2 xl:h-1/2 xl:justify-around">
             <div className="flex flex-row items-center">
               <input
-                {...register("notify")}
+                {...register("notification")}
                 type="checkbox"
                 value="Email"
                 className="accent-main h-6 w-6 mr-2"
@@ -248,7 +249,7 @@ const FormRegister: React.FC<FormRegister> = ({ inviteToken }) => {
             </div>
             <div className="flex flex-row items-center">
               <input
-                {...register("notify")}
+                {...register("notification")}
                 type="checkbox"
                 value="SMS"
                 className="accent-main h-6 w-6 mr-2"
@@ -259,7 +260,7 @@ const FormRegister: React.FC<FormRegister> = ({ inviteToken }) => {
             </div>
             <div className="flex flex-row items-center">
               <input
-                {...register("notify")}
+                {...register("notification")}
                 type="checkbox"
                 value="Line"
                 className="accent-main h-6 w-6 mr-2 "
