@@ -262,7 +262,7 @@ const DashboardUser = () => {
               sortable
             />
             <Column
-              field="service"
+              field="transporter.name"
               header="ผู้ให้บริการ"
               headerStyle={{ backgroundColor: "#F0304A", color: "white" }}
               sortable

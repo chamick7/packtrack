@@ -6,8 +6,6 @@ const GenInvite = () => {
   const [token, setToken] = useState<string>();
   const { genToken } = useInviteToken();
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
-
-  // const [url, setUrl] = useState("");
   const url = `${window.location.origin}/register?token=${token}`;
 
   const generateToken = async () => {
@@ -51,7 +49,6 @@ const GenInvite = () => {
               ? "flex justify-center text-center w-5/12 font-[kanit] bg-main rounded text-white px-3 py-1 md:w-3/12"
               : "flex justify-center text-center w-5/12 font-[kanit] bg-slate-500 rounded text-white px-3 py-1 md:w-3/12"
           }
-          // className="flex justify-center text-center w-2/12 font-[kanit] bg-main rounded text-white px-3 py-1"
           onClick={generateToken}
           disabled={buttonDisabled}
         >

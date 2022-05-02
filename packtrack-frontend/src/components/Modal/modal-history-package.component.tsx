@@ -10,7 +10,6 @@ interface HistoryPackage {
 }
 
 const ModalHistoryPackage:React.FC<HistoryPackage> = ({ historyPackage, historyVisible, historyOnClose}) => {
-  console.log(historyPackage);
   return (
     <>
     <Dialog visible={historyVisible} draggable={false} onHide={historyOnClose} className="w-1/2">

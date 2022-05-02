@@ -5,8 +5,9 @@ import { storeAccessToken, storeRefreshToken } from "../services/token.service";
 import { Credential } from "../types/credential";
 import axiosApiInstance from "../utils/axios";
 
+import { decodeToken } from "../services/token.service";
+
 interface Coming {
-  user: UserType;
   accessToken: string;
   refreshToken: string;
 }
@@ -21,10 +22,10 @@ const useLogin = () => {
         credential
       );
       if (res.status === 200 && res.data) {
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+        const decodedUser = decodeToken(res.data.accessToken) as UserType
         storeAccessToken(res.data.accessToken);
         storeRefreshToken(res.data.refreshToken);
-        setUser(res.data.user);
+        setUser(decodedUser);
       }
     } catch (err) {
       console.log(err);

@@ -4,8 +4,6 @@ const useInviteToken = () => {
   const genToken = async (): Promise<string | null> => {
     try {
       let res = await axiosApiInstance.get("/api/user/invite");
-      console.log(res.data);
-
       return res.data.inviteToken;
     } catch (err) {
       console.log(err);
@@ -22,7 +20,6 @@ const useInviteToken = () => {
         inviteToken,
       });
       if (res.status === 200 && res.data) {
-        console.log(res.data);
         if (res.data.valid) return true;
         else return false;
       }
